@@ -28,11 +28,16 @@ public class LoginPageController implements Initializable {
     PasswordField password;
     @FXML
     Button loginId;
-    
-    
+    @FXML
+    TextField lnameId;
+    @FXML
+    TextField fnameId;
+    @FXML
+    TextField emailId;
+
     private MainApp application;
-    
-    public void setApp(MainApp application){
+
+    public void setApp(MainApp application) {
         this.application = application;
     }
 
@@ -42,14 +47,21 @@ public class LoginPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-    }   
-    
+
+    }
+
     @FXML
     public void processLogin(ActionEvent event) {
         System.out.println(userId.getText());
         System.out.println(password.getText());
-        
+
     }
-    
+
+    @FXML
+    public void processSignup(ActionEvent event) {
+        System.out.println(fnameId.getText());
+        System.out.println(lnameId.getText());
+        System.out.println(emailId.getText());
+    }
+
 }
