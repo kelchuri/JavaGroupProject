@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
@@ -8,27 +11,59 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="passwordId" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cmu.quiz.LoginPageController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cmu.quiz.LoginPageController">
     <stylesheets>
         <URL value="@loginpage.css" />
     </stylesheets>
    <children>
-      <Label layoutX="81.0" layoutY="55.0" prefHeight="27.0" prefWidth="86.0" text="Username :" textFill="#6694cd">
+      <Line endX="100.0" layoutX="426.0" layoutY="148.0" opacity="0.7" rotate="90.0" startX="-100.0" />
+      <Line endX="100.0" layoutX="426.0" layoutY="379.0" opacity="0.7" rotate="90.0" startX="-100.0" />
+      <Label layoutX="417.0" layoutY="253.0" opacity="0.7" text="OR">
          <font>
-            <Font name="Comic Sans MS Bold" size="13.0" />
+            <Font name="Comic Sans MS" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="userId" layoutX="181.0" layoutY="55.0" promptText="username" />
-      <Label layoutX="81.0" layoutY="110.0" prefHeight="27.0" prefWidth="86.0" text="Password:" textFill="#6694cd">
+      <TextField fx:id="userId" focusTraversable="false" layoutX="157.0" layoutY="172.0" prefHeight="42.0" prefWidth="200.0" promptText="Username">
          <font>
-            <Font name="Comic Sans MS Bold" size="13.0" />
+            <Font name="Comic Sans MS" size="14.0" />
+         </font></TextField>
+      <PasswordField fx:id="password" focusTraversable="false" layoutX="157.0" layoutY="243.0" prefHeight="42.0" prefWidth="200.0" promptText="Password">
+         <font>
+            <Font name="Comic Sans MS" size="14.0" />
+         </font></PasswordField>
+      <TextField fx:id="fnameId" focusTraversable="false" layoutX="473.0" layoutY="106.0" prefHeight="42.0" prefWidth="200.0" promptText="First Name">
+         <font>
+            <Font name="Comic Sans MS" size="14.0" />
          </font>
-      </Label>
-      <Button fx:id="loginId" layoutX="145.0" layoutY="187.0" mnemonicParsing="false" onAction="#processLogin" text="Login">
+      </TextField>
+      <TextField fx:id="lnameId" focusTraversable="false" layoutX="473.0" layoutY="172.0" prefHeight="42.0" prefWidth="200.0" promptText="Last Name">
+         <font>
+            <Font name="Comic Sans MS" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="emailId" focusTraversable="false" layoutX="473.0" layoutY="243.0" prefHeight="42.0" prefWidth="200.0" promptText="Email">
+         <font>
+            <Font name="Comic Sans MS" size="14.0" />
+         </font>
+      </TextField>
+      <Button fx:id="loginId1" ellipsisString="" focusTraversable="false" layoutX="517.0" layoutY="350.0" mnemonicParsing="false" onAction="#processSignup" opacity="0.8" prefHeight="29.0" prefWidth="67.0" text="Sign up" textFill="#e86a5e">
          <font>
             <Font name="Comic Sans MS Bold" size="13.0" />
          </font>
       </Button>
-      <PasswordField fx:id="password" layoutX="181.0" layoutY="110.0" promptText="password" />
+      <ImageView fitHeight="201.0" fitWidth="207.0" layoutX="880.0" layoutY="85.0">
+         <image>
+            <Image url="@../styles/logo1.gif" />
+         </image>
+      </ImageView>
+      <Button fx:id="loginId" focusTraversable="false" layoutX="236.0" layoutY="350.0" mnemonicParsing="false" onAction="#processLogin" opacity="0.8" prefHeight="29.0" prefWidth="56.0" text="Login" textFill="#e86a5e">
+         <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+         </font>
+      </Button>
    </children>
+   <styleClass>
+      <String fx:value="mainFxmlClass" />
+      <String fx:value="anchor" />
+   </styleClass>
 </AnchorPane>

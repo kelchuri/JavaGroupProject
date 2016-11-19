@@ -3,5 +3,17 @@
  */
 
 .mainFxmlClass {
+   
+}
 
+.anchor {
+    -fx-background-image: url('./bg-anchor1.jpg')
+}
+
+.text-field {
+    -fx-border-color: #ddd6d6
+}
+
+.text-field {
+    -fx-border-color: white
 }
