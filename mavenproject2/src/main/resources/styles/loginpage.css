@@ -7,7 +7,9 @@
 }
 
 .anchor {
-    -fx-background-image: url('./bg-anchor1.jpg')
+    -fx-background-image: url('./bg-anchor1.jpg');
+   // -fx-background-repeat: no-repeat;
+    -fx-background-size: contain
 }
 
 .text-field {
