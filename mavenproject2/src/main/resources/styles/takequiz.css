@@ -4,4 +4,11 @@
 
 .mainFxmlClass {
 
+.anchor {
+    
+    -fx-background-image: url('./exambg.jpg');
+   // -fx-background-repeat: no-repeat;
+    -fx-background-size: contain
+}
+
 }
