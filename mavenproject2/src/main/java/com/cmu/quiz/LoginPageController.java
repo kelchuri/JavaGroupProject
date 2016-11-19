@@ -5,15 +5,21 @@
  */
 package com.cmu.quiz;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -51,10 +57,19 @@ public class LoginPageController implements Initializable {
     }
 
     @FXML
-    public void processLogin(ActionEvent event) {
+    public void processLogin(ActionEvent event) throws IOException {
         System.out.println(userId.getText());
         System.out.println(password.getText());
+        Stage takeQuizStage;
+        takeQuizStage = ((Stage) userId.getScene().getWindow());
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/TakeQuiz.fxml"));
 
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/takequiz.css");
+
+        takeQuizStage.setTitle("Attempt The Quiz");
+        takeQuizStage.setScene(scene);
+        takeQuizStage.show();
     }
 
     @FXML
