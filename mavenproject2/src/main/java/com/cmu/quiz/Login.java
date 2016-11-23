@@ -47,26 +47,27 @@ package com.cmu.quiz;
  * @author Ayushjain
  */
 public class Login {
-    
-    private String username;
-    private String password;
 
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public static void setUsername(String username) {
+        Login.username = username;
     }
 
-    public String getPassword() {
+    public static String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public static void setPassword(String password) {
+        Login.password = password;
     }
     
+    private static String username;
+    private static String password;
+
+
     
     
 }
