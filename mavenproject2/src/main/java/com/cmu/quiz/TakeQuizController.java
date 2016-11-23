@@ -73,8 +73,8 @@ public class TakeQuizController implements Initializable {
                         return cell;
                     }
                 });
-        
-         noOfQue.getItems().addAll(
+
+        noOfQue.getItems().addAll(
                 "10",
                 "20",
                 "30"
@@ -111,8 +111,8 @@ public class TakeQuizController implements Initializable {
                         return cell;
                     }
                 });
-        
-         quizTimer.getItems().addAll(
+
+        quizTimer.getItems().addAll(
                 "On",
                 "Off"
         );
@@ -148,9 +148,8 @@ public class TakeQuizController implements Initializable {
                         return cell;
                     }
                 });
-        
-        
-         course.getItems().addAll(
+
+        course.getItems().addAll(
                 "Java",
                 "Telecom"
         );
@@ -186,8 +185,6 @@ public class TakeQuizController implements Initializable {
                         return cell;
                     }
                 });
-        
-        
 
     }
 

@@ -6,9 +6,9 @@
 
 .anchor {
     
-    -fx-background-image: url('./exambg.jpg');
+    -fx-background-image: url('./exambg.jpg')
    // -fx-background-repeat: no-repeat;
-    -fx-background-size: contain
+    //-fx-background-size: contain
 }
 
 }
