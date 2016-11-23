@@ -16,37 +16,37 @@
         <URL value="@loginpage.css" />
     </stylesheets>
    <children>
-      <Line endX="100.0" layoutX="426.0" layoutY="148.0" opacity="0.7" rotate="90.0" startX="-100.0" />
-      <Line endX="100.0" layoutX="426.0" layoutY="379.0" opacity="0.7" rotate="90.0" startX="-100.0" />
-      <Label layoutX="417.0" layoutY="253.0" opacity="0.7" text="OR">
+      <Line endX="100.0" layoutX="375.0" layoutY="148.0" opacity="0.7" rotate="90.0" startX="-100.0" />
+      <Line endX="100.0" layoutX="375.0" layoutY="379.0" opacity="0.7" rotate="90.0" startX="-100.0" />
+      <Label layoutX="368.0" layoutY="254.0" opacity="0.7" text="OR">
          <font>
             <Font name="Comic Sans MS" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="userId" focusTraversable="false" layoutX="157.0" layoutY="172.0" prefHeight="42.0" prefWidth="200.0" promptText="Username">
+      <TextField fx:id="userId" focusTraversable="false" layoutX="103.0" layoutY="172.0" prefHeight="42.0" prefWidth="200.0" promptText="Username">
          <font>
             <Font name="Comic Sans MS" size="14.0" />
          </font></TextField>
-      <PasswordField fx:id="password" focusTraversable="false" layoutX="157.0" layoutY="243.0" prefHeight="42.0" prefWidth="200.0" promptText="Password">
+      <PasswordField fx:id="password" focusTraversable="false" layoutX="103.0" layoutY="243.0" prefHeight="42.0" prefWidth="200.0" promptText="Password">
          <font>
             <Font name="Comic Sans MS" size="14.0" />
          </font></PasswordField>
-      <TextField fx:id="fnameId" focusTraversable="false" layoutX="473.0" layoutY="106.0" prefHeight="42.0" prefWidth="200.0" promptText="First Name">
+      <TextField fx:id="fnameId" focusTraversable="false" layoutX="417.0" layoutY="106.0" prefHeight="42.0" prefWidth="200.0" promptText="First Name">
          <font>
             <Font name="Comic Sans MS" size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="lnameId" focusTraversable="false" layoutX="473.0" layoutY="172.0" prefHeight="42.0" prefWidth="200.0" promptText="Last Name">
+      <TextField fx:id="lnameId" focusTraversable="false" layoutX="417.0" layoutY="172.0" prefHeight="42.0" prefWidth="200.0" promptText="Last Name">
          <font>
             <Font name="Comic Sans MS" size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="emailId" focusTraversable="false" layoutX="473.0" layoutY="243.0" prefHeight="42.0" prefWidth="200.0" promptText="Email">
+      <TextField fx:id="emailId" focusTraversable="false" layoutX="417.0" layoutY="243.0" prefHeight="42.0" prefWidth="200.0" promptText="Email">
          <font>
             <Font name="Comic Sans MS" size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="loginId1" ellipsisString="" focusTraversable="false" layoutX="517.0" layoutY="350.0" mnemonicParsing="false" onAction="#processSignup" opacity="0.8" prefHeight="29.0" prefWidth="67.0" text="Sign up" textFill="#e86a5e">
+      <Button fx:id="loginId1" ellipsisString="" focusTraversable="false" layoutX="450.0" layoutY="350.0" mnemonicParsing="false" onAction="#processSignup" opacity="0.8" prefHeight="29.0" prefWidth="67.0" text="Sign up" textFill="#e86a5e">
          <font>
             <Font name="Comic Sans MS Bold" size="13.0" />
          </font>
@@ -56,7 +56,7 @@
             <Image url="@../styles/logo1.gif" />
          </image>
       </ImageView>
-      <Button fx:id="loginId" focusTraversable="false" layoutX="236.0" layoutY="350.0" mnemonicParsing="false" onAction="#processLogin" opacity="0.8" prefHeight="29.0" prefWidth="56.0" text="Login" textFill="#e86a5e">
+      <Button fx:id="loginId" focusTraversable="false" layoutX="175.0" layoutY="350.0" mnemonicParsing="false" onAction="#processLogin" opacity="0.8" prefHeight="29.0" prefWidth="56.0" text="Login" textFill="#e86a5e">
          <font>
             <Font name="Comic Sans MS Bold" size="13.0" />
          </font>

@@ -7,10 +7,6 @@ package com.cmu.quiz;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +24,8 @@ import javafx.stage.Stage;
  *
  * @author kavya
  */
+
+
 public class LoginPageController implements Initializable {
 
     @FXML
@@ -66,16 +64,18 @@ public class LoginPageController implements Initializable {
         if (result == 1) {
             Stage takeQuizStage;
             takeQuizStage = ((Stage) userId.getScene().getWindow());
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/TakeQuiz.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/InstructorCSVUpload.fxml"));
 
             Scene scene = new Scene(root);
-            scene.getStylesheets().add("/styles/takequiz.css");
+            scene.getStylesheets().add("/styles/instructorcsvupload.css");
 
-            takeQuizStage.setTitle("Attempt The Quiz");
+            takeQuizStage.setTitle("Choose the CSV FIle");
             takeQuizStage.setScene(scene);
             takeQuizStage.show();
+
         }
-        if(result==0){
+        if (result == 0) {
+            System.out.println("No credentials entered");
             // 0 is returned if the username is incorrect or the password does not match.
         }
     }

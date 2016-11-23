@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cmu.quiz.TakeQuizController">
     <stylesheets>
-        <URL value="@/styles/takequiz.css" />
+        <URL value="@takequiz.css" />
     </stylesheets>
    <children>
       <Label layoutX="318.0" layoutY="53.0" text="QUIZ DETAILS:">

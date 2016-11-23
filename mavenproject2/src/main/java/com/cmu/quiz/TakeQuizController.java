@@ -5,7 +5,6 @@
  */
 package com.cmu.quiz;
 
-import java.awt.Color;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
