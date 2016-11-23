@@ -63,7 +63,11 @@ public class LoginPageController implements Initializable {
         System.out.println(userId.getText());
         System.out.println(password.getText());
         int result = LPDB.checkCredentials(userId.getText(), password.getText());
+        
         if (result == 1) {
+
+            //Username and password both are correct and user is a student
+
             Stage takeQuizStage;
             takeQuizStage = ((Stage) userId.getScene().getWindow());
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/TakeQuiz.fxml"));
@@ -75,8 +79,14 @@ public class LoginPageController implements Initializable {
             takeQuizStage.setScene(scene);
             takeQuizStage.show();
         }
-        if(result==0){
-            // 0 is returned if the username is incorrect or the password does not match.
+        if(result==2){
+            
+            //Username and password both are correct and user is an instructor
+ 
+        }
+        if (result == 0) {
+            
+            // UserID or password is incorrect
         }
     }
 
