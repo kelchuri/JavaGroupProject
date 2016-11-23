@@ -1,0 +1,9 @@
+User_1,Targaeryn,dragonqueen
+User_2,Baratheon,sadism
+User_3,Lannister,genocide
+User_4,Snow,kotn
+User_5,Tarly,loverboy
+User_6,Seaworth,useless
+User_7,Tyrell,iamdead
+User_8,Stark,iamdeadtoo
+User_9,Frey,udontmess

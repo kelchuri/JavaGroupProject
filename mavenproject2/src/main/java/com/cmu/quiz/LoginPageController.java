@@ -7,16 +7,18 @@ package com.cmu.quiz;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -57,19 +59,25 @@ public class LoginPageController implements Initializable {
     }
 
     @FXML
-    public void processLogin(ActionEvent event) throws IOException {
+    public void processLogin(ActionEvent event) throws IOException, Throwable {
         System.out.println(userId.getText());
         System.out.println(password.getText());
-        Stage takeQuizStage;
-        takeQuizStage = ((Stage) userId.getScene().getWindow());
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/TakeQuiz.fxml"));
+        int result = LPDB.checkCredentials(userId.getText(), password.getText());
+        if (result == 1) {
+            Stage takeQuizStage;
+            takeQuizStage = ((Stage) userId.getScene().getWindow());
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/TakeQuiz.fxml"));
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/takequiz.css");
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/takequiz.css");
 
-        takeQuizStage.setTitle("Attempt The Quiz");
-        takeQuizStage.setScene(scene);
-        takeQuizStage.show();
+            takeQuizStage.setTitle("Attempt The Quiz");
+            takeQuizStage.setScene(scene);
+            takeQuizStage.show();
+        }
+        if(result==0){
+            // 0 is returned if the username is incorrect or the password does not match.
+        }
     }
 
     @FXML
