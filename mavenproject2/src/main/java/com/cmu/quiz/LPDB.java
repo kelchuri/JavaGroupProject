@@ -70,7 +70,7 @@ public class LPDB {
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            
         }
     }
 
@@ -81,7 +81,7 @@ public class LPDB {
      */
     public static void insertToDB(Connection conn, PreparedStatement stmt) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\B2\\User.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("User.txt"));
             String line = null;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
@@ -103,7 +103,7 @@ public class LPDB {
                 stmt.executeUpdate();
             }
         } catch (SQLException | IOException ex) {
-            ex.printStackTrace();
+            
         }
 
     }

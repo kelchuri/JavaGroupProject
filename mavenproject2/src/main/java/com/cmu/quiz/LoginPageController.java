@@ -7,10 +7,6 @@ package com.cmu.quiz;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +24,8 @@ import javafx.stage.Stage;
  *
  * @author kavya
  */
+
+
 public class LoginPageController implements Initializable {
 
     @FXML
@@ -63,30 +61,22 @@ public class LoginPageController implements Initializable {
         System.out.println(userId.getText());
         System.out.println(password.getText());
         int result = LPDB.checkCredentials(userId.getText(), password.getText());
-        
         if (result == 1) {
-
-            //Username and password both are correct and user is a student
-
             Stage takeQuizStage;
             takeQuizStage = ((Stage) userId.getScene().getWindow());
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/TakeQuiz.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/InstructorCSVUpload.fxml"));
 
             Scene scene = new Scene(root);
-            scene.getStylesheets().add("/styles/takequiz.css");
+            scene.getStylesheets().add("/styles/instructorcsvupload.css");
 
-            takeQuizStage.setTitle("Attempt The Quiz");
+            takeQuizStage.setTitle("Choose the CSV FIle");
             takeQuizStage.setScene(scene);
             takeQuizStage.show();
-        }
-        if(result==2){
-            
-            //Username and password both are correct and user is an instructor
- 
+
         }
         if (result == 0) {
-            
-            // UserID or password is incorrect
+            System.out.println("No credentials entered");
+            // 0 is returned if the username is incorrect or the password does not match.
         }
     }
 
