@@ -73,6 +73,7 @@ public class TakeQuizController implements Initializable {
                         return cell;
                     }
                 });
+<<<<<<< Upstream, based on origin/master
 
         noOfQue.getItems().addAll(
                 "10",
@@ -185,6 +186,123 @@ public class TakeQuizController implements Initializable {
                         return cell;
                     }
                 });
+=======
+        
+         noOfQue.getItems().addAll(
+                "10",
+                "20",
+                "30"
+        );
+
+        noOfQue.setCellFactory(
+                new Callback<ListView<String>, ListCell<String>>() {
+                    @Override
+                    public ListCell<String> call(ListView<String> param) {
+                        final ListCell<String> cell = new ListCell<String>() {
+                            {
+                                super.setPrefWidth(100);
+                            }
+
+                            @Override
+                            public void updateItem(String item,
+                                    boolean empty) {
+                                super.updateItem(item, empty);
+                                if (item != null) {
+                                    setText(item);
+//                                    if (item.contains("High")) {
+//                                        setTextFill();
+//                                    }
+//                                    else if (item.contains("Low")){
+//                                        setTextFill(Color.GREEN);                                    }
+//                                    else {
+//                                        setTextFill(Color.BLACK);
+//                                    }
+                                } else {
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                });
+        
+         quizTimer.getItems().addAll(
+                "On",
+                "Off"
+        );
+
+        quizTimer.setCellFactory(
+                new Callback<ListView<String>, ListCell<String>>() {
+                    @Override
+                    public ListCell<String> call(ListView<String> param) {
+                        final ListCell<String> cell = new ListCell<String>() {
+                            {
+                                super.setPrefWidth(100);
+                            }
+
+                            @Override
+                            public void updateItem(String item,
+                                    boolean empty) {
+                                super.updateItem(item, empty);
+                                if (item != null) {
+                                    setText(item);
+//                                    if (item.contains("High")) {
+//                                        setTextFill();
+//                                    }
+//                                    else if (item.contains("Low")){
+//                                        setTextFill(Color.GREEN);                                    }
+//                                    else {
+//                                        setTextFill(Color.BLACK);
+//                                    }
+                                } else {
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                });
+        
+        
+         course.getItems().addAll(
+                "Java",
+                "Telecom"
+        );
+
+        course.setCellFactory(
+                new Callback<ListView<String>, ListCell<String>>() {
+                    @Override
+                    public ListCell<String> call(ListView<String> param) {
+                        final ListCell<String> cell = new ListCell<String>() {
+                            {
+                                super.setPrefWidth(100);
+                            }
+
+                            @Override
+                            public void updateItem(String item,
+                                    boolean empty) {
+                                super.updateItem(item, empty);
+                                if (item != null) {
+                                    setText(item);
+//                                    if (item.contains("High")) {
+//                                        setTextFill();
+//                                    }
+//                                    else if (item.contains("Low")){
+//                                        setTextFill(Color.GREEN);                                    }
+//                                    else {
+//                                        setTextFill(Color.BLACK);
+//                                    }
+                                } else {
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                });
+        
+        
+>>>>>>> 2eb3e98 
 
     }
 
