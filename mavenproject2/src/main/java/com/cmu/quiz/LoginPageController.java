@@ -75,6 +75,9 @@ public class LoginPageController implements Initializable {
             takeQuizStage.setScene(scene);
             takeQuizStage.show();
         }
+        if(result==0){
+            // 0 is returned if the username is incorrect or the password does not match.
+        }
     }
 
     @FXML
