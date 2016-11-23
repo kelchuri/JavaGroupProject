@@ -18,6 +18,11 @@
    <children>
       <Line endX="100.0" layoutX="426.0" layoutY="148.0" opacity="0.7" rotate="90.0" startX="-100.0" />
       <Line endX="100.0" layoutX="426.0" layoutY="379.0" opacity="0.7" rotate="90.0" startX="-100.0" />
+      <Label layoutX="417.0" layoutY="253.0" opacity="0.7" text="OR">
+         <font>
+            <Font name="Comic Sans MS" size="14.0" />
+         </font>
+      </Label>
       <TextField fx:id="userId" focusTraversable="false" layoutX="157.0" layoutY="172.0" prefHeight="42.0" prefWidth="200.0" promptText="Username">
          <font>
             <Font name="Comic Sans MS" size="14.0" />
