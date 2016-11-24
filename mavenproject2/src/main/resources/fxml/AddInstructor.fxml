@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.cmu.quiz.AddInstructorController">
+    <stylesheets>
+        <URL value="@/styles/addinstructor.css" />
+    </stylesheets>
+   <children>
+      <Label layoutX="115.0" layoutY="123.0" prefHeight="17.0" prefWidth="47.0" text="Email" />
+      <Label layoutX="115.0" layoutY="181.0" text="Name" />
+      <TextField layoutX="216.0" layoutY="118.0" />
+      <TextField layoutX="216.0" layoutY="176.0" />
+      <Button layoutX="181.0" layoutY="264.0" mnemonicParsing="false" text="Add" />
+      <Label layoutX="169.0" layoutY="56.0" prefHeight="17.0" prefWidth="157.0" text="Add Instructor" />
+   </children>
+</AnchorPane>

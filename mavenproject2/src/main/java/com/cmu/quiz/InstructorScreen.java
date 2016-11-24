@@ -16,11 +16,15 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -28,7 +32,7 @@ import javafx.stage.Stage;
  *
  * @author kavya
  */
-public class InstructorCSVUploadController implements Initializable {
+public class InstructorScreen implements Initializable {
 
     private final Desktop desktop = Desktop.getDesktop();
     /**
@@ -53,7 +57,7 @@ public class InstructorCSVUploadController implements Initializable {
     private Button importCSV;
 
     public static void setStage(Stage takeQuizStage) {
-        InstructorCSVUploadController.stage = takeQuizStage;
+        InstructorScreen.stage = takeQuizStage;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -84,6 +88,67 @@ public class InstructorCSVUploadController implements Initializable {
         } catch (Exception e) {
         }
     }
+    
+    @FXML
+    private void handleProfileButton() throws IOException {
+        System.out.println("Profile Button Called");
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AdminProfile.fxml"));
+        Pane cmdPane = (Pane) fxmlLoader.load();
+        try {
+            
+            rightPane.getChildren().clear();
+            rightPane.getChildren().add(cmdPane);
+        } catch (Exception e) {
+        }
+    }
+    
+    @FXML
+    private void addInstructorButton() throws IOException{
+        System.out.println("AddInst Button Called");
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddInstructor.fxml"));
+        Pane cmdPane = (Pane) fxmlLoader.load();
+        try {
+            
+            rightPane.getChildren().clear();
+            rightPane.getChildren().add(cmdPane);
+        } catch (Exception e) {
+        }
+    }
+    
+    @FXML
+    private void viewDashboardButton() throws IOException{
+        System.out.println("AddInst Button Called");
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardInstructor.fxml"));
+        Pane cmdPane = (Pane) fxmlLoader.load();
+        try {
+            
+            rightPane.getChildren().clear();
+            rightPane.getChildren().add(cmdPane);
+        } catch (Exception e) {
+        }
+    }
+    
+    @FXML
+    private void logOutButton() throws IOException{
+        System.out.println("AddInst Button Called");
+
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginPage.fxml"));
+         Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/loginpage.css");
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        
+
+        InstructorScreen.stage.setTitle("JavaFX and Maven");
+        InstructorScreen.stage.setScene(scene);
+        InstructorScreen.stage.show();
+    }
+    
+
 
     private void openFile(File file) {
         try {
@@ -95,8 +160,7 @@ public class InstructorCSVUploadController implements Initializable {
                 System.out.println(line);
             }
         } catch (IOException ex) {
-            Logger.getLogger(
-                    InstructorCSVUploadController.class.getName()).log(
+            Logger.getLogger(InstructorScreen.class.getName()).log(
                             Level.SEVERE, null, ex
                     );
         }

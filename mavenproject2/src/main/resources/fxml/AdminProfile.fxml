@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.cmu.quiz.AdminProfileController">
+    <children>
+      <Label fx:id="sprofile" layoutX="244.0" layoutY="105.0" prefHeight="36.0" prefWidth="194.0" text="Admin Profile" textAlignment="JUSTIFY">
+      </Label>
+      <Label layoutX="144.0" layoutY="241.0" prefHeight="21.0" prefWidth="96.0" text="First Name" />
+      <Label layoutX="144.0" layoutY="195.0" prefHeight="21.0" prefWidth="77.0" text="Last Name" />
+      <Label layoutX="142.0" layoutY="286.0" prefHeight="17.0" prefWidth="221.0" text="Total Number of Students Enrolled" />
+      <TextField fx:id="fname" layoutX="559.0" layoutY="236.0" />
+      <TextField fx:id="totalquiz" layoutX="559.0" layoutY="281.0" />
+      <TextField fx:id="avggrade" layoutX="559.0" layoutY="356.0" />
+      <Label layoutX="147.0" layoutY="371.0" text="Course" />
+      <TextField fx:id="lname" layoutX="559.0" layoutY="180.0" />
+   </children>
+</AnchorPane>

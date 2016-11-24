@@ -52,7 +52,8 @@ public class LoginPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+   
 
     }
 
@@ -64,12 +65,27 @@ public class LoginPageController implements Initializable {
         if (result == 1) {
             Stage takeQuizStage;
             takeQuizStage = ((Stage) userId.getScene().getWindow());
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/InstructorCSVUpload.fxml"));
+                        StudentScreenController.setStage(takeQuizStage);
+
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/StudentScreen.fxml"));
 
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/styles/instructorcsvupload.css");
 
-            takeQuizStage.setTitle("Choose the CSV FIle");
+            takeQuizStage.setTitle("Student Screen");
+            takeQuizStage.setScene(scene);
+            takeQuizStage.show();
+
+        } else if (result == 2) {
+            Stage takeQuizStage;
+            takeQuizStage = ((Stage) userId.getScene().getWindow());
+            InstructorScreen.setStage(takeQuizStage);
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/InstructorScreen.fxml"));
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/instructorcsvupload.css");
+
+            takeQuizStage.setTitle("Instructor Screen");
             takeQuizStage.setScene(scene);
             takeQuizStage.show();
 
@@ -86,5 +102,5 @@ public class LoginPageController implements Initializable {
         System.out.println(lnameId.getText());
         System.out.println(emailId.getText());
     }
-
+    
 }

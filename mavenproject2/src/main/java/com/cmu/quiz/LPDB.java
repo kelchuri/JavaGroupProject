@@ -70,7 +70,7 @@ public class LPDB {
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            
+            ex.printStackTrace();
         }
     }
 
