@@ -22,19 +22,19 @@ import java.util.List;
  */
 public class LPDB {
 
-    static int checkCredentials(String username, String password) throws Throwable {
+    static int checkCredentials(String userid, String password) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
         createTable(conn, stmt);
         insertToDB(conn, stmt);
-        int userVal = validateUserExists(conn, stmt, username);
-        int stuInsId = checkStuIns(conn, stmt, username);
+        int userVal = validateUserExists(conn, stmt, userid);
+        int stuInsId = checkStuIns(conn, stmt, userid);
 //        System.out.println("StuInsId is "+stuInsId);
         int check = 0;
         if (userVal == 1) {
-            String sql = "SELECT password FROM APP.USERDATA WHERE userid=?";
+            String sql = "SELECT password FROM APP.USERDATA WHERE email=?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
@@ -79,7 +79,7 @@ public class LPDB {
      * @param conn
      * @param stmt
      */
-    public static void insertToDB(Connection conn, PreparedStatement stmt) {
+//    public static void insertToDB(Connection conn, PreparedStatement stmt) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("User.txt"));
             String line = null;
