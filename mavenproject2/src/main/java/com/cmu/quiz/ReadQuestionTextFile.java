@@ -25,14 +25,16 @@ import org.apache.commons.csv.CSVRecord;
 public class ReadQuestionTextFile {
 
     private ArrayList<String> lineList = null;
+    private ArrayList<QuizQuestion> questionList = null;
     private Path linePath = null;
     private File lineFile = null;
+    private final String FIELD_SEP = ",";
 
     public void readTextFile() throws IOException {
         linePath = Paths.get("tests-sample-csv.csv");
         lineFile = linePath.toFile();
-
         lineList = new ArrayList<>();
+        questionList = new ArrayList<>();
 
         if (Files.exists(linePath)) // prevent the FileNotFoundException
         {
@@ -58,10 +60,118 @@ public class ReadQuestionTextFile {
             CSVParser parser = CSVParser.parse(lineList.get(i), CSVFormat.RFC4180);
             for (CSVRecord csvRecord : parser) {
                 for (int j = 0; j < csvRecord.size(); j++) {
-                    System.out.println(csvRecord.get(j));
+                    while (csvRecord.get(j) != null) {
+                        String[] columns = csvRecord.get(j).split(FIELD_SEP);
+                        String questionFormat = columns[0];
+                        
+                        if (questionFormat.equalsIgnoreCase("MC")) {
+                            String difficultyLevel = columns[1];
+                            Integer time = 60;
+                            if (difficultyLevel.equalsIgnoreCase("E")) {
+                                time = 60;
+                            } else if (difficultyLevel.equalsIgnoreCase("M")) {
+                                time = 90;
+                            } else if (difficultyLevel.equalsIgnoreCase("H")) {
+                                time = 120;
+                            } else {
+
+                            }
+                            String quesDesc = columns[2];
+                            String option1 = columns[3];
+                            String answer1 = columns[4];
+                            String option2 = columns[5];
+                            String answer2 = columns[6];
+                            String option3 = columns[7];
+                            String answer3 = columns[8];
+                            String option4 = columns[9];
+                            String answer4 = columns[10];
+                            QuizQuestion ques = new QuizQuestion(questionFormat,
+                                    difficultyLevel, quesDesc, option1, answer1,
+                                    option2, answer2, option3, answer3, option4, answer4, time);
+                            questionList.add(ques);
+                        } 
+                        
+                        else if (questionFormat.equalsIgnoreCase("MA")) 
+                            
+                        {
+                            String difficultyLevel = columns[1];
+                            Integer time = 60;
+                            if (difficultyLevel.equalsIgnoreCase("E")) {
+                                time = 60;
+                            } else if (difficultyLevel.equalsIgnoreCase("M")) {
+                                time = 90;
+                            } else if (difficultyLevel.equalsIgnoreCase("H")) {
+                                time = 120;
+                            } else {
+
+                            }
+                            String quesDesc = columns[2];
+                            String option1 = columns[3];
+                            String answer1 = columns[4];
+                            String option2 = columns[5];
+                            String answer2 = columns[6];
+                            String option3 = columns[7];
+                            String answer3 = columns[8];
+                            String option4 = columns[9];
+                            String answer4 = columns[10];
+                            QuizQuestion ques = new QuizQuestion(questionFormat,
+                                    difficultyLevel, quesDesc, option1, answer1,
+                                    option2, answer2, option3, answer3, option4, answer4, time);
+                            questionList.add(ques);
+                        } 
+                        
+                        else if (questionFormat.equalsIgnoreCase("TF")) 
+                        
+                        {
+                            String difficultyLevel = columns[1];
+                            Integer time = 60;
+                            if (difficultyLevel.equalsIgnoreCase("E")) {
+                                time = 60;
+                            } else if (difficultyLevel.equalsIgnoreCase("M")) {
+                                time = 90;
+                            } else if (difficultyLevel.equalsIgnoreCase("H")) {
+                                time = 120;
+                            } else {
+
+                            }
+                            String quesDesc = columns[2];
+                            String answer = columns[3];
+                            QuizQuestion ques = new QuizQuestion(questionFormat,
+                                    difficultyLevel, quesDesc, answer, time);
+                            questionList.add(ques);
+                        }
+                        
+                        else if (questionFormat.equalsIgnoreCase("FIB")) 
+                        
+                        {
+                            String difficultyLevel = columns[1];
+                            Integer time = 60;
+                            if (difficultyLevel.equalsIgnoreCase("E")) {
+                                time = 60;
+                            } else if (difficultyLevel.equalsIgnoreCase("M")) {
+                                time = 90;
+                            } else if (difficultyLevel.equalsIgnoreCase("H")) {
+                                time = 120;
+                            } else {
+
+                            }
+                            String quesDesc = columns[2];
+                            String answer = columns[3];
+                            QuizQuestion ques = new QuizQuestion(questionFormat,
+                                    difficultyLevel, quesDesc, answer, time);
+                            questionList.add(ques);
+                        } 
+                        
+                        else 
+                        
+                        {
+
+                        }
+
+                    }
                 }
             }
         }
+
     }
 }
-

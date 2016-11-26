@@ -11,7 +11,9 @@ package com.cmu.quiz;
  * @author Ayushjain
  */
 public class QuizQuestion {
+
     private String questionFormat;
+    private String difficultyLevel;
     private String questionDescription;
     private String option1;
     private String answer1;
@@ -21,8 +23,53 @@ public class QuizQuestion {
     private String answer3;
     private String option4;
     private String answer4;
+    private String answer;
     private String fillInTheBlank;
-    private Double time;
+    private Integer time;
+
+    public QuizQuestion(String questionFormat, String difficultyLevel,
+            String quesDesc, String option1, String answer1,
+            String option2, String answer2,
+            String option3, String answer3,
+            String option4, String answer4, Integer time) {
+        this.questionFormat = questionFormat;
+        this.difficultyLevel = difficultyLevel;
+        this.questionDescription = quesDesc;
+        this.option1 = option1;
+        this.answer1 = answer1;
+        this.option2 = option2;
+        this.answer2 = answer2;
+        this.option3 = option3;
+        this.answer3 = answer3;
+        this.option4 = option4;
+        this.answer4 = answer4;
+        this.time = time;
+    }
+
+    public QuizQuestion(String questionFormat, String difficultyLevel,
+            String quesDesc, String answer, Integer time) {
+        this.questionFormat = questionFormat;
+        this.difficultyLevel = difficultyLevel;
+        this.questionDescription = quesDesc;
+        this.answer = answer;
+        this.time = time;
+    }
+
+    public String getDifficultyLevel() {
+        return difficultyLevel;
+    }
+
+    public void setDifficultyLevel(String difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 
     public String getQuestionFormat() {
         return questionFormat;
@@ -112,14 +159,12 @@ public class QuizQuestion {
         this.fillInTheBlank = fillInTheBlank;
     }
 
-    public Double getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(Double time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
-    
-    
-    
+
 }
