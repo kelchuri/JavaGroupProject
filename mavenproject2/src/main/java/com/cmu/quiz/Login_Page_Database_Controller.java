@@ -54,7 +54,7 @@ public class Login_Page_Database_Controller {
     private static int validateUserExists(Connection conn, PreparedStatement stmt, String user) throws Throwable {
         List<String> users = new ArrayList<>();
         Integer temp = 0;
-        String sql = "SELECT userid FROM USERTBL";
+        String sql = "SELECT user_id FROM USERTBL";
         stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
@@ -71,12 +71,12 @@ public class Login_Page_Database_Controller {
     }
 
     private static int checkStuIns(Connection conn, PreparedStatement stmt, String username) throws Throwable {
-        String sql = "SELECT stuins FROM USERTBL WHERE userid=?";
+        String sql = "SELECT stuinsid FROM USERTBL WHERE user_id=?";
         stmt = conn.prepareStatement(sql);
         stmt.setString(1, username);
         ResultSet rs = stmt.executeQuery();
         rs.next();
-        String stuIns = rs.getString("STUINS");
+        String stuIns = rs.getString("STUINSID");
         int stuInsId = 0;
         if (stuIns.equals("instructor")) {
             stuInsId = 1;
