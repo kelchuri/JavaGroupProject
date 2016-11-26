@@ -25,7 +25,7 @@ import org.apache.commons.csv.CSVRecord;
 public class ReadQuestionTextFile {
 
     private ArrayList<String> lineList = null;
-    private ArrayList<QuizQuestion> questionList = null;
+    private ArrayList<Questions> questionList = null;
     private Path linePath = null;
     private File lineFile = null;
     private final String FIELD_SEP = ",";
@@ -85,7 +85,7 @@ public class ReadQuestionTextFile {
                             String answer3 = columns[8];
                             String option4 = columns[9];
                             String answer4 = columns[10];
-                            QuizQuestion ques = new QuizQuestion(questionFormat,
+                            Questions ques = new Questions(questionFormat,
                                     difficultyLevel, quesDesc, option1, answer1,
                                     option2, answer2, option3, answer3, option4, answer4, time);
                             questionList.add(ques);
@@ -114,7 +114,7 @@ public class ReadQuestionTextFile {
                             String answer3 = columns[8];
                             String option4 = columns[9];
                             String answer4 = columns[10];
-                            QuizQuestion ques = new QuizQuestion(questionFormat,
+                            Questions ques = new Questions(questionFormat,
                                     difficultyLevel, quesDesc, option1, answer1,
                                     option2, answer2, option3, answer3, option4, answer4, time);
                             questionList.add(ques);
@@ -136,7 +136,7 @@ public class ReadQuestionTextFile {
                             }
                             String quesDesc = columns[2];
                             String answer = columns[3];
-                            QuizQuestion ques = new QuizQuestion(questionFormat,
+                            Questions ques = new Questions(questionFormat,
                                     difficultyLevel, quesDesc, answer, time);
                             questionList.add(ques);
                         }
@@ -157,7 +157,7 @@ public class ReadQuestionTextFile {
                             }
                             String quesDesc = columns[2];
                             String answer = columns[3];
-                            QuizQuestion ques = new QuizQuestion(questionFormat,
+                            Questions ques = new Questions(questionFormat,
                                     difficultyLevel, quesDesc, answer, time);
                             questionList.add(ques);
                         } 

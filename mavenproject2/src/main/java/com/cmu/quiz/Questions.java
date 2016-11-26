@@ -10,31 +10,44 @@ package com.cmu.quiz;
  *
  * @author Ayushjain
  */
-public class QuizQuestion {
-
-    private String questionFormat;
-    private String difficultyLevel;
-    private String questionDescription;
+public class Questions {
+    
+                
+    private int ques_id;
+    
+    private String ques_type;
+    
+    private String diff_lvl;
+    
+    private String ques_desc;
+    
     private String option1;
+    
     private String answer1;
+    
     private String option2;
+    
     private String answer2;
+   
     private String option3;
+   
     private String answer3;
+    
     private String option4;
+    
     private String answer4;
+    
     private String answer;
-    private String fillInTheBlank;
-    private Integer time;
+    
+    private int crs_id;
+    
+    private double time;
 
-    public QuizQuestion(String questionFormat, String difficultyLevel,
+    public Questions(String questionFormat, String difficultyLevel,
             String quesDesc, String option1, String answer1,
             String option2, String answer2,
             String option3, String answer3,
             String option4, String answer4, Integer time) {
-        this.questionFormat = questionFormat;
-        this.difficultyLevel = difficultyLevel;
-        this.questionDescription = quesDesc;
         this.option1 = option1;
         this.answer1 = answer1;
         this.option2 = option2;
@@ -46,23 +59,13 @@ public class QuizQuestion {
         this.time = time;
     }
 
-    public QuizQuestion(String questionFormat, String difficultyLevel,
+    public Questions(String questionFormat, String difficultyLevel,
             String quesDesc, String answer, Integer time) {
-        this.questionFormat = questionFormat;
-        this.difficultyLevel = difficultyLevel;
-        this.questionDescription = quesDesc;
         this.answer = answer;
         this.time = time;
     }
 
-    public String getDifficultyLevel() {
-        return difficultyLevel;
-    }
-
-    public void setDifficultyLevel(String difficultyLevel) {
-        this.difficultyLevel = difficultyLevel;
-    }
-
+    
     public String getAnswer() {
         return answer;
     }
@@ -71,22 +74,7 @@ public class QuizQuestion {
         this.answer = answer;
     }
 
-    public String getQuestionFormat() {
-        return questionFormat;
-    }
-
-    public void setQuestionFormat(String questionFormat) {
-        this.questionFormat = questionFormat;
-    }
-
-    public String getQuestionDescription() {
-        return questionDescription;
-    }
-
-    public void setQuestionDescription(String questionDescription) {
-        this.questionDescription = questionDescription;
-    }
-
+   
     public String getOption1() {
         return option1;
     }
@@ -151,20 +139,76 @@ public class QuizQuestion {
         this.answer4 = answer4;
     }
 
-    public String getFillInTheBlank() {
-        return fillInTheBlank;
-    }
-
-    public void setFillInTheBlank(String fillInTheBlank) {
-        this.fillInTheBlank = fillInTheBlank;
-    }
-
-    public Integer getTime() {
+    
+    public double getTime() {
         return time;
     }
 
-    public void setTime(Integer time) {
+    public void setTime(double time) {
         this.time = time;
+    }
+
+    /**
+     * @return the ques_id
+     */
+    public int getQues_id() {
+        return ques_id;
+    }
+
+    /**
+     * @param ques_id the ques_id to set
+     */
+    public void setQues_id(int ques_id) {
+        this.ques_id = ques_id;
+    }
+
+    /**
+     * @return the ques_type
+     */
+    public String getQues_type() {
+        return ques_type;
+    }
+
+    /**
+     * @param ques_type the ques_type to set
+     */
+    public void setQues_type(String ques_type) {
+        this.ques_type = ques_type;
+    }
+
+    /**
+     * @return the diff_lvl
+     */
+    public String getDiff_lvl() {
+        return diff_lvl;
+    }
+
+    /**
+     * @param diff_lvl the diff_lvl to set
+     */
+    public void setDiff_lvl(String diff_lvl) {
+        this.diff_lvl = diff_lvl;
+    }
+
+    /**
+     * @return the ques_desc
+     */
+    public String getQues_desc() {
+        return ques_desc;
+    }
+
+    /**
+     * @param ques_desc the ques_desc to set
+     */
+    public void setQues_desc(String ques_desc) {
+        this.ques_desc = ques_desc;
+    }
+
+    /**
+     * @return the crs_id
+     */
+    public int getCrs_id() {
+        return crs_id;
     }
 
 }

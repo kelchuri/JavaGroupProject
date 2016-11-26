@@ -36,7 +36,7 @@ public class LPDB {
         if (userVal == 1) {
             String sql = "SELECT password FROM APP.USERDATA WHERE email=?";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, username);
+            stmt.setString(1, userid);
             ResultSet rs = stmt.executeQuery();
             rs.next();
             String pass = rs.getString("PASSWORD");
@@ -79,7 +79,7 @@ public class LPDB {
      * @param conn
      * @param stmt
      */
-//    public static void insertToDB(Connection conn, PreparedStatement stmt) {
+    public static void insertToDB(Connection conn, PreparedStatement stmt) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("User.txt"));
             String line = null;
