@@ -5,6 +5,8 @@
      * launched through deployment artifacts, e.g., in IDEs with */
 package com.cmu.quiz;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.geometry.Rectangle2D;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -18,6 +20,12 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        DatabaseWork dw = new DatabaseWork();
+        try {
+            dw.createConnection();
+        } catch (Throwable ex) {
+            Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginPage.fxml"));
 
         Scene scene = new Scene(root);
