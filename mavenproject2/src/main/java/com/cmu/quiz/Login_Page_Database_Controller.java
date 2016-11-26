@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author b2
  */
-public class LPDB {
+public class Login_Page_Database_Controller {
 
     static int checkCredentials(String userid, String password) throws Throwable {
         PreparedStatement stmt = null;

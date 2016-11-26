@@ -61,7 +61,7 @@ public class LoginPageController implements Initializable {
     public void processLogin(ActionEvent event) throws IOException, Throwable {
         System.out.println(userId.getText());
         System.out.println(password.getText());
-        int result = LPDB.checkCredentials(userId.getText(), password.getText());
+        int result = Login_Page_Database_Controller.checkCredentials(userId.getText(), password.getText());
         if (result == 1) {
             Stage takeQuizStage;
             takeQuizStage = ((Stage) userId.getScene().getWindow());
