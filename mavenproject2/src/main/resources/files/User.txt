@@ -1,9 +1,0 @@
-User_1,Targaeryn,dragonqueen,instructor
-User_2,Baratheon,sadism,instructor
-User_3,Lannister,genocide,instructor
-User_4,Snow,kotn,instructor
-User_5,Tarly,loverboy,instructor
-User_6,Seaworth,useless,student
-User_7,Tyrell,iamdead,student
-User_8,Stark,iamdeadtoo,student
-User_9,Frey,udontmess,student
