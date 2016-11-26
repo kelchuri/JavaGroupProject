@@ -23,18 +23,58 @@ public class DatabaseWork {
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
-//        createStudentQuiz(conn, stmt);
-//        createQuestions(conn, stmt);
-//        createQuiz(conn, stmt);
-//        createCourse(conn, stmt);
-//        insertToStudentQuiz(conn, stmt);
-//        insertToQuestions(conn, stmt);
-//        insertToQuiz(conn, stmt);
-//        insertToCourse(conn, stmt);
-//        dropTables(conn, stmt);
-updateQuesID(conn,stmt);
+        createUser(conn, stmt);
+        createStudentQuiz(conn, stmt);
+        createQuestions(conn, stmt);
+        createQuiz(conn, stmt);
+        createCourse(conn, stmt);
+        insertToUserTbl(conn, stmt);
+        insertToStudentQuiz(conn, stmt);
+        insertToQuestions(conn, stmt);
+        insertToQuiz(conn, stmt);
+        insertToCourse(conn, stmt);
+        dropTables(conn, stmt);
+//updateQuesID(conn,stmt);
 //        updateTime(conn, stmt);
 //updateCrsId(conn,stmt);
+    }
+
+    private static void createUser(Connection conn, PreparedStatement stmt) throws Throwable {
+        String sql = "CREATE TABLE USERTBL("
+                + "user_id VARCHAR(20),"
+                + "first_name VARCHAR(50),"
+                + "last_name VARCHAR(50),"
+                + "email VARCHAR(50),"
+                + "password VARCHAR(50),"
+                + "stuInsId VARCHAR(50))";
+        stmt = conn.prepareStatement(sql);
+        stmt.executeUpdate();
+    }
+
+    private static void insertToUserTbl(Connection conn, PreparedStatement stmt) throws Throwable {
+        BufferedReader br = new BufferedReader(new FileReader("User.csv"));
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            String[] values = line.split(",");
+            String user_id = values[0];
+            String first_name = values[1];
+            String last_name = values[2];
+            String email = values[3];
+            String password = values[4];
+            String stuInsId = values[5];
+            String addRowSql = "INSERT INTO USERTBL("
+                    + "user_id,first_name,last_name,email,password,stuInsId)"
+                    + "VALUES(?,?,?,?,?,?)";
+
+            stmt = conn.prepareStatement(addRowSql);
+            stmt.setString(1, user_id);
+            stmt.setString(2, first_name);
+            stmt.setString(3, last_name);
+            stmt.setString(4, email);
+            stmt.setString(5, password);
+            stmt.setString(6, stuInsId);
+            stmt.executeUpdate();
+        }
     }
 
     private static void createStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
@@ -87,11 +127,10 @@ updateQuesID(conn,stmt);
     }
 
     private static void insertToQuestions(Connection conn, PreparedStatement stmt) throws Throwable {
-        CSVReader csvr = new CSVReader(new FileReader("C:\\B2\\Java Questions.csv"), ',', '"', 0);
+        CSVReader csvr = new CSVReader(new FileReader("Java Questions.csv"), ',', '"', 0);
         String[] nextLine;
         while ((nextLine = csvr.readNext()) != null) {
 
-//            String[] values = line.split(",");
             String ques_type = "";
             String diff_lvl = "";
             String ques_desc = "";
@@ -173,7 +212,7 @@ updateQuesID(conn,stmt);
     }
 
     private static void insertToQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new FileReader("C:\\B2\\Quiz.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("Quiz.csv"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -195,7 +234,7 @@ updateQuesID(conn,stmt);
     }
 
     private static void insertToStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new FileReader("C:\\B2\\StudentQuiz.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("StudentQuiz.csv"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -215,7 +254,7 @@ updateQuesID(conn,stmt);
     }
 
     private static void insertToCourse(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new FileReader("C:\\B2\\Course.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("Course.csv"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");

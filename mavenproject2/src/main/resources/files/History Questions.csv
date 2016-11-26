@@ -1,0 +1,30 @@
+MC,E,Rivers Tigris and Euphrates are associated with ?,Mesopotamian Civilization,Correct,Egyptain Civilization,Incorrect,Harappan Civilization,Incorrect,Chinese Civilization,Incorrect
+MC,E,Which is considered as oldest civilization of the world ?,Mesopotamian Civilization,Correct,Egyptain Civilization,Incorrect,Harappan Civilization,Incorrect,Chinese Civilization,Incorrect
+MC,M,"Which among following is called ""Gift of the Nile"" ?",China,Incorrect,India,Incorrect,Iraq,Incorrect,Egypt,Correct
+MC,M,Who is considered as the master of Greek comedy ?,Aeschylus,Incorrect,Sophocles,Incorrect,Sophocles,Correct,Philip,Incorrect
+MC,H,When ancient Olympic games first held ?,776 BC,Correct,780 BC,Incorrect,790 BC,Incorrect,800 BC,Incorrect
+MC,H,Who is known as the father of Modern Medicine ?,Euclid,Incorrect,Pythagoras,Incorrect,Hippocrates,Correct,Erastosthenes,Incorrect
+MC,M,Rome was founded around ?,1000 BC,Correct,1200 BC,Incorrect,1400 BC,Incorrect,1600 BC,Incorrect
+MC,E,Which was not an Roman Philosopher ?,Cicero,Incorrect,Seneca,Incorrect,Lucretius,Incorrect,Octavian,Correct
+MA,E,Which countries are a part of SAARC?,Afghanistan,Correct,Nepal,Correct,Bhutan,Correct,Malaysia,Incorrect
+MA,E,Pearl harbour attack involved which contries?,China,Incorrect,US,Correct,Japan,Correct,Germany,Incorrect
+MA,M,Munich Agreement was agreed among which countries?,France,Correct,Italy,Correct,Britain,Correct,Afghanistan,Incorrect
+MA,M,Which of the following leaders were associated with the French Revolution?,Louis XVI,Correct,Charlotte Corday,Correct,Napoleon,Correct,Mark Xanzes ,Incorrect
+MA,M,A total of fifteen U.S. Presidents were born in just two states. Which ones?,Virginia,Correct,Ohio,Correct,Alabama,Incorrect,Kansas,Incorrect
+MA,H,What have been the two most common names of Popes?,JOHN 23 ,Correct,Jim 23,Incorrect,Mark 23,Incorrect,Gregory 16,Correct
+TF,E,"With the mechanization of manufacture, skilled workers virtually disappeared from industrial America.",FALSE
+TF,E,Wage reductions were commonplace during economic downturns.,TRUE
+TF,M,The West was a remarkably homogeneous region—only in the twentieth century would it become ethnically diverse.,FALSE
+TF,M,The Knights of Labor regarded inequalities of wealth and power as a growing threat to American democracy.,TRUE
+TF,H,"According to Social Darwinism, government should seek to help the poor and build an activist state to regulate the nation's corporations.",FALSE
+TF,H,"During the second industrial revolution, wage labor became America's leading source of livelihood",TRUE
+TF,H,Only after Spain threatened to invade America did the United States elect to go to war.,FALSE
+FIB,E, Paintings which showed the social lives of Europeans in India are called ___________________.,Kalighat paintings
+FIB,E,The British conquest of Bengal began with the Battle of _________________________.,Plassey
+FIB,M,Maratha Kingdoms were located mainly in the ______________________ part of India.,south-western
+FIB,M,"__________ is the normal, spoken form of a language rather than the formal,litery form.",vernacular
+FIB,H,Industrial revolution began in ______ century.,18
+FIB,H,The Pearl harbour was attacked in _________.,1941
+FIB,E,Martin King Luther Jr. died in _____________.,1968
+FIB,E,American celebrates its independence day on ____ July.,4
+FIB,E,Cold war ended in _____.,1991
