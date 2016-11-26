@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cmu.quiz;
+package Models;
 
 import java.util.Calendar;
 
