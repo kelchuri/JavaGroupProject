@@ -71,7 +71,7 @@ public class Login_Page_Database_Controller {
     }
 
     private static int checkStuIns(Connection conn, PreparedStatement stmt, String username) throws Throwable {
-        String sql = "SELECT stuins FROM APP.USERDATA WHERE userid=?";
+        String sql = "SELECT stuins FROM USERTBL WHERE userid=?";
         stmt = conn.prepareStatement(sql);
         stmt.setString(1, username);
         ResultSet rs = stmt.executeQuery();
