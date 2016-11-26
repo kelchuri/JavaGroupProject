@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cmu.quiz;
+package Handlers;
 
 import Models.Questions;
 import java.io.BufferedReader;
@@ -23,7 +23,7 @@ import org.apache.commons.csv.CSVRecord;
  *
  * @author Ayushjain
  */
-public class ReadQuestionTextFile {
+public class TextToDatabaseHandler {
 
     private ArrayList<String> lineList = null;
     private ArrayList<Questions> questionList = null;
