@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>com.cmu.quiz.MainApp</mainClass>
+        <mainClass>com.cmu.controllers.MainApp</mainClass>
     </properties>
 
     <organization>
