@@ -7,12 +7,13 @@ package com.cmu.controllers;
 
 import au.com.bytecode.opencsv.CSVReader;
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
@@ -21,7 +22,7 @@ import java.util.Locale;
  */
 public class DatabaseWork {
 
-    public void createConnection() throws Throwable {
+    static void createConnection() throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
@@ -31,15 +32,16 @@ public class DatabaseWork {
 //        createQuestions(conn, stmt);
 //        createQuiz(conn, stmt);
 //        createCourse(conn, stmt);
-        insertToUserTbl(conn, stmt);
-        insertToStudentQuiz(conn, stmt);
-        insertToQuestions(conn, stmt);
-        insertToQuiz(conn, stmt);
-        insertToCourse(conn, stmt);
+//        insertToUserTbl(conn, stmt);
+//        insertToStudentQuiz(conn, stmt);
+//        insertToQuestions(conn, stmt);
+//        insertToQuiz(conn, stmt);
+//        insertToCourse(conn, stmt);
+//        updateQuesID(conn, stmt);
+//        updateTime(conn, stmt);
+//        updateCrsId(conn, stmt);
 //        dropTables(conn, stmt);
-//updateQuesID(conn,stmt);
-        updateTime(conn, stmt);
-updateCrsId(conn,stmt);
+
     }
 
     private static void createUser(Connection conn, PreparedStatement stmt) throws Throwable {
@@ -54,10 +56,8 @@ updateCrsId(conn,stmt);
         stmt.executeUpdate();
     }
 
-
-    private void insertToUserTbl(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/files/User.csv")));
-
+    private static void insertToUserTbl(Connection conn, PreparedStatement stmt) throws Throwable {
+        BufferedReader br = new BufferedReader(new FileReader("/Users/kavya/NetBeansProjects/JavaGroupProject/mavenproject2/src/main/resources/files/User.csv"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -116,7 +116,7 @@ updateCrsId(conn,stmt);
 
     private static void createQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
         String sql = "CREATE TABLE QUIZ("
-                + "quiz_id VARCHAR(20),"
+                + "quiz_id DECIMAL,"
                 + "ques_id VARCHAR(20),"
                 + "diff_lvl VARCHAR(20),"
                 + "isCorrect BOOLEAN)";
@@ -133,12 +133,10 @@ updateCrsId(conn,stmt);
         stmt.executeUpdate();
     }
 
-
-
-    private void insertToQuestions(Connection conn, PreparedStatement stmt) throws Throwable {
-        CSVReader csvr = new CSVReader(new InputStreamReader(getClass().getResourceAsStream("/files/Java Questions.csv")), ',', '"', 0);
-
+    private static void insertToQuestions(Connection conn, PreparedStatement stmt) throws Throwable {
+        CSVReader csvr = new CSVReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/Java Questions.csv"), ',', '"', 0);
         String[] nextLine;
+        int i = 1;
         while ((nextLine = csvr.readNext()) != null) {
 
             String ques_type = "";
@@ -153,7 +151,7 @@ updateCrsId(conn,stmt);
             String option4 = "";
             String answer4 = "";
             String answer = "";
-            String ques_id = "";
+            String ques_id = "" + i;
             String crs_id = "";
             int time = 0;
             ques_type = nextLine[0];
@@ -218,18 +216,16 @@ updateCrsId(conn,stmt);
             stmt.setInt(15, time);
 
             stmt.executeUpdate();
+            i = i + 1;
         }
     }
 
-
-    private void insertToQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/files/Quiz.csv")));
-
-
+    private static void insertToQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
+        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/Quiz.csv"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
-            String quiz_id = values[0];
+            int quiz_id = Integer.parseInt(values[0]);
             String ques_id = values[1];
             String diff_lvl = values[2];
             Boolean isCorrect = Boolean.parseBoolean(values[3]);
@@ -238,7 +234,7 @@ updateCrsId(conn,stmt);
                     + "VALUES(?,?,?,?)";
 
             stmt = conn.prepareStatement(addRowSql);
-            stmt.setString(1, quiz_id);
+            stmt.setInt(1, quiz_id);
             stmt.setString(2, ques_id);
             stmt.setString(3, diff_lvl);
             stmt.setBoolean(4, isCorrect);
@@ -246,11 +242,8 @@ updateCrsId(conn,stmt);
         }
     }
 
-
-    private void insertToStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/files/StudentQuiz.csv")));
-
-
+    private static void insertToStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
+        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/StudentQuiz.csv"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -262,6 +255,9 @@ updateCrsId(conn,stmt);
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
             cal.setTime(sdf.parse(values[3]));
             java.sql.Date date = new java.sql.Date(cal.getTime().getTime());
+            Calendar cal1 = new GregorianCalendar();
+            cal.setTimeInMillis(date.getTime());
+
             String addRowSql = "INSERT INTO APP.STUDENTQUIZ("
                     + "stu_id,quiz_id,marks, date, crs_id)"
                     + "VALUES(?,?,?,?,?)";
@@ -276,10 +272,8 @@ updateCrsId(conn,stmt);
         }
     }
 
-
-    private void insertToCourse(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/files/Courses.csv")));
-
+    private static void insertToCourse(Connection conn, PreparedStatement stmt) throws Throwable {
+        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/Courses.csv"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -326,7 +320,7 @@ updateCrsId(conn,stmt);
         sql = "UPDATE QUESTIONS SET time = 90 where diff_lvl='M'";
         stmt = conn.prepareStatement(sql);
         stmt.executeUpdate();
-        sql = "UPDATE QUESTIONS SET time = 60 where diff_lvl='H'";
+        sql = "UPDATE QUESTIONS SET time = 120 where diff_lvl='H'";
         stmt = conn.prepareStatement(sql);
         stmt.executeUpdate();
     }
