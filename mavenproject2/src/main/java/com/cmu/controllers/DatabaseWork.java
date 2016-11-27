@@ -27,15 +27,15 @@ public class DatabaseWork {
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
 //        createUser(conn, stmt);
-//        createStudentQuiz(conn, stmt);
-//        createQuestions(conn, stmt);
-//        createQuiz(conn, stmt);
-//        createCourse(conn, stmt);
+        createStudentQuiz(conn, stmt);
+        createQuestions(conn, stmt);
+        createQuiz(conn, stmt);
+        createCourse(conn, stmt);
 //        insertToUserTbl(conn, stmt);
-//        insertToStudentQuiz(conn, stmt);
-//        insertToQuestions(conn, stmt);
-//        insertToQuiz(conn, stmt);
-//        insertToCourse(conn, stmt);
+        insertToStudentQuiz(conn, stmt);
+        insertToQuestions(conn, stmt);
+        insertToQuiz(conn, stmt);
+        insertToCourse(conn, stmt);
 //        dropTables(conn, stmt);
 //updateQuesID(conn,stmt);
 //        updateTime(conn, stmt);
@@ -85,7 +85,8 @@ public class DatabaseWork {
                 + "stu_id VARCHAR(20),"
                 + "quiz_id VARCHAR(20),"
                 + "marks VARCHAR(20),"
-                + "date DATE)";
+                + "date DATE,"
+                + "crs_id VARCHAR(20))";
         stmt = conn.prepareStatement(sql);
         stmt.executeUpdate();
     }
@@ -238,7 +239,7 @@ public class DatabaseWork {
     }
 
     private static void insertToStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/StudentQuiz.csv"));
+        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/StudentQuiz.txt"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -246,18 +247,20 @@ public class DatabaseWork {
             String quiz_id = values[1];
             String marks = values[2];
             Calendar cal = Calendar.getInstance();
+            String crs_id = values[4];
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
             cal.setTime(sdf.parse(values[3]));
             java.sql.Date date = new java.sql.Date(cal.getTime().getTime());
             String addRowSql = "INSERT INTO APP.STUDENTQUIZ("
-                    + "stu_id,quiz_id,marks, date)"
-                    + "VALUES(?,?,?,?)";
+                    + "stu_id,quiz_id,marks, date, crs_id)"
+                    + "VALUES(?,?,?,?,?)";
 
             stmt = conn.prepareStatement(addRowSql);
             stmt.setString(1, stu_id);
             stmt.setString(2, quiz_id);
             stmt.setString(3, marks);
             stmt.setDate(4, date);
+            stmt.setString(5, crs_id);
             stmt.executeUpdate();
         }
     }

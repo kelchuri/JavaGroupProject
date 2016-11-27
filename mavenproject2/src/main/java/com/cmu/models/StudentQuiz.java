@@ -17,6 +17,27 @@ public class StudentQuiz {
     private Integer quiz_id;
     private Integer marks;
     private Calendar date;
+    private String crs_Id;
+
+    /**
+     *
+     * this method gets the course id
+     *
+     * @return
+     */
+    public String getCrs_Id() {
+        return crs_Id;
+    }
+
+    /**
+     *
+     * this method sets the course id
+     *
+     * @return
+     */
+    public void setCrs_Id(String crs_Id) {
+        this.crs_Id = crs_Id;
+    }
 
     /**
      *
