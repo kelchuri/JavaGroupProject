@@ -11,6 +11,9 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  *
@@ -29,10 +32,10 @@ public class DatabaseWork {
 //        createQuiz(conn, stmt);
 //        createCourse(conn, stmt);
 //        insertToUserTbl(conn, stmt);
-//        insertToStudentQuiz(conn, stmt);
-//        insertToQuestions(conn, stmt);
-//        insertToQuiz(conn, stmt);
-//        insertToCourse(conn, stmt);
+        insertToStudentQuiz(conn, stmt);
+        insertToQuestions(conn, stmt);
+        insertToQuiz(conn, stmt);
+        insertToCourse(conn, stmt);
 //        dropTables(conn, stmt);
 //updateQuesID(conn,stmt);
 //        updateTime(conn, stmt);
@@ -81,7 +84,8 @@ public class DatabaseWork {
         String sql = "CREATE TABLE STUDENTQUIZ("
                 + "stu_id VARCHAR(20),"
                 + "quiz_id VARCHAR(20),"
-                + "marks VARCHAR(20))";
+                + "marks VARCHAR(20),"
+                + "date DATE)";
         stmt = conn.prepareStatement(sql);
         stmt.executeUpdate();
     }
@@ -127,7 +131,7 @@ public class DatabaseWork {
     }
 
     private static void insertToQuestions(Connection conn, PreparedStatement stmt) throws Throwable {
-        CSVReader csvr = new CSVReader(new FileReader("Java Questions.csv"), ',', '"', 0);
+        CSVReader csvr = new CSVReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/Java Questions.csv"), ',', '"', 0);
         String[] nextLine;
         while ((nextLine = csvr.readNext()) != null) {
 
@@ -212,7 +216,7 @@ public class DatabaseWork {
     }
 
     private static void insertToQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new FileReader("Quiz.csv"));
+        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/Quiz.csv"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -234,27 +238,32 @@ public class DatabaseWork {
     }
 
     private static void insertToStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new FileReader("StudentQuiz.csv"));
+        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/StudentQuiz.csv"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
             String stu_id = values[0];
             String quiz_id = values[1];
             String marks = values[2];
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+            cal.setTime(sdf.parse(values[3]));
+            java.sql.Date date = new java.sql.Date(cal.getTime().getTime());
             String addRowSql = "INSERT INTO APP.STUDENTQUIZ("
-                    + "stu_id,quiz_id,marks)"
-                    + "VALUES(?,?,?)";
+                    + "stu_id,quiz_id,marks, date)"
+                    + "VALUES(?,?,?,?)";
 
             stmt = conn.prepareStatement(addRowSql);
             stmt.setString(1, stu_id);
             stmt.setString(2, quiz_id);
             stmt.setString(3, marks);
+            stmt.setDate(4, date);
             stmt.executeUpdate();
         }
     }
 
     private static void insertToCourse(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new FileReader("Course.csv"));
+        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/Courses.csv"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
