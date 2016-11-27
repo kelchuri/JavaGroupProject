@@ -13,105 +13,79 @@ import java.util.Calendar;
  * @author Ayushjain
  */
 public class Quiz {
-    private Integer ID;
-    private String numberOfMC;
-    private String numberOfMA;
-    private String numberOfTF;
-    private String numberOfFIB;
-    private Calendar dateQuizTaken;
-    private Integer totalMCCorrect;
-    private Integer totalMACorrect;
-    private Integer totalTFCorrect;
-    private Integer totalFIBCorrect;
+    private Integer quizID;
+    private Integer questionNo;
+    private String diffLevel;
+    private Boolean isCorrect;
     private Double time;
 
-    public Integer getID() {
-        return ID;
+    /**
+     * @return the quizID
+     */
+    public Integer getQuizID() {
+        return quizID;
     }
 
-    public void setID(Integer ID) {
-        this.ID = ID;
+    /**
+     * @param quizID the quizID to set
+     */
+    public void setQuizID(Integer quizID) {
+        this.quizID = quizID;
     }
 
-    public String getNumberOfMC() {
-        return numberOfMC;
+    /**
+     * @return the questionNo
+     */
+    public Integer getQuestionNo() {
+        return questionNo;
     }
 
-    public void setNumberOfMC(String numberOfMC) {
-        this.numberOfMC = numberOfMC;
+    /**
+     * @param questionNo the questionNo to set
+     */
+    public void setQuestionNo(Integer questionNo) {
+        this.questionNo = questionNo;
     }
 
-    public String getNumberOfMA() {
-        return numberOfMA;
+    /**
+     * @return the diffLevel
+     */
+    public String getDiffLevel() {
+        return diffLevel;
     }
 
-    public void setNumberOfMA(String numberOfMA) {
-        this.numberOfMA = numberOfMA;
+    /**
+     * @param diffLevel the diffLevel to set
+     */
+    public void setDiffLevel(String diffLevel) {
+        this.diffLevel = diffLevel;
     }
 
-    public String getNumberOfTF() {
-        return numberOfTF;
+    /**
+     * @return the isCorrect
+     */
+    public Boolean getIsCorrect() {
+        return isCorrect;
     }
 
-    public void setNumberOfTF(String numberOfTF) {
-        this.numberOfTF = numberOfTF;
+    /**
+     * @param isCorrect the isCorrect to set
+     */
+    public void setIsCorrect(Boolean isCorrect) {
+        this.isCorrect = isCorrect;
     }
 
-    public String getNumberOfFIB() {
-        return numberOfFIB;
-    }
-
-    public void setNumberOfFIB(String numberOfFIB) {
-        this.numberOfFIB = numberOfFIB;
-    }
-
-    public Calendar getDateQuizTaken() {
-        return dateQuizTaken;
-    }
-
-    public void setDateQuizTaken(Calendar dateQuizTaken) {
-        this.dateQuizTaken = dateQuizTaken;
-    }
-
-    public Integer getTotalMCCorrect() {
-        return totalMCCorrect;
-    }
-
-    public void setTotalMCCorrect(Integer totalMCCorrect) {
-        this.totalMCCorrect = totalMCCorrect;
-    }
-
-    public Integer getTotalMACorrect() {
-        return totalMACorrect;
-    }
-
-    public void setTotalMACorrect(Integer totalMACorrect) {
-        this.totalMACorrect = totalMACorrect;
-    }
-
-    public Integer getTotalTFCorrect() {
-        return totalTFCorrect;
-    }
-
-    public void setTotalTFCorrect(Integer totalTFCorrect) {
-        this.totalTFCorrect = totalTFCorrect;
-    }
-
-    public Integer getTotalFIBCorrect() {
-        return totalFIBCorrect;
-    }
-
-    public void setTotalFIBCorrect(Integer totalFIBCorrect) {
-        this.totalFIBCorrect = totalFIBCorrect;
-    }
-
+    /**
+     * @return the time
+     */
     public Double getTime() {
         return time;
     }
 
+    /**
+     * @param time the time to set
+     */
     public void setTime(Double time) {
         this.time = time;
     }
-    
-    
 }
