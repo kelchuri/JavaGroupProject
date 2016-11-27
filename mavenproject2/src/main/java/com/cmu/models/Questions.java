@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cmu.Models;
+package com.cmu.models;
 
 /**
  *
@@ -39,7 +39,7 @@ public class Questions {
     
     private String answer;
     
-    private int crs_id;
+    private String crs_id;
     
     private double time;
 
@@ -47,7 +47,7 @@ public class Questions {
             String quesDesc, String option1, String answer1,
             String option2, String answer2,
             String option3, String answer3,
-            String option4, String answer4, Integer time) {
+            String option4, String answer4, String crs_id, Integer time) {
         this.option1 = option1;
         this.answer1 = answer1;
         this.option2 = option2;
@@ -56,11 +56,12 @@ public class Questions {
         this.answer3 = answer3;
         this.option4 = option4;
         this.answer4 = answer4;
+        this.crs_id = crs_id;
         this.time = time;
     }
 
     public Questions(String questionFormat, String difficultyLevel,
-            String quesDesc, String answer, Integer time) {
+            String quesDesc, String answer, String crs_id, Integer time) {
         this.answer = answer;
         this.time = time;
     }
@@ -207,8 +208,12 @@ public class Questions {
     /**
      * @return the crs_id
      */
-    public int getCrs_id() {
+    public String getCrs_id() {
         return crs_id;
+    }
+
+    public void setCrs_id(String crs_id) {
+        this.crs_id = crs_id;
     }
 
 }
