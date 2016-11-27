@@ -32,10 +32,10 @@ public class DatabaseWork {
 //        createQuiz(conn, stmt);
 //        createCourse(conn, stmt);
 //        insertToUserTbl(conn, stmt);
-        insertToStudentQuiz(conn, stmt);
-        insertToQuestions(conn, stmt);
-        insertToQuiz(conn, stmt);
-        insertToCourse(conn, stmt);
+//        insertToStudentQuiz(conn, stmt);
+//        insertToQuestions(conn, stmt);
+//        insertToQuiz(conn, stmt);
+//        insertToCourse(conn, stmt);
 //        dropTables(conn, stmt);
 //updateQuesID(conn,stmt);
 //        updateTime(conn, stmt);
