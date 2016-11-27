@@ -31,11 +31,11 @@ public class DatabaseWork {
 //        createQuestions(conn, stmt);
 //        createQuiz(conn, stmt);
 //        createCourse(conn, stmt);
-//        insertToUserTbl(conn, stmt);
-//        insertToStudentQuiz(conn, stmt);
-//        insertToQuestions(conn, stmt);
-//        insertToQuiz(conn, stmt);
-//        insertToCourse(conn, stmt);
+        insertToUserTbl(conn, stmt);
+        insertToStudentQuiz(conn, stmt);
+        insertToQuestions(conn, stmt);
+        insertToQuiz(conn, stmt);
+        insertToCourse(conn, stmt);
 //        dropTables(conn, stmt);
 //updateQuesID(conn,stmt);
         updateTime(conn, stmt);
@@ -54,8 +54,10 @@ updateCrsId(conn,stmt);
         stmt.executeUpdate();
     }
 
+
     private void insertToUserTbl(Connection conn, PreparedStatement stmt) throws Throwable {
         BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/files/User.csv")));
+
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -131,8 +133,11 @@ updateCrsId(conn,stmt);
         stmt.executeUpdate();
     }
 
+
+
     private void insertToQuestions(Connection conn, PreparedStatement stmt) throws Throwable {
         CSVReader csvr = new CSVReader(new InputStreamReader(getClass().getResourceAsStream("/files/Java Questions.csv")), ',', '"', 0);
+
         String[] nextLine;
         while ((nextLine = csvr.readNext()) != null) {
 
@@ -216,8 +221,11 @@ updateCrsId(conn,stmt);
         }
     }
 
+
     private void insertToQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
         BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/files/Quiz.csv")));
+
+
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -238,8 +246,11 @@ updateCrsId(conn,stmt);
         }
     }
 
+
     private void insertToStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
         BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/files/StudentQuiz.csv")));
+
+
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -265,8 +276,10 @@ updateCrsId(conn,stmt);
         }
     }
 
+
     private void insertToCourse(Connection conn, PreparedStatement stmt) throws Throwable {
         BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/files/Courses.csv")));
+
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
