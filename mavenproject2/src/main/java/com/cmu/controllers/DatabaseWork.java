@@ -27,10 +27,10 @@ public class DatabaseWork {
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
 //        createUser(conn, stmt);
-        createStudentQuiz(conn, stmt);
-        createQuestions(conn, stmt);
-        createQuiz(conn, stmt);
-        createCourse(conn, stmt);
+//        createStudentQuiz(conn, stmt);
+//        createQuestions(conn, stmt);
+//        createQuiz(conn, stmt);
+//        createCourse(conn, stmt);
 //        insertToUserTbl(conn, stmt);
         insertToStudentQuiz(conn, stmt);
         insertToQuestions(conn, stmt);
@@ -239,7 +239,7 @@ public class DatabaseWork {
     }
 
     private static void insertToStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/StudentQuiz.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/StudentQuiz.csv"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
