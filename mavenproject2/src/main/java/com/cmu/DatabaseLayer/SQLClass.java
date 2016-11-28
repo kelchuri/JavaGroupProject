@@ -163,7 +163,7 @@ public class SQLClass {
         while (rs.next()) {
             int crs_id = rs.getInt("crs_id");
             int crs_name = rs.getInt("crs_name");
-            String ins_id = rs.getString("ins_id");
+            int ins_id = rs.getInt("ins_id");
             String text = "Course Id: " + crs_id + "| Course Name: " + crs_name + " |Instructor Id: " + ins_id;
             System.out.println(text);
         }
