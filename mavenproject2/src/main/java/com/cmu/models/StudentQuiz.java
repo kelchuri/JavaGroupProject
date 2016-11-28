@@ -13,7 +13,7 @@ import java.util.Calendar;
  */
 public class StudentQuiz {
 
-    private String stu_Id;
+    private Integer stu_Id;
     private Integer quiz_id;
     private Integer marks;
     private Calendar date;
@@ -65,7 +65,7 @@ public class StudentQuiz {
      *
      * @return
      */
-    public String getStu_Id() {
+    public Integer getStu_Id() {
         return stu_Id;
     }
 
@@ -75,7 +75,7 @@ public class StudentQuiz {
      *
      * @param stu_Id
      */
-    public void setStu_Id(String stu_Id) {
+    public void setStu_Id(Integer stu_Id) {
         this.stu_Id = stu_Id;
     }
 

@@ -5,10 +5,22 @@
  */
 package com.cmu.dao;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Ayushjain
  */
-public interface StudentQuizDAO {
+public interface StudentQuizDAO extends AutoCloseable {
+
+    public String addStudentQuiz() throws Exception;
+    
+    public String updateStudentQuiz() throws Exception;
+    
+    public String deleteStudentQuiz() throws Exception;
+    
+    public ArrayList<Integer> numberOfQuizTakenPerInstructor(String ins_id) throws Exception;
+    
+    
     
 }

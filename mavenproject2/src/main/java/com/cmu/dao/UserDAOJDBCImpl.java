@@ -5,7 +5,7 @@
  */
 package com.cmu.dao;
 
-import com.cmu.Models.User;
+import com.cmu.models.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

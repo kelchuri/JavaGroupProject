@@ -5,7 +5,7 @@
  */
 package com.cmu.dao;
 
-import com.cmu.Models.Course;
+import com.cmu.models.Course;
 
 /**
  *

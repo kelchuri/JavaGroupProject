@@ -5,10 +5,14 @@
  */
 package com.cmu.dao;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Ayushjain
  */
-public interface QuizDAO {
+public interface QuizDAO extends AutoCloseable{
+    
+    public ArrayList<Integer> noOfCrrctQuesAsPerDiffLvlInstructor(String ins_id) throws Exception;
     
 }

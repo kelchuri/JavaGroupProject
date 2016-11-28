@@ -46,7 +46,7 @@ public class DatabaseWork {
 
     private static void createUser(Connection conn, PreparedStatement stmt) throws Throwable {
         String sql = "CREATE TABLE USERTBL("
-                + "user_id VARCHAR(20),"
+                + "user_id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                 + "first_name VARCHAR(50),"
                 + "last_name VARCHAR(50),"
                 + "email VARCHAR(50),"
@@ -61,31 +61,31 @@ public class DatabaseWork {
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
-            String user_id = values[0];
-            String first_name = values[1];
-            String last_name = values[2];
-            String email = values[3];
-            String password = values[4];
-            String stuInsId = values[5];
+//            String user_id = values[0];
+            String first_name = values[0];
+            String last_name = values[1];
+            String email = values[2];
+            String password = values[3];
+            String stuInsId = values[4];
             String addRowSql = "INSERT INTO USERTBL("
-                    + "user_id,first_name,last_name,email,password,stuInsId)"
-                    + "VALUES(?,?,?,?,?,?)";
+                    + "first_name,last_name,email,password,stuInsId)"
+                    + "VALUES(?,?,?,?,?)";
 
             stmt = conn.prepareStatement(addRowSql);
-            stmt.setString(1, user_id);
-            stmt.setString(2, first_name);
-            stmt.setString(3, last_name);
-            stmt.setString(4, email);
-            stmt.setString(5, password);
-            stmt.setString(6, stuInsId);
+//            stmt.setString(1, user_id);
+            stmt.setString(1, first_name);
+            stmt.setString(2, last_name);
+            stmt.setString(3, email);
+            stmt.setString(4, password);
+            stmt.setString(5, stuInsId);
             stmt.executeUpdate();
         }
     }
 
     private static void createStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
         String sql = "CREATE TABLE STUDENTQUIZ("
-                + "stu_id VARCHAR(20),"
-                + "quiz_id VARCHAR(20),"
+                + "stu_id DECIMAL,"
+                + "quiz_id DECIMAL,"
                 + "marks VARCHAR(20),"
                 + "date DATE,"
                 + "crs_id VARCHAR(20))";
@@ -95,7 +95,7 @@ public class DatabaseWork {
 
     private static void createQuestions(Connection conn, PreparedStatement stmt) throws Throwable {
         String sql = "CREATE TABLE QUESTIONS("
-                + "ques_id VARCHAR(20),"
+                + "ques_id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                 + "ques_type VARCHAR(20),"
                 + "diff_lvl VARCHAR(20),"
                 + "ques_desc VARCHAR(300),"
@@ -114,10 +114,11 @@ public class DatabaseWork {
         stmt.executeUpdate();
     }
 
+
     private static void createQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
         String sql = "CREATE TABLE QUIZ("
                 + "quiz_id DECIMAL,"
-                + "ques_id VARCHAR(20),"
+                + "ques_id DECIMAL,"
                 + "diff_lvl VARCHAR(20),"
                 + "isCorrect BOOLEAN)";
         stmt = conn.prepareStatement(sql);
@@ -128,17 +129,17 @@ public class DatabaseWork {
         String sql = "CREATE TABLE COURSE("
                 + "crs_id VARCHAR(20),"
                 + "crs_name VARCHAR(20),"
-                + "ins_id VARCHAR(20))";
+                + "ins_id DECIMAL)";
         stmt = conn.prepareStatement(sql);
         stmt.executeUpdate();
     }
 
-    private static void insertToQuestions(Connection conn, PreparedStatement stmt) throws Throwable {
-        CSVReader csvr = new CSVReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/Java Questions.csv"), ',', '"', 0);
+       private static void insertToQuestions(Connection conn, PreparedStatement stmt) throws Throwable {
+        CSVReader csvr = new CSVReader(new FileReader("C:\\B2\\Java Questions.csv"), ',', '"', 0);
         String[] nextLine;
-        int i = 1;
         while ((nextLine = csvr.readNext()) != null) {
 
+//            String[] values = line.split(",");
             String ques_type = "";
             String diff_lvl = "";
             String ques_desc = "";
@@ -151,7 +152,7 @@ public class DatabaseWork {
             String option4 = "";
             String answer4 = "";
             String answer = "";
-            String ques_id = "" + i;
+//            String ques_id = "";
             String crs_id = "";
             int time = 0;
             ques_type = nextLine[0];
@@ -193,40 +194,38 @@ public class DatabaseWork {
             }
 
             String addRowSql = "INSERT INTO APP.QUESTIONS("
-                    + "ques_id, ques_type, diff_lvl, ques_desc, "
+                    + "ques_type, diff_lvl, ques_desc, "
                     + "option1, answer1, option2, answer2, option3, "
                     + "answer3, option4, answer4, answer, crs_id, time)"
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             stmt = conn.prepareStatement(addRowSql);
-            stmt.setString(1, ques_id);
-            stmt.setString(2, ques_type);
-            stmt.setString(3, diff_lvl);
-            stmt.setString(4, ques_desc);
-            stmt.setString(5, option1);
-            stmt.setString(6, answer1);
-            stmt.setString(7, option2);
-            stmt.setString(8, answer2);
-            stmt.setString(9, option3);
-            stmt.setString(10, answer3);
-            stmt.setString(11, option4);
-            stmt.setString(12, answer4);
-            stmt.setString(13, answer);
-            stmt.setString(14, crs_id);
-            stmt.setInt(15, time);
+            
+            stmt.setString(1, ques_type);
+            stmt.setString(2, diff_lvl);
+            stmt.setString(3, ques_desc);
+            stmt.setString(4, option1);
+            stmt.setString(5, answer1);
+            stmt.setString(6, option2);
+            stmt.setString(7, answer2);
+            stmt.setString(8, option3);
+            stmt.setString(9, answer3);
+            stmt.setString(10, option4);
+            stmt.setString(11, answer4);
+            stmt.setString(12, answer);
+            stmt.setString(13, crs_id);
+            stmt.setInt(14, time);
 
             stmt.executeUpdate();
-            i = i + 1;
         }
     }
-
     private static void insertToQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
         BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/Quiz.csv"));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
             int quiz_id = Integer.parseInt(values[0]);
-            String ques_id = values[1];
+            int ques_id = Integer.parseInt(values[1]);
             String diff_lvl = values[2];
             Boolean isCorrect = Boolean.parseBoolean(values[3]);
             String addRowSql = "INSERT INTO APP.QUIZ("
@@ -235,7 +234,7 @@ public class DatabaseWork {
 
             stmt = conn.prepareStatement(addRowSql);
             stmt.setInt(1, quiz_id);
-            stmt.setString(2, ques_id);
+            stmt.setInt(2, ques_id);
             stmt.setString(3, diff_lvl);
             stmt.setBoolean(4, isCorrect);
             stmt.executeUpdate();
@@ -247,9 +246,9 @@ public class DatabaseWork {
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
-            String stu_id = values[0];
-            String quiz_id = values[1];
-            String marks = values[2];
+            int stu_id = Integer.parseInt(values[0]);
+            int quiz_id = Integer.parseInt(values[1]);
+            int marks = Integer.parseInt(values[2]);
             Calendar cal = Calendar.getInstance();
             String crs_id = values[4];
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
@@ -263,9 +262,9 @@ public class DatabaseWork {
                     + "VALUES(?,?,?,?,?)";
 
             stmt = conn.prepareStatement(addRowSql);
-            stmt.setString(1, stu_id);
-            stmt.setString(2, quiz_id);
-            stmt.setString(3, marks);
+            stmt.setInt(1, stu_id);
+            stmt.setInt(2, quiz_id);
+            stmt.setInt(3, marks);
             stmt.setDate(4, date);
             stmt.setString(5, crs_id);
             stmt.executeUpdate();
@@ -279,7 +278,7 @@ public class DatabaseWork {
             String[] values = line.split(",");
             String crs_id = values[0];
             String crs_name = values[1];
-            String ins_id = values[2];
+            int ins_id = Integer.parseInt(values[2]);
             String addRowSql = "INSERT INTO APP.COURSE("
                     + "crs_id,crs_name,ins_id)"
                     + "VALUES(?,?,?)";
@@ -287,7 +286,7 @@ public class DatabaseWork {
             stmt = conn.prepareStatement(addRowSql);
             stmt.setString(1, crs_id);
             stmt.setString(2, crs_name);
-            stmt.setString(3, ins_id);
+            stmt.setInt(3, ins_id);
             stmt.executeUpdate();
         }
     }
@@ -307,11 +306,7 @@ public class DatabaseWork {
         stmt.executeUpdate();
     }
 
-    private static void updateQuesID(Connection conn, PreparedStatement stmt) throws Throwable {
-        String sql = "update QUESTIONS outer set ques_id = (select rnum from (select ques_desc, row_number() from QUESTIONS) inner where inner.ques_desc = outer.ques_desc)";
-        stmt = conn.prepareStatement(sql);
-        stmt.executeUpdate();
-    }
+
 
     private static void updateTime(Connection conn, PreparedStatement stmt) throws Throwable {
         String sql = "UPDATE QUESTIONS SET time = 60 where diff_lvl='E'";
