@@ -150,4 +150,21 @@ public class SQLClass {
         }
 
     }
+
+    public void returnCourseDetails() throws Throwable {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        conn = DriverManager.getConnection(dbURL);
+        String sql = "select crs_id, crs_name, ins_id from course";
+        stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            int crs_id = rs.getInt("crs_id");
+            int crs_name = rs.getInt("crs_name");
+            String ins_id = rs.getString("ins_id");
+            String text = "Course Id: " + crs_id + "| Course Name: " + crs_name + " |Instructor Id: " + ins_id;
+            System.out.println(text);
+        }
+    }
 }
