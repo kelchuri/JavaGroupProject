@@ -34,10 +34,10 @@ public class UserDAOJDBCImpl implements UserDAO{
     // Add an User record using an INSERT SQL command
     public void add(User user) throws Exception {
         try (Statement stmt = connection.createStatement()) {
-            String query = "INSERT INTO USERTBL VALUES (" + user.getUserId() + ","
-                    + "'" + user.getFirstName()+ "'," + "'" + user.getLastName() + "',"
-                    + "'" + user.getEmailId() + "'," + "'" + user.getUserType()+
-                    "'," + user.getPassword() + ")";
+            String query = "INSERT INTO USERTBL VALUES (" + user.getFirstName() + ","
+                    + "'" + user.getLastName()+ "'," + "'" + user.getEmailId() + "',"
+                    + "'" + user.getUserType() + "'," + "'" + user.getPassword()+ ")";
+ 
             if (stmt.executeUpdate(query) != 1) {
                 throw new Exception("Error adding User");
             }
@@ -67,7 +67,7 @@ public class UserDAOJDBCImpl implements UserDAO{
     // Find an user record using this ID
     public User findById(int id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
-            String query = "SELECT * FROM USERTBL WHERE userId=" + id;
+            String query = "SELECT * FROM USERTBL WHERE email=" + id;
             ResultSet rs = stmt.executeQuery(query);
             if (!rs.next()) {
                 return null;
@@ -137,7 +137,7 @@ public class UserDAOJDBCImpl implements UserDAO{
     @Override
     public boolean checkUserExists(String userId, String password) throws Exception {
         try (Statement stmt = connection.createStatement()) {
-            String query = "SELECT * FROM USERTBL WHERE user_id='" + userId +"'and password='"+ password + "'";
+            String query = "SELECT * FROM USERTBL WHERE EMAIL='" + userId +"'and password='"+ password + "'";
             ResultSet rs = stmt.executeQuery(query);
             if (!rs.next()) {
                 return false;
@@ -155,7 +155,7 @@ public class UserDAOJDBCImpl implements UserDAO{
     public String checkUserType(String userId) throws Exception {
         String type= "";
         try (Statement stmt = connection.createStatement()) {
-            String query = "SELECT * FROM USERTBL WHERE user_id='" + userId + "'";
+            String query = "SELECT * FROM USERTBL WHERE EMAIL='" + userId + "'";
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()){
                 type = rs.getString("stuinsid");
