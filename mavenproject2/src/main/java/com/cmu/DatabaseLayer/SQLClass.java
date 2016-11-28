@@ -151,6 +151,7 @@ public class SQLClass {
 
     }
 
+    //Returns all data from the course table
     public void returnCourseDetails() throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
