@@ -83,7 +83,7 @@ public class SQLClass {
                 + "from (studentquiz inner join quiz on studentquiz.quiz_id=quiz.quiz_id)\n"
                 + "inner join course on studentquiz.crs_id=course.CRS_ID\n"
                 + "group by stu_id, ques_id, diff_lvl, isCorrect, ins_id\n"
-                + "having(diff_lvl='M' AND ins_id=?)";
+                + "having(diff_lvl='E' AND ins_id=?)";
 
         stmt = conn.prepareStatement(sql);
         stmt.setInt(1, ins_id);
@@ -138,7 +138,7 @@ public class SQLClass {
                 + "from (studentquiz inner join quiz on studentquiz.quiz_id=quiz.quiz_id)\n"
                 + "inner join course on studentquiz.crs_id=course.CRS_ID\n"
                 + "group by stu_id, ques_id, diff_lvl, isCorrect, ins_id\n"
-                + "having(diff_lvl='M' AND ins_id=?)";
+                + "having(diff_lvl='H' AND ins_id=?)";
 
         stmt = conn.prepareStatement(sql);
         stmt.setInt(1, ins_id);
