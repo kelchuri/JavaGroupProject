@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class TextToDatabaseHandler {
 
     private ArrayList<String> lineList = null;
-    private ArrayList<Questions> questionList = null;
+    private ArrayList<Questions> questionList = new ArrayList<>();
     private Path linePath = null;
     private File lineFile = null;
     private final String FIELD_SEP = ",";
@@ -41,7 +41,7 @@ public class TextToDatabaseHandler {
         linePath = Paths.get(path);
         lineFile = linePath.toFile();
         lineList = new ArrayList<>();
-        questionList = new ArrayList<>();
+        
 
         if (Files.exists(linePath)) // prevent the FileNotFoundException
         {
@@ -108,12 +108,12 @@ public class TextToDatabaseHandler {
 
     }
 
-    private static void addQuesToDB(ArrayList questinoList) throws Throwable {
+    private void addQuesToDB(ArrayList questinoList) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
-        for (Object object : questinoList) {
+        for (Questions q : questionList) {
             String ques_type = "";
             String diff_lvl = "";
             String ques_desc = "";
@@ -128,9 +128,9 @@ public class TextToDatabaseHandler {
             String answer = "";
             String ques_id = "";
             String crs_id = "";
-            Questions q = (Questions) object;
+            
             ques_type = q.getQues_type();
-            int time = (int) q.getTime();
+            int time =  q.getTime();
 
             switch (ques_type) {
                 case "MC":
@@ -169,29 +169,29 @@ public class TextToDatabaseHandler {
                     answer = q.getAnswer();
                     break;
             }
-
+            System.out.println(time);
             String addRowSql = "INSERT INTO APP.QUESTIONS("
-                    + "ques_id, ques_type, diff_lvl, ques_desc, "
+                    + "ques_type, diff_lvl, ques_desc, "
                     + "option1, answer1, option2, answer2, option3, "
                     + "answer3, option4, answer4, answer, crs_id, time)"
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             stmt = conn.prepareStatement(addRowSql);
-            stmt.setString(1, ques_id);
-            stmt.setString(2, ques_type);
-            stmt.setString(3, diff_lvl);
-            stmt.setString(4, ques_desc);
-            stmt.setString(5, option1);
-            stmt.setString(6, answer1);
-            stmt.setString(7, option2);
-            stmt.setString(8, answer2);
-            stmt.setString(9, option3);
-            stmt.setString(10, answer3);
-            stmt.setString(11, option4);
-            stmt.setString(12, answer4);
-            stmt.setString(13, answer);
-            stmt.setString(14, crs_id);
-            stmt.setInt(15, time);
+            
+            stmt.setString(1, ques_type);
+            stmt.setString(2, diff_lvl);
+            stmt.setString(3, ques_desc);
+            stmt.setString(4, option1);
+            stmt.setString(5, answer1);
+            stmt.setString(6, option2);
+            stmt.setString(7, answer2);
+            stmt.setString(8, option3);
+            stmt.setString(9, answer3);
+            stmt.setString(10, option4);
+            stmt.setString(11, answer4);
+            stmt.setString(12, answer);
+            stmt.setString(13, crs_id);
+            stmt.setInt(14, time);
 
             stmt.executeUpdate();
         }

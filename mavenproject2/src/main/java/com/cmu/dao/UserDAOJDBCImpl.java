@@ -141,7 +141,7 @@ public class UserDAOJDBCImpl implements UserDAO{
     @Override
     public boolean checkUserExists(String userId, String password) throws Exception {
         try (Statement stmt = connection.createStatement()) {
-            String query = "SELECT * FROM USERTBL WHERE user_id='" + userId +"'and password='"+ password + "'";
+            String query = "SELECT * FROM USERTBL WHERE email='" + userId +"' and password='"+ password + "'";
             ResultSet rs = stmt.executeQuery(query);
             if (!rs.next()) {
                 return false;
@@ -159,7 +159,7 @@ public class UserDAOJDBCImpl implements UserDAO{
     public String checkUserType(String userId) throws Exception {
         String type= "";
         try (Statement stmt = connection.createStatement()) {
-            String query = "SELECT * FROM USERTBL WHERE user_id='" + userId + "'";
+            String query = "SELECT * FROM USERTBL WHERE email='" + userId + "'";
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()){
                 type = rs.getString("stuinsid");

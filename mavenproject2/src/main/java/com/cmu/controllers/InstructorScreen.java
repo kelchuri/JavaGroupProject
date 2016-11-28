@@ -108,39 +108,6 @@ public class InstructorScreen implements Initializable {
 
             rightPane.getChildren().clear();
             rightPane.getChildren().add(cmdPane);
-            
-        courseId.getItems().clear();
-        courseId.getItems().addAll(
-                "Easy",
-                "Medium",
-                "Hard"
-        );
-
-        courseId.setCellFactory(
-                new Callback<ListView<String>, ListCell<String>>() {
-            @Override
-            public ListCell<String> call(ListView<String> param) {
-                final ListCell<String> cell = new ListCell<String>() {
-                    {
-                        super.setPrefWidth(100);
-                    }
-
-                    @Override
-                    public void updateItem(String item,
-                            boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            setText(item);
-                               
-                        } else {
-                            setText(null);
-                        }
-                    }
-                };
-                return cell;
-            }
-        });
-        course = courseId.getPromptText();
 
         } catch (Exception e) {
         }
@@ -217,9 +184,9 @@ public class InstructorScreen implements Initializable {
 //                    Level.SEVERE, null, ex
 //            );
 //        }
-        
+        course = courseId.getSelectionModel().getSelectedItem().toString();
         System.out.println(file.getAbsolutePath() + "  " + course);
-        textToDatabaseHandler.addData(file.getAbsolutePath(), "HIS");
+        //textToDatabaseHandler.addData(file.getAbsolutePath(), "HIS");
 
     }
 }

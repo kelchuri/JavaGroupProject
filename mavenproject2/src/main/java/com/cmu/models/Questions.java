@@ -41,7 +41,9 @@ public class Questions {
     
     private String crs_id;
     
-    private double time;
+    private int time;
+    
+    private String type;
 
     public Questions(String questionFormat, String difficultyLevel,
             String quesDesc, String option1, String answer1,
@@ -58,10 +60,15 @@ public class Questions {
         this.answer4 = answer4;
         this.crs_id = crs_id;
         this.time = time;
+        this.ques_type = questionFormat;
     }
 
     public Questions(String questionFormat, String difficultyLevel,
             String quesDesc, String answer, String crs_id, Integer time) {
+        this.ques_type = questionFormat;
+        this.diff_lvl = difficultyLevel;
+        this.ques_desc = quesDesc;
+        this.crs_id = crs_id;
         this.answer = answer;
         this.time = time;
     }
@@ -141,11 +148,11 @@ public class Questions {
     }
 
     
-    public double getTime() {
+    public int getTime() {
         return time;
     }
 
-    public void setTime(double time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
@@ -167,7 +174,7 @@ public class Questions {
      * @return the ques_type
      */
     public String getQues_type() {
-        return ques_type;
+        return this.ques_type;
     }
 
     /**
