@@ -74,18 +74,19 @@ public class SQLClass {
 
     //This function returns the student id ques id diff lvl and isCorrect
     //for easy difficulty.
-    public void returnTestResultEasy() throws Throwable {
+     public void returnTestResultEasy(int ins_id) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
-        String sql = "Select stu_id, ques_id, diff_lvl, isCorrect \n"
-                + "from Quiz inner join studentquiz \n"
-                + "on quiz.quiz_id=studentquiz.QUIZ_ID\n"
-                + "group by stu_id, ques_id, diff_lvl, isCorrect\n"
-                + "having diff_lvl='E'";
+        String sql = "select stu_id, ins_id, ques_id, diff_lvl, isCorrect\n"
+                + "from (studentquiz inner join quiz on studentquiz.quiz_id=quiz.quiz_id)\n"
+                + "inner join course on studentquiz.crs_id=course.CRS_ID\n"
+                + "group by stu_id, ques_id, diff_lvl, isCorrect, ins_id\n"
+                + "having(diff_lvl='M' AND ins_id=?)";
 
         stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, ins_id);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             int stu_id = rs.getInt("stu_id");
@@ -101,18 +102,19 @@ public class SQLClass {
     //This function returns the student id ques id diff lvl and isCorrect
     //for medium difficulty.
 
-    public void returnTestResultMedium() throws Throwable {
+    public void returnTestResultMedium(int ins_id) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
-        String sql = "Select stu_id, ques_id, diff_lvl, isCorrect \n"
-                + "from Quiz inner join studentquiz \n"
-                + "on quiz.quiz_id=studentquiz.QUIZ_ID\n"
-                + "group by stu_id, ques_id, diff_lvl, isCorrect\n"
-                + "having diff_lvl='M'";
+        String sql = "select stu_id, ins_id, ques_id, diff_lvl, isCorrect\n"
+                + "from (studentquiz inner join quiz on studentquiz.quiz_id=quiz.quiz_id)\n"
+                + "inner join course on studentquiz.crs_id=course.CRS_ID\n"
+                + "group by stu_id, ques_id, diff_lvl, isCorrect, ins_id\n"
+                + "having(diff_lvl='M' AND ins_id=?)";
 
         stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, ins_id);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             int stu_id = rs.getInt("stu_id");
@@ -127,18 +129,19 @@ public class SQLClass {
     //This function returns the student id ques id diff lvl and isCorrect
     //for high difficulty.
 
-    public void returnTestResultHard() throws Throwable {
+    public void returnTestResultHard(int ins_id) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
-        String sql = "Select stu_id, ques_id, diff_lvl, isCorrect \n"
-                + "from Quiz inner join studentquiz \n"
-                + "on quiz.quiz_id=studentquiz.QUIZ_ID\n"
-                + "group by stu_id, ques_id, diff_lvl, isCorrect\n"
-                + "having diff_lvl='H'";
+        String sql = "select stu_id, ins_id, ques_id, diff_lvl, isCorrect\n"
+                + "from (studentquiz inner join quiz on studentquiz.quiz_id=quiz.quiz_id)\n"
+                + "inner join course on studentquiz.crs_id=course.CRS_ID\n"
+                + "group by stu_id, ques_id, diff_lvl, isCorrect, ins_id\n"
+                + "having(diff_lvl='M' AND ins_id=?)";
 
         stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, ins_id);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             int stu_id = rs.getInt("stu_id");
