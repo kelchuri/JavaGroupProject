@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.cmu.controllers.InstructorScreen">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cmu.controllers.InstructorScreen">
     <stylesheets>
         <URL value="@/styles/instructorcsvupload.css" />
     </stylesheets>
    <children>
-      <Button fx:id="importButton" layoutX="101.0" layoutY="88.0" mnemonicParsing="false" onAction="#handleImportCSVButton" text="import csv" />
+      <Button fx:id="importButton" layoutX="108.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleImportCSVButton" styleClass="buttonEffect" stylesheets="@../styles/instructorcsvupload.css" text="Import CSV">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+      <TextArea fx:id="csvtext" layoutX="307.0" layoutY="59.0" prefHeight="216.0" prefWidth="242.0" text="Upload A CSV File to add more questions to the database. Click on the Import CSV Button and choose the csv file from the desired location. " wrapText="true">
+         <font>
+            <Font name="Comic Sans MS" size="13.0" />
+         </font>
+      </TextArea>
+      <ComboBox fx:id="courseId" id="coursesList" editable="true" layoutX="96.0" layoutY="93.0" prefHeight="37.0" prefWidth="136.0" promptText="Select Course" styleClass="combo-boxEffect" stylesheets="@../styles/instructorcsvupload.css" >
+  <items>
+       <FXCollections fx:factory="observableArrayList">
+      <String fx:value="History" />
+      <String fx:value="JAVA" />
+      <String fx:value="General Knowledge" />
+       </FXCollections>
+     </items>
+   </ComboBox>
    </children>
 </AnchorPane>

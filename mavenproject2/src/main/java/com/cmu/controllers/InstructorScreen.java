@@ -5,6 +5,7 @@ package com.cmu.controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.cmu.handlers.TextToDatabaseHandler;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -20,12 +21,17 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -55,6 +61,15 @@ public class InstructorScreen implements Initializable {
 
     @FXML
     private Button importCSV;
+    @FXML
+    private TextArea csvtext;
+
+    @FXML
+    private ComboBox courseId;
+    
+    private String course;
+
+    private TextToDatabaseHandler textToDatabaseHandler = new TextToDatabaseHandler();
 
     public static void setStage(Stage takeQuizStage) {
         InstructorScreen.stage = takeQuizStage;
@@ -63,16 +78,24 @@ public class InstructorScreen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardInstructor.fxml"));
+        try {
+            Pane cmdPane = (Pane) fxmlLoader.load();
+
+            rightPane.getChildren().clear();
+            rightPane.getChildren().add(cmdPane);
+        } catch (Exception e) {
+        }
     }
-    
+
     @FXML
-    private void handleImportCSVButton() {
-                final FileChooser fileChooser = new FileChooser();
+    private void handleImportCSVButton() throws IOException, Throwable {
+        final FileChooser fileChooser = new FileChooser();
 
         File file = fileChooser.showOpenDialog(stage);
-                if (file != null) {
-                    openFile(file);
-                }
+        if (file != null) {
+            openFile(file);
+        }
     }
 
     @FXML
@@ -82,13 +105,47 @@ public class InstructorScreen implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/importCSVOnly.fxml"));
         Pane cmdPane = (Pane) fxmlLoader.load();
         try {
-            
+
             rightPane.getChildren().clear();
             rightPane.getChildren().add(cmdPane);
+            
+        courseId.getItems().clear();
+        courseId.getItems().addAll(
+                "Easy",
+                "Medium",
+                "Hard"
+        );
+
+        courseId.setCellFactory(
+                new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> param) {
+                final ListCell<String> cell = new ListCell<String>() {
+                    {
+                        super.setPrefWidth(100);
+                    }
+
+                    @Override
+                    public void updateItem(String item,
+                            boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item);
+                               
+                        } else {
+                            setText(null);
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+        course = courseId.getPromptText();
+
         } catch (Exception e) {
         }
     }
-    
+
     @FXML
     private void handleProfileButton() throws IOException {
         System.out.println("Profile Button Called");
@@ -96,73 +153,73 @@ public class InstructorScreen implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AdminProfile.fxml"));
         Pane cmdPane = (Pane) fxmlLoader.load();
         try {
-            
+
             rightPane.getChildren().clear();
             rightPane.getChildren().add(cmdPane);
         } catch (Exception e) {
         }
     }
-    
+
     @FXML
-    private void addInstructorButton() throws IOException{
+    private void addInstructorButton() throws IOException {
         System.out.println("AddInst Button Called");
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddInstructor.fxml"));
         Pane cmdPane = (Pane) fxmlLoader.load();
         try {
-            
+
             rightPane.getChildren().clear();
             rightPane.getChildren().add(cmdPane);
         } catch (Exception e) {
         }
     }
-    
+
     @FXML
-    private void viewDashboardButton() throws IOException{
+    private void viewDashboardButton() throws IOException {
         System.out.println("AddInst Button Called");
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardInstructor.fxml"));
         Pane cmdPane = (Pane) fxmlLoader.load();
         try {
-            
+
             rightPane.getChildren().clear();
             rightPane.getChildren().add(cmdPane);
         } catch (Exception e) {
         }
     }
-    
+
     @FXML
-    private void logOutButton() throws IOException{
+    private void logOutButton() throws IOException {
         System.out.println("AddInst Button Called");
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginPage.fxml"));
-         Scene scene = new Scene(root);
+        Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/loginpage.css");
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
-
-        
 
         InstructorScreen.stage.setTitle("JavaFX and Maven");
         InstructorScreen.stage.setScene(scene);
         InstructorScreen.stage.show();
     }
-    
 
+    private void openFile(File file) throws IOException, Throwable {
+//        try {
+//
+//            String line;
+//            Scanner input = new Scanner(file);
+//            while (input.hasNextLine()) {
+//                line = input.nextLine();
+//                System.out.println(line);
+//            }
+//        } catch (IOException ex) {
+//            Logger.getLogger(InstructorScreen.class.getName()).log(
+//                    Level.SEVERE, null, ex
+//            );
+//        }
+        
+        System.out.println(file.getAbsolutePath() + "  " + course);
+        textToDatabaseHandler.addData(file.getAbsolutePath(), "HIS");
 
-    private void openFile(File file) {
-        try {
-           
-            String line;
-            Scanner input = new Scanner(file);
-            while (input.hasNextLine()) {
-                line = input.nextLine();
-                System.out.println(line);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(InstructorScreen.class.getName()).log(
-                            Level.SEVERE, null, ex
-                    );
-        }
     }
 }

@@ -5,6 +5,7 @@
  */
 package com.cmu.handlers;
 
+import com.cmu.models.User;
 import com.cmu.dao.UserDAO;
 import com.cmu.dao.UserDAOFactory;
 
@@ -28,6 +29,10 @@ public class Login_Page_Database_Controller {
 
         }
         return type;
+    }
+    
+    public void addANewUser(User user) throws Exception{
+        userDAO.add(user);
     }
 
 }

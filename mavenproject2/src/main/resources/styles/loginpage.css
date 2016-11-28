@@ -9,18 +9,21 @@
 }
 
 .anchor {
-    -fx-background-image: url('./bg3.jpg');
+    -fx-background-image: url('./loginbg.png');
     -fx-background-repeat: no-repeat;
     -fx-background-size: 100% 100%
         
 }
 
-.label:hover{
-    -fx-font-size:38;
-    -fx-font-family: "Arial";
+
+
+.buttonLogin {
+   
+    
+    
+    -fx-background-color: #03A3D3;
     -fx-font-weight: bold;
-/*    -fx-text-fill: linear(0%,0%) to (0%,100%);*/
-      
+    -fx-text-fill: white
 }
 
 
@@ -28,4 +31,3 @@
     -fx-border-color: #ddd6d6;
     -fx-border-color: white
 }
-

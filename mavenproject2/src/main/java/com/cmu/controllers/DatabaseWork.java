@@ -7,7 +7,7 @@ package com.cmu.controllers;
 
 import au.com.bytecode.opencsv.CSVReader;
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,7 +22,7 @@ import java.util.Locale;
  */
 public class DatabaseWork {
 
-    static void createConnection() throws Throwable {
+    public void createConnection() throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
@@ -37,10 +37,9 @@ public class DatabaseWork {
 //        insertToQuestions(conn, stmt);
 //        insertToQuiz(conn, stmt);
 //        insertToCourse(conn, stmt);
-//        updateQuesID(conn, stmt);
 //        updateTime(conn, stmt);
 //        updateCrsId(conn, stmt);
-//        dropTables(conn, stmt);
+        //dropTables(conn, stmt);
 
     }
 
@@ -56,8 +55,8 @@ public class DatabaseWork {
         stmt.executeUpdate();
     }
 
-    private static void insertToUserTbl(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new FileReader("/Users/kavya/NetBeansProjects/JavaGroupProject/mavenproject2/src/main/resources/files/User.csv"));
+    private void insertToUserTbl(Connection conn, PreparedStatement stmt) throws Throwable {
+        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/files/User.csv")));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -134,8 +133,9 @@ public class DatabaseWork {
         stmt.executeUpdate();
     }
 
-       private static void insertToQuestions(Connection conn, PreparedStatement stmt) throws Throwable {
-        CSVReader csvr = new CSVReader(new FileReader("C:\\B2\\Java Questions.csv"), ',', '"', 0);
+
+    private void insertToQuestions(Connection conn, PreparedStatement stmt) throws Throwable {
+        CSVReader csvr = new CSVReader(new InputStreamReader(getClass().getResourceAsStream("/files/Java Questions.csv")), ',', '"', 0);
         String[] nextLine;
         while ((nextLine = csvr.readNext()) != null) {
 
@@ -219,8 +219,11 @@ public class DatabaseWork {
             stmt.executeUpdate();
         }
     }
-    private static void insertToQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/Quiz.csv"));
+
+
+    private void insertToQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
+        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/files/Quiz.csv")));
+
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -241,8 +244,8 @@ public class DatabaseWork {
         }
     }
 
-    private static void insertToStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/StudentQuiz.csv"));
+    private void insertToStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
+        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/files/StudentQuiz.csv")));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -271,8 +274,8 @@ public class DatabaseWork {
         }
     }
 
-    private static void insertToCourse(Connection conn, PreparedStatement stmt) throws Throwable {
-        BufferedReader br = new BufferedReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/src/main/resources/files/Courses.csv"));
+    private void insertToCourse(Connection conn, PreparedStatement stmt) throws Throwable {
+        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/files/Courses.csv")));
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
@@ -305,7 +308,6 @@ public class DatabaseWork {
         stmt = conn.prepareStatement(sql);
         stmt.executeUpdate();
     }
-
 
 
     private static void updateTime(Connection conn, PreparedStatement stmt) throws Throwable {

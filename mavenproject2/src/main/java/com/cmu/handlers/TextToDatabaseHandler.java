@@ -30,8 +30,13 @@ public class TextToDatabaseHandler {
     private Path linePath = null;
     private File lineFile = null;
     private final String FIELD_SEP = ",";
+    
+    public void addData(String path, String courseID) throws IOException, Throwable {
+        readTextFile(path, courseID);
+        addQuesToDB(questionList);
+    }
 
-    public String readTextFile(String path, String courseID) throws IOException {
+    public void readTextFile(String path, String courseID) throws IOException {
         String rtrn = null;
         linePath = Paths.get(path);
         lineFile = linePath.toFile();
@@ -40,7 +45,7 @@ public class TextToDatabaseHandler {
 
         if (Files.exists(linePath)) // prevent the FileNotFoundException
         {
-            CSVReader csvr = new CSVReader(new FileReader("/Users/Ayushjain/Desktop/CMU/MISM Global Sem 1 Fall 2016/OOP in JAVA by Murli/JAVAGroupProjectGithub/1/JavaGroupProject/mavenproject2/target/classes/files/Java Questions.csv"), ',', '"', 0);
+            CSVReader csvr = new CSVReader(new FileReader(path), ',', '"', 0);
             String[] columns;
             while ((columns = csvr.readNext()) != null) {
                 String questionFormat = columns[0];
@@ -56,7 +61,7 @@ public class TextToDatabaseHandler {
                         time = 120;
                     } else {
                         rtrn = "Invalid text file format.";
-                        return rtrn;
+                        
                     }
                     String quesDesc = columns[2];
                     String option1 = columns[3];
@@ -83,7 +88,6 @@ public class TextToDatabaseHandler {
                         time = 120;
                     } else {
                         rtrn = "Invalid text file format.";
-                        return rtrn;
                     }
                     String quesDesc = columns[2];
                     String answer = columns[3];
@@ -93,115 +97,14 @@ public class TextToDatabaseHandler {
                     questionList.add(ques);
                 } else {
                     rtrn = "Invalid text file format.";
-                    return rtrn;
+                    
                 }
             }
         } else {
             rtrn = "text file does not exist";
-            return rtrn;
+            
         }
 
-//        for (int i = 0; i < lineList.size(); i++) {
-//            CSVParser parser = CSVParser.parse(lineList.get(i), CSVFormat.RFC4180);
-//            for (CSVRecord csvRecord : parser) {
-//                for (int j = 0; j < csvRecord.size(); j++) {
-//                    while (csvRecord.get(j) != null) {
-//                        String[] columns = csvRecord.get(j).split(FIELD_SEP);
-//                        String questionFormat = columns[0];
-//
-//                        if (questionFormat.equalsIgnoreCase("MC")) {
-//                            String difficultyLevel = columns[1];
-//                            Integer time = 60;
-//                            if (difficultyLevel.equalsIgnoreCase("E")) {
-//                                time = 60;
-//                            } else if (difficultyLevel.equalsIgnoreCase("M")) {
-//                                time = 90;
-//                            } else if (difficultyLevel.equalsIgnoreCase("H")) {
-//                                time = 120;
-//                            } else {
-//
-//                            }
-//                            String quesDesc = columns[2];
-//                            String option1 = columns[3];
-//                            String answer1 = columns[4];
-//                            String option2 = columns[5];
-//                            String answer2 = columns[6];
-//                            String option3 = columns[7];
-//                            String answer3 = columns[8];
-//                            String option4 = columns[9];
-//                            String answer4 = columns[10];
-//                            Questions ques = new Questions(questionFormat,
-//                                    difficultyLevel, quesDesc, option1, answer1,
-//                                    option2, answer2, option3, answer3, option4, answer4, time);
-//                            questionList.add(ques);
-//                        } else if (questionFormat.equalsIgnoreCase("MA")) {
-//                            String difficultyLevel = columns[1];
-//                            Integer time = 60;
-//                            if (difficultyLevel.equalsIgnoreCase("E")) {
-//                                time = 60;
-//                            } else if (difficultyLevel.equalsIgnoreCase("M")) {
-//                                time = 90;
-//                            } else if (difficultyLevel.equalsIgnoreCase("H")) {
-//                                time = 120;
-//                            } else {
-//
-//                            }
-//                            String quesDesc = columns[2];
-//                            String option1 = columns[3];
-//                            String answer1 = columns[4];
-//                            String option2 = columns[5];
-//                            String answer2 = columns[6];
-//                            String option3 = columns[7];
-//                            String answer3 = columns[8];
-//                            String option4 = columns[9];
-//                            String answer4 = columns[10];
-//                            Questions ques = new Questions(questionFormat,
-//                                    difficultyLevel, quesDesc, option1, answer1,
-//                                    option2, answer2, option3, answer3, option4, answer4, time);
-//                            questionList.add(ques);
-//                        } else if (questionFormat.equalsIgnoreCase("TF")) {
-//                            String difficultyLevel = columns[1];
-//                            Integer time = 60;
-//                            if (difficultyLevel.equalsIgnoreCase("E")) {
-//                                time = 60;
-//                            } else if (difficultyLevel.equalsIgnoreCase("M")) {
-//                                time = 90;
-//                            } else if (difficultyLevel.equalsIgnoreCase("H")) {
-//                                time = 120;
-//                            } else {
-//
-//                            }
-//                            String quesDesc = columns[2];
-//                            String answer = columns[3];
-//                            Questions ques = new Questions(questionFormat,
-//                                    difficultyLevel, quesDesc, answer, time);
-//                            questionList.add(ques);
-//                        } else if (questionFormat.equalsIgnoreCase("FIB")) {
-//                            String difficultyLevel = columns[1];
-//                            Integer time = 60;
-//                            if (difficultyLevel.equalsIgnoreCase("E")) {
-//                                time = 60;
-//                            } else if (difficultyLevel.equalsIgnoreCase("M")) {
-//                                time = 90;
-//                            } else if (difficultyLevel.equalsIgnoreCase("H")) {
-//                                time = 120;
-//                            } else {
-//
-//                            }
-//                            String quesDesc = columns[2];
-//                            String answer = columns[3];
-//                            Questions ques = new Questions(questionFormat,
-//                                    difficultyLevel, quesDesc, answer, time);
-//                            questionList.add(ques);
-//                        } else {
-//
-//                        }
-//
-//                    }
-//                }
-//            }
-//        }
-        return rtrn;
 
     }
 

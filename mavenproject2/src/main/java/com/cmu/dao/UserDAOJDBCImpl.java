@@ -34,10 +34,14 @@ public class UserDAOJDBCImpl implements UserDAO{
     // Add an User record using an INSERT SQL command
     public void add(User user) throws Exception {
         try (Statement stmt = connection.createStatement()) {
-            String query = "INSERT INTO USERTBL VALUES (" + user.getUserId() + ","
-                    + "'" + user.getFirstName()+ "'," + "'" + user.getLastName() + "',"
-                    + "'" + user.getEmailId() + "'," + "'" + user.getUserType()+
-                    "'," + user.getPassword() + ")";
+
+            System.out.println(user.getFirstName());
+            String query = "INSERT INTO USERTBL ("
+                    + "first_name,last_name,email,password,stuInsId) VALUES ('" 
+                    + user.getFirstName() + "',"
+                    + "'" + user.getLastName()+ "'," + "'" + user.getEmailId() + "',"
+                    + "'" + user.getPassword()+ "'," + "'" + user.getUserType()+ "')";
+
             if (stmt.executeUpdate(query) != 1) {
                 throw new Exception("Error adding User");
             }
