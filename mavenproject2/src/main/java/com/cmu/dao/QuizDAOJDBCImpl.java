@@ -5,10 +5,22 @@
  */
 package com.cmu.dao;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Ayushjain
  */
 public class QuizDAOJDBCImpl implements QuizDAO{
+
+    @Override
+    public ArrayList<Integer> noOfCrrctQuesAsPerDiffLvlInstructor() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void close() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

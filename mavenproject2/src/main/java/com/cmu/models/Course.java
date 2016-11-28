@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cmu.Models;
+package com.cmu.models;
 
 /**
  *
@@ -11,11 +11,26 @@ package com.cmu.Models;
  */
 public class Course {
 
-    public String getCrs_id() {
+    Integer crs_id;
+    String crs_name;
+    String ins_id;
+
+    public Course(Integer crs_id, String crs_name, String ins_id) {
+        this.crs_id = crs_id;
+        this.crs_name = crs_name;
+        this.ins_id = ins_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" + "crs_id=" + crs_id + ", crs_name=" + crs_name + ", ins_id=" + ins_id + '}';
+    }
+
+    public Integer getCrs_id() {
         return crs_id;
     }
 
-    public void setCrs_id(String crs_id) {
+    public void setCrs_id(Integer crs_id) {
         this.crs_id = crs_id;
     }
 
@@ -38,16 +53,4 @@ public class Course {
     public Course() {
     }
 
-    public Course(String crs_id, String crs_name, String ins_id) {
-        this.crs_id = crs_id;
-        this.crs_name = crs_name;
-        this.ins_id = ins_id;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" + "crs_id=" + crs_id + ", crs_name=" + crs_name + ", ins_id=" + ins_id + '}';
-    }
-    String crs_id, crs_name,ins_id;
-    
 }
