@@ -9,6 +9,6 @@ package com.cmu.dao;
  *
  * @author Ayushjain
  */
-public class QuizDAOJDBCImpl {
+public class QuizDAOJDBCImpl implements QuizDAO{
     
 }

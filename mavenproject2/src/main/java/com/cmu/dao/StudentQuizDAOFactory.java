@@ -10,5 +10,8 @@ package com.cmu.dao;
  * @author Ayushjain
  */
 public class StudentQuizDAOFactory {
-    
+
+    public StudentQuizDAO createStudentQuizDAO() {
+        return new StudentQuizDAOJDBCImpl();
+    }
 }
