@@ -13,6 +13,6 @@ import java.util.ArrayList;
  */
 public interface QuizDAO extends AutoCloseable{
     
-    public ArrayList<Integer> noOfCrrctQuesAsPerDiffLvlInstructor() throws Exception;
+    public ArrayList<Integer> noOfCrrctQuesAsPerDiffLvlInstructor(String ins_id) throws Exception;
     
 }
