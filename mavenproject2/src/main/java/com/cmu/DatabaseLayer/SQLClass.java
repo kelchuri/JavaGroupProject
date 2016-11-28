@@ -72,7 +72,9 @@ public class SQLClass {
 
     }
 
-    public void returnTestResultEasy(String ins_id) throws Throwable {
+    //This function returns the student id ques id diff lvl and isCorrect
+    //for easy difficulty.
+    public void returnTestResultEasy() throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
@@ -88,15 +90,18 @@ public class SQLClass {
         while (rs.next()) {
             int stu_id = rs.getInt("stu_id");
             int ques_id = rs.getInt("ques_id");
-            String diff_lvl=rs.getString("diff_lvl");
+            String diff_lvl = rs.getString("diff_lvl");
             Boolean isCorrect = rs.getBoolean("isCorrect");
-            String text = "Student Id: " + stu_id + "| Question Id: " + ques_id + " |Difficulty Level: "+ diff_lvl+ "| Result: " + isCorrect;
+            String text = "Student Id: " + stu_id + "| Question Id: " + ques_id + " |Difficulty Level: " + diff_lvl + "| Result: " + isCorrect;
 
             System.out.println(text);
         }
 
     }
-        public void returnTestResultMedium(String ins_id) throws Throwable {
+    //This function returns the student id ques id diff lvl and isCorrect
+    //for medium difficulty.
+
+    public void returnTestResultMedium() throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
@@ -112,15 +117,17 @@ public class SQLClass {
         while (rs.next()) {
             int stu_id = rs.getInt("stu_id");
             int ques_id = rs.getInt("ques_id");
-            String diff_lvl=rs.getString("diff_lvl");
+            String diff_lvl = rs.getString("diff_lvl");
             Boolean isCorrect = rs.getBoolean("isCorrect");
-            String text = "Student Id: " + stu_id + "| Question Id: " + ques_id + " |Difficulty Level: "+ diff_lvl+ "| Result: " + isCorrect;
-
+            String text = "Student Id: " + stu_id + "| Question Id: " + ques_id + " |Difficulty Level: " + diff_lvl + "| Result: " + isCorrect;
             System.out.println(text);
         }
 
     }
-            public void returnTestResultHard(String ins_id) throws Throwable {
+    //This function returns the student id ques id diff lvl and isCorrect
+    //for high difficulty.
+
+    public void returnTestResultHard() throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
@@ -136,10 +143,9 @@ public class SQLClass {
         while (rs.next()) {
             int stu_id = rs.getInt("stu_id");
             int ques_id = rs.getInt("ques_id");
-            String diff_lvl=rs.getString("diff_lvl");
+            String diff_lvl = rs.getString("diff_lvl");
             Boolean isCorrect = rs.getBoolean("isCorrect");
-            String text = "Student Id: " + stu_id + "| Question Id: " + ques_id + " |Difficulty Level: "+ diff_lvl+ "| Result: " + isCorrect;
-
+            String text = "Student Id: " + stu_id + "| Question Id: " + ques_id + " |Difficulty Level: " + diff_lvl + "| Result: " + isCorrect;
             System.out.println(text);
         }
 
