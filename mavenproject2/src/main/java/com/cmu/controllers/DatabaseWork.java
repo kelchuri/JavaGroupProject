@@ -84,8 +84,8 @@ public class DatabaseWork {
 
     private static void createStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
         String sql = "CREATE TABLE STUDENTQUIZ("
-                + "stu_id VARCHAR(20),"
-                + "quiz_id VARCHAR(20),"
+                + "stu_id DECIMAL,"
+                + "quiz_id DECIMAL,"
                 + "marks VARCHAR(20),"
                 + "date DATE,"
                 + "crs_id VARCHAR(20))";
@@ -118,7 +118,7 @@ public class DatabaseWork {
     private static void createQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
         String sql = "CREATE TABLE QUIZ("
                 + "quiz_id DECIMAL,"
-                + "ques_id VARCHAR(20),"
+                + "ques_id DECIMAL,"
                 + "diff_lvl VARCHAR(20),"
                 + "isCorrect BOOLEAN)";
         stmt = conn.prepareStatement(sql);
@@ -129,7 +129,7 @@ public class DatabaseWork {
         String sql = "CREATE TABLE COURSE("
                 + "crs_id VARCHAR(20),"
                 + "crs_name VARCHAR(20),"
-                + "ins_id VARCHAR(20))";
+                + "ins_id DECIMAL)";
         stmt = conn.prepareStatement(sql);
         stmt.executeUpdate();
     }
@@ -225,7 +225,7 @@ public class DatabaseWork {
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
             int quiz_id = Integer.parseInt(values[0]);
-            String ques_id = values[1];
+            int ques_id = Integer.parseInt(values[1]);
             String diff_lvl = values[2];
             Boolean isCorrect = Boolean.parseBoolean(values[3]);
             String addRowSql = "INSERT INTO APP.QUIZ("
@@ -234,7 +234,7 @@ public class DatabaseWork {
 
             stmt = conn.prepareStatement(addRowSql);
             stmt.setInt(1, quiz_id);
-            stmt.setString(2, ques_id);
+            stmt.setInt(2, ques_id);
             stmt.setString(3, diff_lvl);
             stmt.setBoolean(4, isCorrect);
             stmt.executeUpdate();
@@ -246,9 +246,9 @@ public class DatabaseWork {
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
-            String stu_id = values[0];
-            String quiz_id = values[1];
-            String marks = values[2];
+            int stu_id = Integer.parseInt(values[0]);
+            int quiz_id = Integer.parseInt(values[1]);
+            int marks = Integer.parseInt(values[2]);
             Calendar cal = Calendar.getInstance();
             String crs_id = values[4];
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
@@ -262,9 +262,9 @@ public class DatabaseWork {
                     + "VALUES(?,?,?,?,?)";
 
             stmt = conn.prepareStatement(addRowSql);
-            stmt.setString(1, stu_id);
-            stmt.setString(2, quiz_id);
-            stmt.setString(3, marks);
+            stmt.setInt(1, stu_id);
+            stmt.setInt(2, quiz_id);
+            stmt.setInt(3, marks);
             stmt.setDate(4, date);
             stmt.setString(5, crs_id);
             stmt.executeUpdate();
@@ -278,7 +278,7 @@ public class DatabaseWork {
             String[] values = line.split(",");
             String crs_id = values[0];
             String crs_name = values[1];
-            String ins_id = values[2];
+            int ins_id = Integer.parseInt(values[2]);
             String addRowSql = "INSERT INTO APP.COURSE("
                     + "crs_id,crs_name,ins_id)"
                     + "VALUES(?,?,?)";
@@ -286,7 +286,7 @@ public class DatabaseWork {
             stmt = conn.prepareStatement(addRowSql);
             stmt.setString(1, crs_id);
             stmt.setString(2, crs_name);
-            stmt.setString(3, ins_id);
+            stmt.setInt(3, ins_id);
             stmt.executeUpdate();
         }
     }
@@ -306,11 +306,7 @@ public class DatabaseWork {
         stmt.executeUpdate();
     }
 
-    private static void updateQuesID(Connection conn, PreparedStatement stmt) throws Throwable {
-        String sql = "update QUESTIONS outer set ques_id = (select rnum from (select ques_desc, row_number() from QUESTIONS) inner where inner.ques_desc = outer.ques_desc)";
-        stmt = conn.prepareStatement(sql);
-        stmt.executeUpdate();
-    }
+
 
     private static void updateTime(Connection conn, PreparedStatement stmt) throws Throwable {
         String sql = "UPDATE QUESTIONS SET time = 60 where diff_lvl='E'";
