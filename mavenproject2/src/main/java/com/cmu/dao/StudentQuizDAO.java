@@ -14,13 +14,15 @@ import java.util.ArrayList;
 public interface StudentQuizDAO extends AutoCloseable {
 
     public String addStudentQuiz() throws Exception;
-    
+
     public String updateStudentQuiz() throws Exception;
-    
+
     public String deleteStudentQuiz() throws Exception;
-    
+
     public ArrayList<Integer> numberOfQuizTakenPerInstructor(String ins_id) throws Exception;
-    
+
     public ArrayList<Double> avgScoreForInstructor(String ins_id) throws Exception;
-    
+
+    public ArrayList<Integer> numberOfQuizTakenPerStudent(String stu_id) throws Exception;
+
 }

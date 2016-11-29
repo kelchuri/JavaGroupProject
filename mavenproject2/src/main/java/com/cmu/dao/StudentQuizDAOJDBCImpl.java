@@ -176,5 +176,58 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
         }
     }
+    
+    @Override
+    public ArrayList<Integer> numberOfQuizTakenPerStudent(String stu_id) throws Exception {
+        try (Statement stmt = connection.createStatement()) {
+            ArrayList<Integer> numberOfTestTaken = new ArrayList<>();
+            Integer lastMonth = 0;
+            Integer lastQuarter = 0;
+            Integer lastYear = 0;
+            PreparedStatement stmt1 = null;
+            String sql = null;
+            sql = "SELECT stu_id, quiz_id,date\n"
+                + "FROM StudentQuiz\n"
+                + "where stu_id=?";
+            stmt1 = connection.prepareStatement(sql);
+            stmt1.setString(1, stu_id);
+//            int quizCount = 0;
+            ResultSet rs = stmt1.executeQuery();
+ 
+            while (rs.next()) {
+                stu_id = rs.getString("stu_id");
+//                quizCount = (rs.getInt("QuizCount"));
+ 
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(rs.getDate("date").getTime());
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+ 
+                String text = "Instructor: " + stu_id + "| Date: " + sdf.format(cal.getTime());
+                System.out.println(text);
+                Calendar lastMonth1 = Calendar.getInstance();
+                lastMonth1.add(Calendar.MONTH, -1);
+                Calendar lastQuarter1 = Calendar.getInstance();
+                lastQuarter1.add(Calendar.MONTH, -3);
+                Calendar lastYear1 = Calendar.getInstance();
+                lastYear1.add(Calendar.YEAR, -1);
+ 
+                if (cal.after(lastMonth1)) {
+                    lastMonth = lastMonth + 1;
+                } else if (cal.after(lastQuarter1)) {
+                    lastQuarter = lastQuarter + 1;
+                } else if (cal.after(lastYear1)) {
+                    lastYear = lastYear + 1;
+                }
+            }
+ 
+            numberOfTestTaken.add(lastMonth);
+            numberOfTestTaken.add(lastQuarter);
+            numberOfTestTaken.add(lastYear);
+            return numberOfTestTaken;
+        } catch (SQLException se) {
+            //se.printStackTrace();
+            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+        }
+    }
 
 }

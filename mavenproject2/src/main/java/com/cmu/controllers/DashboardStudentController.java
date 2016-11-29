@@ -6,6 +6,8 @@ package com.cmu.controllers;
  * and open the template in the editor.
  */
 import static com.cmu.controllers.DashboardInstructorController.stage;
+import com.cmu.dao.StudentQuizDAO;
+import com.cmu.dao.StudentQuizDAOFactory;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -15,8 +17,11 @@ import com.itextpdf.layout.element.Paragraph;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,8 +61,8 @@ public class DashboardStudentController implements Initializable {
 
     @FXML
     PieChart pie4;
-    
-     @FXML
+
+    @FXML
     Button chart3btn;
     @FXML
     Button chart4btn;
@@ -73,8 +78,18 @@ public class DashboardStudentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         chart3.setTitle("Number of Tests Taken");
+        StudentQuizDAOFactory sqdaof = new StudentQuizDAOFactory();
+        StudentQuizDAO sqdao = sqdaof.createStudentQuizDAO();
+        ArrayList<Integer> noOfQuiz = new ArrayList<>();
+        ArrayList<Double> avgScore = new ArrayList<>();
+        ArrayList<Double> noByDifficultyLevel = new ArrayList<>();
+        try {
+            noOfQuiz = sqdao.numberOfQuizTakenPerStudent("1");
+        } catch (Exception ex) {
+            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         chart3.getData().add(createChart());
 
         chart4.setTitle("Average Scores of Students");
@@ -102,7 +117,7 @@ public class DashboardStudentController implements Initializable {
     public void createPieChart2() {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
-                        new PieChart.Data("Pass", 60),                   
+                        new PieChart.Data("Pass", 60),
                         new PieChart.Data("Fail", 15));
         pie4.setData(pieChartData);
 
@@ -121,9 +136,9 @@ public class DashboardStudentController implements Initializable {
 
         XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 
-        series1.getData().add(new XYChart.Data<String, Number>(years[0], 100));
-        series1.getData().add(new XYChart.Data<String, Number>(years[1], 300));
-        series1.getData().add(new XYChart.Data<String, Number>(years[2], 1000));
+        series1.getData().add(new XYChart.Data<String, Number>(years[0], 1000));
+        series1.getData().add(new XYChart.Data<String, Number>(years[1], 2000));
+        series1.getData().add(new XYChart.Data<String, Number>(years[2], 3000));
 
         bc.getData().add(series1);
 
@@ -140,7 +155,7 @@ public class DashboardStudentController implements Initializable {
 
         FileChooser chooser = new FileChooser();
 
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)","   *.pdf ");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)", "   *.pdf ");
         chooser.getExtensionFilters().add(extFilter);
         File file = chooser.showSaveDialog(stage);
         try {
@@ -163,13 +178,13 @@ public class DashboardStudentController implements Initializable {
         }
 
     }
-    
-     @FXML
+
+    @FXML
     public void print2(ActionEvent event) {
 
         FileChooser chooser = new FileChooser();
 
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)","   *.pdf ");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)", "   *.pdf ");
         chooser.getExtensionFilters().add(extFilter);
         File file = chooser.showSaveDialog(stage);
         try {
@@ -193,12 +208,12 @@ public class DashboardStudentController implements Initializable {
 
     }
 
-     @FXML
+    @FXML
     public void print3(ActionEvent event) {
 
         FileChooser chooser = new FileChooser();
 
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)","   *.pdf ");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)", "   *.pdf ");
         chooser.getExtensionFilters().add(extFilter);
         File file = chooser.showSaveDialog(stage);
         try {
@@ -222,12 +237,12 @@ public class DashboardStudentController implements Initializable {
 
     }
 
-     @FXML
+    @FXML
     public void print4(ActionEvent event) {
 
         FileChooser chooser = new FileChooser();
 
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)","   *.pdf ");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)", "   *.pdf ");
         chooser.getExtensionFilters().add(extFilter);
         File file = chooser.showSaveDialog(stage);
         try {
