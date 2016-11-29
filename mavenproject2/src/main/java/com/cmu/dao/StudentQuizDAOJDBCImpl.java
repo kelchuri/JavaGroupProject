@@ -106,4 +106,75 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public ArrayList<Double> avgScoreForInstructor(String ins_id) throws Exception {
+        try (Statement stmt = connection.createStatement()) {
+            ArrayList<Double> avgScore = new ArrayList<>();
+            Double lastMonth = 0.00;
+            Double lastQuarter = 0.00;
+            Double lastYear = 0.00;
+            Integer totalMarksMonth = 0;
+            Integer totalMarksQuarter = 0;
+            Integer totalMarksYear = 0;
+            Double avgMarksMonth = 0.00;
+            Double avgMarksQuarter = 0.00;
+            Double avgMarksYear = 0.00;
+            PreparedStatement stmt1 = null;
+            String sql = null;
+            sql = "SELECT Course.ins_id, Course.crs_id, StudentQuiz.stu_id, StudentQuiz.marks, StudentQuiz.date\n"
+                    + "FROM Course INNER JOIN StudentQuiz ON Course.crs_id = StudentQuiz.crs_id\n"
+                    + " where ins_id=? GROUP BY Course.ins_id, Course.crs_id, StudentQuiz.stu_id, StudentQuiz.marks, StudentQuiz.date";
+            stmt1 = connection.prepareStatement(sql);
+            stmt1.setString(1, ins_id);
+            int quizMarks = 0;
+            ResultSet rs = stmt1.executeQuery();
+
+            while (rs.next()) {
+                ins_id = rs.getString("ins_id");
+                quizMarks = (rs.getInt("marks"));
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(rs.getDate("date").getTime());
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+
+                String text = "Instructor: " + ins_id + "| Quiz Count: " + quizMarks + "| Date: " + sdf.format(cal.getTime());
+                System.out.println(text);
+                Calendar lastMonth1 = Calendar.getInstance();
+                lastMonth1.add(Calendar.MONTH, -1);
+                Calendar lastQuarter1 = Calendar.getInstance();
+                lastQuarter1.add(Calendar.MONTH, -3);
+                Calendar lastYear1 = Calendar.getInstance();
+                lastYear1.add(Calendar.YEAR, -1);
+
+                if (cal.after(lastMonth1)) {
+                    lastMonth = lastMonth + 1.00;
+                    totalMarksMonth = totalMarksMonth + quizMarks;
+                } else if (cal.after(lastQuarter1)) {
+                    lastQuarter = lastQuarter + 1.00;
+                    totalMarksQuarter = totalMarksQuarter + quizMarks;
+                } else if (cal.after(lastYear1)) {
+                    lastYear = lastYear + 1.00;
+                    totalMarksYear = totalMarksYear + quizMarks;
+                }
+            }
+            if (lastMonth > 0) {
+                avgMarksMonth = totalMarksMonth / lastMonth;
+            }
+            if (lastQuarter > 0) {
+                avgMarksQuarter = totalMarksQuarter / lastQuarter;
+            }
+            if (lastYear > 0) {
+                avgMarksYear = totalMarksYear / lastYear;
+            }
+            
+            avgScore.add(avgMarksMonth);
+            avgScore.add(avgMarksQuarter);
+            avgScore.add(avgMarksYear);
+            return avgScore;
+        } catch (SQLException se) {
+            //se.printStackTrace();
+            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+        }
+    }
+
 }
