@@ -44,12 +44,11 @@ public class Questions {
 
     private String type;
 
-    public Questions(int ques_ID, String questionFormat, String difficultyLevel,
+    public Questions(String questionFormat, String difficultyLevel,
             String quesDesc, String option1, String answer1,
             String option2, String answer2,
             String option3, String answer3,
             String option4, String answer4, int crs_id, Integer time) {
-        this.ques_id = ques_ID;
         this.ques_desc = quesDesc;
         this.option1 = option1;
         this.answer1 = answer1;
@@ -64,9 +63,8 @@ public class Questions {
         this.ques_type = questionFormat;
     }
 
-    public Questions(int ques_ID, String questionFormat, String difficultyLevel,
+    public Questions(String questionFormat, String difficultyLevel,
             String quesDesc, String answer, int crs_id, Integer time) {
-        this.ques_id = ques_ID;
         this.ques_desc = quesDesc;
         this.ques_type = questionFormat;
         this.diff_lvl = difficultyLevel;
