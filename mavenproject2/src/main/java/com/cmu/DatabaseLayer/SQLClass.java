@@ -237,5 +237,26 @@ public class SQLClass {
             }
             System.out.println("");
         }
-    }
+    }     void studentCountByCourse(String crs_id) throws Throwable {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        conn = DriverManager.getConnection(dbURL);
+        String sql = null;
+        sql = "select crs_id, Count(stu_id) AS StudentCount from studentquiz where crs_id=? group by crs_id";;
+stmt = conn.prepareStatement(sql);
+stmt.setString(1, crs_id);
+ResultSet rs = stmt.executeQuery();
+
+   ResultSetMetaData rsmd = rs.getMetaData();
+   int columnsNumber = rsmd.getColumnCount();
+   while (rs.next()) {
+       for (int i = 1; i <= columnsNumber; i++) {
+           if (i > 1) System.out.print(",  ");
+           String columnValue = rs.getString(i);
+           System.out.print(columnValue + " " + rsmd.getColumnName(i));
+       }
+       System.out.println("");
+   }
+ } 
 }
