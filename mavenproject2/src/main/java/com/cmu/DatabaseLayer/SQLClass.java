@@ -206,4 +206,36 @@ public class SQLClass {
             System.out.println("");
         }
     }
+
+    void QuizFuncwithoutDifficulty(int NoQ, String crs_id) throws Throwable {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        conn = DriverManager.getConnection(dbURL);
+        String sql = null;
+        sql = "Select ques_id, ques_type,diff_lvl,ques_desc,\n"
+                + "option1,answer1,option2,answer2,option3,answer3,\n"
+                + "option4,answer4,answer,crs_id,time\n"
+                + "from questions where\n"
+                + "crs_id=?\n"
+                + "ORDER BY RANDOM() OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
+        stmt = conn.prepareStatement(sql);
+        stmt.setString(1, crs_id);
+
+        stmt.setInt(2, NoQ);
+        ResultSet rs = stmt.executeQuery();
+
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int columnsNumber = rsmd.getColumnCount();
+        while (rs.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) {
+                    System.out.print(",  ");
+                }
+                String columnValue = rs.getString(i);
+                System.out.print(columnValue + " " + rsmd.getColumnName(i));
+            }
+            System.out.println("");
+        }
+    }
 }
