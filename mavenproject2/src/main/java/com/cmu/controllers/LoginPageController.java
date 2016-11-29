@@ -92,6 +92,7 @@ public class LoginPageController implements Initializable {
 //            userName = result.getFirstName() + " " + result.getLastName();
 
                 InstructorScreen.setUser(result);
+                DashboardInstructorController.setUser(result);
                 if (userType.equals("student")) {
                     showStudentScreen();
 
