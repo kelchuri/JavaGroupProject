@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -74,7 +75,7 @@ public class SQLClass {
 
     //This function returns the student id ques id diff lvl and isCorrect
     //for easy difficulty.
-     public void returnTestResultEasy(int ins_id) throws Throwable {
+    public void returnTestResultEasy(int ins_id) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
@@ -169,6 +170,40 @@ public class SQLClass {
             int ins_id = rs.getInt("ins_id");
             String text = "Course Id: " + crs_id + "| Course Name: " + crs_name + " |Instructor Id: " + ins_id;
             System.out.println(text);
+        }
+    }
+
+    //This function takes in input of number of questions, subject and difficulty level
+    //and generates a random questionaire as per the requirement.
+    void QuizFunc(int NoQ, String crs_id, String diff_lvl) throws Throwable {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        conn = DriverManager.getConnection(dbURL);
+        String sql = null;
+        sql = "Select ques_id, ques_type,diff_lvl,ques_desc,\n"
+                + "option1,answer1,option2,answer2,option3,answer3,\n"
+                + "option4,answer4,answer,crs_id,time\n"
+                + "from questions where\n"
+                + "crs_id=? and diff_lvl=?\n"
+                + "ORDER BY RANDOM() OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
+        stmt = conn.prepareStatement(sql);
+        stmt.setString(1, crs_id);
+        stmt.setString(2, diff_lvl);
+        stmt.setInt(3, NoQ);
+        ResultSet rs = stmt.executeQuery();
+
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int columnsNumber = rsmd.getColumnCount();
+        while (rs.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) {
+                    System.out.print(",  ");
+                }
+                String columnValue = rs.getString(i);
+                System.out.print(columnValue + " " + rsmd.getColumnName(i));
+            }
+            System.out.println("");
         }
     }
 }
