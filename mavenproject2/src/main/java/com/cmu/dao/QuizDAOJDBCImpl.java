@@ -11,10 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -36,54 +34,168 @@ public class QuizDAOJDBCImpl implements QuizDAO {
     }
 
     @Override
-    public ArrayList<Integer> noOfCrrctQuesAsPerDiffLvlInstructor(String ins_id) throws Exception {
+    public TreeMap<Integer, Integer[]> noOfCrrctQuesAsPerDiffLvlInstructor(String ins_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
-            ArrayList<Integer> numberOfTestTaken = new ArrayList<>();
-            Integer lastMonth = 0;
-            Integer lastQuarter = 0;
-            Integer lastYear = 0;
+            TreeMap<Integer, Integer[]> s = new TreeMap<>();
+            Integer countE = 0;
+            Integer countM = 0;
+            Integer countH = 0;
+
             PreparedStatement stmt1 = null;
             String sql = null;
-            sql = "Select stu_id, ques_id, diff_lvl, isCorrect \n"
-                    + "from Quiz inner join studentquiz \n"
-                    + "on quiz.quiz_id=studentquiz.QUIZ_ID\n"
-                    + "group by stu_id, ques_id, diff_lvl, isCorrect\n"
-                    + "having diff_lvl='E'";
+            sql = "select stu_id, ins_id, ques_id, diff_lvl, isCorrect\n"
+                    + "from (studentquiz inner join quiz on studentquiz.quiz_id=quiz.quiz_id)\n"
+                    + "inner join course on studentquiz.crs_id=course.CRS_ID\n"
+                    + "group by stu_id, ques_id, diff_lvl, isCorrect, ins_id\n"
+                    + "having(diff_lvl='E' AND ins_id=?)";
             stmt1 = connection.prepareStatement(sql);
             stmt1.setString(1, ins_id);
-            int quizCount = 0;
+//            int quizCount = 0;
             ResultSet rs = stmt1.executeQuery();
 
             while (rs.next()) {
-                ins_id = rs.getString("ins_id");
-                quizCount = (rs.getInt("QuizCount"));
+                int stu_id = rs.getInt("stu_id");
+                int ques_id = rs.getInt("ques_id");
+                String diff_lvl = rs.getString("diff_lvl");
+                Boolean isCorrect = rs.getBoolean("isCorrect");
+                String text = "Student Id: " + stu_id + "| Question Id: " + ques_id + " |Difficulty Level: " + diff_lvl + "| Result: " + isCorrect;
 
-                Calendar cal = Calendar.getInstance();
-                cal.setTimeInMillis(rs.getDate("date").getTime());
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+//                System.out.println(text);
+                Integer[] count = new Integer[2];
 
-                String text = "Instructor: " + ins_id + "| Quiz Count: " + quizCount + "| Date: " + sdf.format(cal.getTime());
-                System.out.println(text);
-                Calendar lastMonth1 = Calendar.getInstance();
-                lastMonth1.add(Calendar.MONTH, -1);
-                Calendar lastQuarter1 = Calendar.getInstance();
-                lastQuarter1.add(Calendar.MONTH, -3);
-                Calendar lastYear1 = Calendar.getInstance();
-                lastYear1.add(Calendar.YEAR, -1);
-
-                if (cal.after(lastMonth1)) {
-                    lastMonth = lastMonth + 1;
-                } else if (cal.after(lastQuarter1)) {
-                    lastQuarter = lastQuarter + 1;
-                } else if (cal.after(lastYear1)) {
-                    lastYear = lastYear + 1;
+                if (s.isEmpty() || !s.containsKey(stu_id)) {
+                    if (isCorrect) {
+                        count[0] = 1;
+                        count[1] = 0;
+                    } else {
+                        count[0] = 0;
+                        count[1] = 1;
+                    }
+                    s.put(stu_id, count);
+                } else {
+                    count = s.get(stu_id);
+                    if (isCorrect) {
+                        count[0] = count[0] + 1;
+                    } else {
+                        count[1] = count[1] + 1;
+                    }
+                    s.replace(stu_id, count);
                 }
             }
 
-            numberOfTestTaken.add(lastMonth);
-            numberOfTestTaken.add(lastQuarter);
-            numberOfTestTaken.add(lastYear);
-            return numberOfTestTaken;
+            if (!s.isEmpty()) {
+                for (Map.Entry<Integer, Integer[]> entry : s.entrySet()) {
+                    Integer key = entry.getKey();
+                    Integer[] value = entry.getValue();
+                    if (((value[0] * 100.00) / (value[0] + value[1])) >= 50) {
+                        countE = countE + 1;
+                    }
+                }
+            }
+            System.out.println(countE);
+
+            sql = "select stu_id, ins_id, ques_id, diff_lvl, isCorrect\n"
+                    + "from (studentquiz inner join quiz on studentquiz.quiz_id=quiz.quiz_id)\n"
+                    + "inner join course on studentquiz.crs_id=course.CRS_ID\n"
+                    + "group by stu_id, ques_id, diff_lvl, isCorrect, ins_id\n"
+                    + "having(diff_lvl='M' AND ins_id=?)";
+            stmt1 = connection.prepareStatement(sql);
+            stmt1.setString(1, ins_id);
+//            int quizCount = 0;
+            rs = stmt1.executeQuery();
+
+            while (rs.next()) {
+                int stu_id = rs.getInt("stu_id");
+                int ques_id = rs.getInt("ques_id");
+                String diff_lvl = rs.getString("diff_lvl");
+                Boolean isCorrect = rs.getBoolean("isCorrect");
+                String text = "Student Id: " + stu_id + "| Question Id: " + ques_id + " |Difficulty Level: " + diff_lvl + "| Result: " + isCorrect;
+
+//                System.out.println(text);
+                Integer[] count = new Integer[2];
+
+                if (s.isEmpty() || !s.containsKey(stu_id)) {
+                    if (isCorrect) {
+                        count[0] = 1;
+                        count[1] = 0;
+                    } else {
+                        count[0] = 0;
+                        count[1] = 1;
+                    }
+                    s.put(stu_id, count);
+                } else {
+                    count = s.get(stu_id);
+                    if (isCorrect) {
+                        count[0] = count[0] + 1;
+                    } else {
+                        count[1] = count[1] + 1;
+                    }
+                    s.replace(stu_id, count);
+                }
+            }
+
+            if (!s.isEmpty()) {
+                for (Map.Entry<Integer, Integer[]> entry : s.entrySet()) {
+                    Integer key = entry.getKey();
+                    Integer[] value = entry.getValue();
+                    if (((value[0] * 100.00) / (value[0] + value[1])) >= 50) {
+                        countM = countM + 1;
+                    }
+                }
+            }
+//            System.out.println(countM);
+
+            sql = "select stu_id, ins_id, ques_id, diff_lvl, isCorrect\n"
+                    + "from (studentquiz inner join quiz on studentquiz.quiz_id=quiz.quiz_id)\n"
+                    + "inner join course on studentquiz.crs_id=course.CRS_ID\n"
+                    + "group by stu_id, ques_id, diff_lvl, isCorrect, ins_id\n"
+                    + "having(diff_lvl='H' AND ins_id=?)";
+            stmt1 = connection.prepareStatement(sql);
+            stmt1.setString(1, ins_id);
+            rs = stmt1.executeQuery();
+
+            while (rs.next()) {
+                int stu_id = rs.getInt("stu_id");
+                int ques_id = rs.getInt("ques_id");
+                String diff_lvl = rs.getString("diff_lvl");
+                Boolean isCorrect = rs.getBoolean("isCorrect");
+                String text = "Student Id: " + stu_id + "| Question Id: " + ques_id + " |Difficulty Level: " + diff_lvl + "| Result: " + isCorrect;
+
+//                System.out.println(text);
+                Integer[] count = new Integer[2];
+
+                if (s.isEmpty() || !s.containsKey(stu_id)) {
+                    if (isCorrect) {
+                        count[0] = 1;
+                        count[1] = 0;
+                    } else {
+                        count[0] = 0;
+                        count[1] = 1;
+                    }
+                    s.put(stu_id, count);
+                } else {
+                    count = s.get(stu_id);
+                    if (isCorrect) {
+                        count[0] = count[0] + 1;
+                    } else {
+                        count[1] = count[1] + 1;
+                    }
+                    s.replace(stu_id, count);
+                }
+            }
+
+            if (!s.isEmpty()) {
+                for (Map.Entry<Integer, Integer[]> entry : s.entrySet()) {
+                    Integer key = entry.getKey();
+                    Integer[] value = entry.getValue();
+                    if (((value[0] * 100.00) / (value[0] + value[1])) >= 50) {
+                        countH = countH + 1;
+                    }
+                }
+            }
+            System.out.println(countH);
+
+            return s;
         } catch (SQLException se) {
             //se.printStackTrace();
             throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);

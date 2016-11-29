@@ -11,7 +11,7 @@ package com.cmu.dao;
  */
 public class QuizDAOFactory {
 
-    public QuizDAO createUserDAO() {
+    public QuizDAO createQuizDAO() {
         return new QuizDAOJDBCImpl();
     }
 }
