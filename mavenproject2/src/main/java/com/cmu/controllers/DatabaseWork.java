@@ -323,7 +323,7 @@ public class DatabaseWork {
     }
 
     private static void updateCrsId(Connection conn, PreparedStatement stmt) throws Throwable {
-        String sql = "UPDATE QUESTIONS SET crs_id = 'Java'";
+        String sql = "UPDATE QUESTIONS SET crs_id = 'JAVA'";
         stmt = conn.prepareStatement(sql);
         stmt.executeUpdate();
     }
