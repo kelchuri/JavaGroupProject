@@ -11,45 +11,46 @@ package com.cmu.models;
  * @author Ayushjain
  */
 public class Questions {
-    
-                
+
     private int ques_id;
-    
+
     private String ques_type;
-    
+
     private String diff_lvl;
-    
+
     private String ques_desc;
-    
+
     private String option1;
-    
+
     private String answer1;
-    
+
     private String option2;
-    
+
     private String answer2;
-   
+
     private String option3;
-   
+
     private String answer3;
-    
+
     private String option4;
-    
+
     private String answer4;
-    
+
     private String answer;
-    
+
     private int crs_id;
-    
+
     private int time;
-    
+
     private String type;
 
-    public Questions(String questionFormat, String difficultyLevel,
+    public Questions(int ques_ID, String questionFormat, String difficultyLevel,
             String quesDesc, String option1, String answer1,
             String option2, String answer2,
             String option3, String answer3,
             String option4, String answer4, int crs_id, Integer time) {
+        this.ques_id = ques_ID;
+        this.ques_desc = quesDesc;
         this.option1 = option1;
         this.answer1 = answer1;
         this.option2 = option2;
@@ -63,8 +64,10 @@ public class Questions {
         this.ques_type = questionFormat;
     }
 
-    public Questions(String questionFormat, String difficultyLevel,
+    public Questions(int ques_ID, String questionFormat, String difficultyLevel,
             String quesDesc, String answer, int crs_id, Integer time) {
+        this.ques_id = ques_ID;
+        this.ques_desc = quesDesc;
         this.ques_type = questionFormat;
         this.diff_lvl = difficultyLevel;
         this.ques_desc = quesDesc;
@@ -73,7 +76,6 @@ public class Questions {
         this.time = time;
     }
 
-    
     public String getAnswer() {
         return answer;
     }
@@ -82,7 +84,6 @@ public class Questions {
         this.answer = answer;
     }
 
-   
     public String getOption1() {
         return option1;
     }
@@ -147,7 +148,6 @@ public class Questions {
         this.answer4 = answer4;
     }
 
-    
     public int getTime() {
         return time;
     }
