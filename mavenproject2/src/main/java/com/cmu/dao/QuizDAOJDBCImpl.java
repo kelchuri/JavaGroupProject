@@ -260,15 +260,6 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                     questionList.add(ques);
                     
                 }
-                for (int i = 1; i <= columnsNumber; i++) {
-
-                    String columnValue = rs.getString(i);
-                    System.out.println(columnValue + " " + rsmd.getColumnName(i));
-                }
-                System.out.println(" ");
-                System.out.println(" ");
-                System.out.println(" ");
-
             }
             return questionList;
 
