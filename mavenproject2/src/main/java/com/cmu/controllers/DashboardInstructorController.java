@@ -7,6 +7,7 @@ package com.cmu.controllers;
  */
 import com.cmu.dao.StudentQuizDAO;
 import com.cmu.dao.StudentQuizDAOFactory;
+import com.cmu.models.User;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -68,6 +69,8 @@ public class DashboardInstructorController implements Initializable {
     Button pie2btn;
 
     static Stage stage;
+    
+     private static User user;
 
     /**
      * Initializes the controller class.
@@ -81,8 +84,10 @@ public class DashboardInstructorController implements Initializable {
         ArrayList<Integer> noOfQuiz = new ArrayList<>();
         ArrayList<Double> avgScore = new ArrayList<>();
         
+        String userId = String.valueOf(user.getUserId()) ;
+        
         try {
-            noOfQuiz = sqdao.numberOfQuizTakenPerInstructor("3");
+            noOfQuiz = sqdao.numberOfQuizTakenPerInstructor(userId);
         } catch (Exception ex) {
             Logger.getLogger(DashboardInstructorController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -261,5 +266,10 @@ public class DashboardInstructorController implements Initializable {
             exc.printStackTrace();
         }
 
+    }
+    
+    public static void setUser(User user) {
+        DashboardInstructorController.user = user;
+       
     }
 }
