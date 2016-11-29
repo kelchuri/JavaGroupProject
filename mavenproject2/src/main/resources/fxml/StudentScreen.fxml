@@ -8,6 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
+
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cmu.controllers.StudentScreenController">
     <stylesheets>
         <URL value="@/styles/studentscreen.css" />
@@ -20,36 +21,39 @@
                         
                         <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="fixedpane" stylesheets="@../styles/instructorcsvupload.css">
                             <children>
-                                <Label fx:id="nameId" layoutX="51.0" layoutY="49.0" prefHeight="17.0" prefWidth="56.0" text="Name" />
+                               <Label fx:id="nameId" layoutX="16.0" layoutY="49.0" prefHeight="17.0" prefWidth="164.0" text="Welcome, " textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Comic Sans MS" size="14.0" />
+                           </font></Label>
                       
-                                <Button fx:id="viewDashboardStudent" layoutY="144.0" mnemonicParsing="false" onAction="#viewDashboardButtonStudent" prefHeight="37.0" prefWidth="240.0" styleClass="buttonEffect" stylesheets="@../styles/studentscreen.css" text="View Dashboard">
+                                <Button fx:id="viewDashboardStudent" layoutY="144.0" mnemonicParsing="false" onAction="#viewDashboardButtonStudent" prefHeight="37.0" prefWidth="284.0" styleClass="buttonEffect" stylesheets="@../styles/studentscreen.css" text="View Dashboard">
                                     <font>
-                                        <Font name="System Bold" size="13.0" />
+                                        <Font name="Comic Sans MS Bold" size="13.0" />
                                     </font>
                                     <tooltip>
                                         <Tooltip text="Import a Questions File" />
                                     </tooltip>
                                 
                                 </Button>
-                                <Button fx:id="profileStudentId" layoutX="1.0" layoutY="235.0" mnemonicParsing="false" onAction="#handleProfileStudentButton" prefHeight="37.0" prefWidth="240.0" styleClass="buttonEffect" stylesheets="@../styles/studentscreen.css" text="View Profile">
+                                <Button fx:id="profileStudentId" layoutX="1.0" layoutY="235.0" mnemonicParsing="false" onAction="#handleProfileStudentButton" prefHeight="37.0" prefWidth="284.0" styleClass="buttonEffect" stylesheets="@../styles/studentscreen.css" text="View Profile">
                                     <font>
-                                        <Font name="System Bold" size="13.0" />
+                                        <Font name="Comic Sans MS Bold" size="13.0" />
                                     </font>
                                     <tooltip>
                                         <Tooltip text="Import a Questions File" />
                                     </tooltip>
                                 </Button>
-                                <Button fx:id="takeQuiz" layoutX="1.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleTakeQuizButton" prefHeight="37.0" prefWidth="240.0" styleClass="buttonEffect" stylesheets="@../styles/studentscreen.css" text="Attempt Screen">
+                                <Button fx:id="takeQuiz" layoutX="1.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleTakeQuizButton" prefHeight="37.0" prefWidth="284.0" styleClass="buttonEffect" stylesheets="@../styles/studentscreen.css" text="Attempt Quiz">
                                     <font>
-                                        <Font name="System Bold" size="13.0" />
+                                        <Font name="Comic Sans MS Bold" size="13.0" />
                                     </font>
                                     <tooltip>
                                         <Tooltip text="Import a Questions File" />
                                     </tooltip>
                                 </Button>
-                                <Button fx:id="logoutStudentId" layoutX="1.0" layoutY="546.0" mnemonicParsing="false" onAction="#logOutStudentButton" prefHeight="37.0" prefWidth="240.0" styleClass="buttonEffect" stylesheets="@../styles/studentscreen.css" text="Logout">
+                                <Button fx:id="logoutStudentId" layoutX="1.0" layoutY="546.0" mnemonicParsing="false" onAction="#logOutStudentButton" prefHeight="37.0" prefWidth="284.0" styleClass="buttonEffect" stylesheets="@../styles/studentscreen.css" text="Logout">
                                     <font>
-                                        <Font size="13.0" />
+                                        <Font name="Comic Sans MS Bold" size="13.0" />
                                     </font>
                                     <tooltip>
                                         <Tooltip text="Import a Questions File" />
