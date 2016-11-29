@@ -5,12 +5,15 @@
  */
 package com.cmu.dao;
 
+import com.cmu.models.Questions;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -195,6 +198,80 @@ public class QuizDAOJDBCImpl implements QuizDAO {
             System.out.println(countH);
 
             return s;
+        } catch (SQLException se) {
+            //se.printStackTrace();
+            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+        }
+    }
+
+    @Override
+    public ArrayList<Questions> getQuizQuestion(int NoQ, String crs_id, String diff_lvl) throws Exception {
+        try (Statement stmt = connection.createStatement()) {
+            ArrayList<Questions> questionList = new ArrayList<>();
+            
+            PreparedStatement stmt1 = null;
+            String sql = null;
+            sql = "Select ques_id, ques_type,diff_lvl,ques_desc,\n"
+                    + "option1,answer1,option2,answer2,option3,answer3,\n"
+                    + "option4,answer4,answer,crs_id,time\n"
+                    + "from questions where\n"
+                    + "crs_id=? and diff_lvl=?\n"
+                    + "ORDER BY RANDOM() OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
+            stmt1 = connection.prepareStatement(sql);
+            stmt1.setString(1, crs_id);
+            stmt1.setString(2, diff_lvl);
+            stmt1.setInt(3, NoQ);
+            ResultSet rs = stmt1.executeQuery();
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (rs.next()) {
+                int ques_ID = Integer.getInteger(rs.getString(1));
+                String ques_type = rs.getString(2);
+                String rtrn;
+                if (ques_type.equalsIgnoreCase("MC") || ques_type.equalsIgnoreCase("MA")) {
+                    String difficultyLevel = rs.getString(3);
+                    String quesDesc = rs.getString(4);
+                    String option1 = rs.getString(5);
+                    String answer1 = rs.getString(6);
+                    String option2 = rs.getString(7);
+                    String answer2 = rs.getString(8);
+                    String option3 = rs.getString(9);
+                    String answer3 = rs.getString(10);
+                    String option4 = rs.getString(11);
+                    String answer4 = rs.getString(12);
+                    int crs_id1 = Integer.getInteger(rs.getString(14));
+                    Integer time = Integer.getInteger(rs.getString(15));
+
+                    Questions ques = new Questions(ques_type,
+                            difficultyLevel, quesDesc, option1, answer1,
+                            option2, answer2, option3, answer3, option4, answer4, crs_id1, time);
+                    questionList.add(ques);
+                    
+                } else if (ques_type.equalsIgnoreCase("TF") || ques_type.equalsIgnoreCase("FIB")) {
+                    String difficultyLevel = rs.getString(3);
+                    String quesDesc = rs.getString(4);
+                    String answer = rs.getString(13);
+                    int crs_id1 = Integer.getInteger(rs.getString(14));
+                    Integer time = Integer.getInteger(rs.getString(15));
+                    
+                    Questions ques = new Questions(ques_type,
+                            difficultyLevel, quesDesc, answer, crs_id1, time);
+                    questionList.add(ques);
+                    
+                }
+                for (int i = 1; i <= columnsNumber; i++) {
+
+                    String columnValue = rs.getString(i);
+                    System.out.println(columnValue + " " + rsmd.getColumnName(i));
+                }
+                System.out.println(" ");
+                System.out.println(" ");
+                System.out.println(" ");
+
+            }
+            return questionList;
+
         } catch (SQLException se) {
             //se.printStackTrace();
             throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
