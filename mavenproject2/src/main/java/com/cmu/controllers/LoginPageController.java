@@ -56,7 +56,7 @@ public class LoginPageController implements Initializable {
     private Login_Page_Database_Controller login_Page_Database_Controller;
 
     private MainApp application;
-    
+
     public String userName;
 
     public void setApp(MainApp application) {
@@ -68,12 +68,12 @@ public class LoginPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         login_Page_Database_Controller = new Login_Page_Database_Controller();
         correct.setVisible(false);
         incorrect.setVisible(false);
         errorId.setVisible(false);
-       
+
     }
 
     @FXML
@@ -83,30 +83,34 @@ public class LoginPageController implements Initializable {
             System.out.println(userId.getText());
             System.out.println(password.getText());
             User result = login_Page_Database_Controller.checkCredentials(userId.getText(), password.getText());
-            String userType = result.getUserType();
-//            userName = result.getFirstName() + " " + result.getLastName();
-            InstructorScreen.setUser(result);
-            if (userType.equals("student")) {
-                showStudentScreen();
-
-            } else if (userType.equals("instructor")) {
-                Stage takeQuizStage;
-                takeQuizStage = ((Stage) userId.getScene().getWindow());
-                InstructorScreen.setStage(takeQuizStage);
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/InstructorScreen.fxml"));
-
-                Scene scene = new Scene(root);
-                scene.getStylesheets().add("/styles/instructorcsvupload.css");
-
-                takeQuizStage.setTitle("Instructor Screen");
-                takeQuizStage.setScene(scene);
-                takeQuizStage.show();
-
-            } else {
+            if (result == null) {
                 errorId.setText("Invalid Credentials");
                 errorId.setVisible(true);
                 // 0 is returned if the username is incorrect or the password does not match.
+            } else {
+                String userType = result.getUserType();
+//            userName = result.getFirstName() + " " + result.getLastName();
+
+                InstructorScreen.setUser(result);
+                if (userType.equals("student")) {
+                    showStudentScreen();
+
+                } else if (userType.equals("instructor")) {
+                    Stage takeQuizStage;
+                    takeQuizStage = ((Stage) userId.getScene().getWindow());
+                    InstructorScreen.setStage(takeQuizStage);
+                    Parent root = FXMLLoader.load(getClass().getResource("/fxml/InstructorScreen.fxml"));
+
+                    Scene scene = new Scene(root);
+                    scene.getStylesheets().add("/styles/instructorcsvupload.css");
+
+                    takeQuizStage.setTitle("Instructor Screen");
+                    takeQuizStage.setScene(scene);
+                    takeQuizStage.show();
+
+                }
             }
+
         } else {
             errorId.setVisible(true);
         }

@@ -28,12 +28,17 @@ public class Login_Page_Database_Controller {
         int check = 0;
         String type = "";
         User userExists = userDAO.checkUserExists(userid, password);
-        if (userExists.getUserId()!= 0) {
+        try{
+           if (userExists.getUserId()!= 0) {
             type = userDAO.checkUserType(userid);
 
             System.out.println(check);
 
+        }  
+        } catch(Exception e) {
+            return null;
         }
+        
         return userExists;
     }
     

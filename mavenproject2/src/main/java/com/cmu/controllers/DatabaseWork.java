@@ -37,7 +37,7 @@ public class DatabaseWork {
 //        insertToQuestions(conn, stmt);
 //        insertToQuiz(conn, stmt);
 //        insertToCourse(conn, stmt);
-        updateTime(conn, stmt);
+//        updateTime(conn, stmt);
         //updateCrsId(conn, stmt);
         //dropTables(conn, stmt);
 
@@ -107,7 +107,7 @@ public class DatabaseWork {
                 + "option4 VARCHAR(200),"
                 + "answer4 VARCHAR(200),"
                 + "answer VARCHAR(200),"
-                + "crs_id VARCHAR(20),"
+                + "crs_id int,"
                 + "time DECIMAL)";
         stmt = conn.prepareStatement(sql);
         stmt.executeUpdate();
@@ -153,7 +153,7 @@ public class DatabaseWork {
             String answer4 = "";
             String answer = "";
 //            String ques_id = "";
-            String crs_id = "";
+            int crs_id = 0;
             int time = 0;
             ques_type = nextLine[0];
             switch (ques_type) {
@@ -213,7 +213,7 @@ public class DatabaseWork {
             stmt.setString(10, option4);
             stmt.setString(11, answer4);
             stmt.setString(12, answer);
-            stmt.setString(13, crs_id);
+            stmt.setInt(13, crs_id);
             stmt.setInt(14, time);
 
             stmt.executeUpdate();
@@ -253,7 +253,7 @@ public class DatabaseWork {
             int quiz_id = Integer.parseInt(values[1]);
             int marks = Integer.parseInt(values[2]);
             Calendar cal = Calendar.getInstance();
-            String crs_id = values[4];
+            int crs_id = Integer.parseInt(values[4]);
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
             cal.setTime(sdf.parse(values[3]));
             java.sql.Date date = new java.sql.Date(cal.getTime().getTime());
@@ -269,7 +269,7 @@ public class DatabaseWork {
             stmt.setInt(2, quiz_id);
             stmt.setInt(3, marks);
             stmt.setDate(4, date);
-            stmt.setString(5, crs_id);
+            stmt.setInt(5, crs_id);
             stmt.executeUpdate();
         }
     }

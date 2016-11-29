@@ -69,14 +69,6 @@ public class TakeQuizController implements Initializable {
                         super.updateItem(item, empty);
                         if (item != null) {
                             setText(item);
-//                                    if (item.contains("High")) {
-//                                        setTextFill();
-//                                    }
-//                                    else if (item.contains("Low")){
-//                                        setTextFill(Color.GREEN);                                    }
-//                                    else {
-//                                        setTextFill(Color.BLACK);
-//                                    }
                         } else {
                             setText(null);
                         }
@@ -107,14 +99,6 @@ public class TakeQuizController implements Initializable {
                         super.updateItem(item, empty);
                         if (item != null) {
                             setText(item);
-//                                    if (item.contains("High")) {
-//                                        setTextFill();
-//                                    }
-//                                    else if (item.contains("Low")){
-//                                        setTextFill(Color.GREEN);                                    }
-//                                    else {
-//                                        setTextFill(Color.BLACK);
-//                                    }
                         } else {
                             setText(null);
                         }
@@ -144,14 +128,6 @@ public class TakeQuizController implements Initializable {
                         super.updateItem(item, empty);
                         if (item != null) {
                             setText(item);
-//                                    if (item.contains("High")) {
-//                                        setTextFill();
-//                                    }
-//                                    else if (item.contains("Low")){
-//                                        setTextFill(Color.GREEN);                                    }
-//                                    else {
-//                                        setTextFill(Color.BLACK);
-//                                    }
                         } else {
                             setText(null);
                         }
@@ -163,7 +139,8 @@ public class TakeQuizController implements Initializable {
         
         course.getItems().addAll(
                 "Java",
-                "Telecom"
+                "History",
+                "General Knowledge"
         );
         
         course.setCellFactory(
@@ -181,14 +158,6 @@ public class TakeQuizController implements Initializable {
                         super.updateItem(item, empty);
                         if (item != null) {
                             setText(item);
-//                                    if (item.contains("High")) {
-//                                        setTextFill();
-//                                    }
-//                                    else if (item.contains("Low")){
-//                                        setTextFill(Color.GREEN);                                    }
-//                                    else {
-//                                        setTextFill(Color.BLACK);
-//                                    }
                         } else {
                             setText(null);
                         }
@@ -213,6 +182,22 @@ public class TakeQuizController implements Initializable {
         TakeQuizController.stage.setTitle("JavaFX and Maven");
         TakeQuizController.stage.setScene(scene);
         TakeQuizController.stage.show();
+    }
+    
+    private int getCourseId() {
+        int courseID = 0;
+        String coursename = course.getSelectionModel().getSelectedItem().toString();
+        if(coursename.equalsIgnoreCase("history")){
+            courseID = 3;
+        } else if(coursename.equalsIgnoreCase("General Knowledge")) {
+            System.out.println("In the course comparision");
+            courseID = 2;
+        }
+        else if(coursename.equalsIgnoreCase("Java")) {
+            System.out.println("In the course comparision");
+            courseID = 1;
+        }
+        return courseID;
     }
     
 }

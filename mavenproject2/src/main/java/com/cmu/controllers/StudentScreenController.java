@@ -42,6 +42,15 @@ public class StudentScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardInstructor.fxml"));
+        try {
+            Pane cmdPane = (Pane) fxmlLoader.load();
+
+            rightPaneStudent.getChildren().clear();
+            rightPaneStudent.getChildren().add(cmdPane);
+        } catch (Exception e) {
+
+        }
     }
 
     @FXML

@@ -19,7 +19,7 @@
     
 }
 .combo-box-popup .list-view .list-cell:hover {
-    -fx-text-fill: red;
+    -fx-text-fill: black;
     -fx-font-weight: bold;
 }
 

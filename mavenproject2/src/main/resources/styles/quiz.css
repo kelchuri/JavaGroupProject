@@ -5,3 +5,7 @@
 .mainFxmlClass {
 
 }
+
+.anchor {
+    -fx-background-image: url('./quizbg.png')
+}
