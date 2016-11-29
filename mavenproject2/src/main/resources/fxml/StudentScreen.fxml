@@ -1,33 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.cmu.controllers.StudentScreenController">
+<?import javafx.scene.image.*?>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cmu.controllers.StudentScreenController">
     <stylesheets>
         <URL value="@/styles/studentscreen.css" />
     </stylesheets>
     <children>
-      <VBox fx:id="box" prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <SplitPane fx:id="inputPane" dividerPositions="0.19092331768388107" prefHeight="803.0" prefWidth="1280.0">
-              <items>
-                <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <Button fx:id="takeQuiz" layoutX="51.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleTakeQuizButton" prefHeight="27.0" prefWidth="89.0" text="Take Quiz" />
-                        <Button fx:id="profileStudentId" layoutX="51.0" layoutY="180.0" mnemonicParsing="false" onAction="#handleProfileStudentButton" prefHeight="27.0" prefWidth="101.0" text="View Profile" />
-                        <Label fx:id="nameId" layoutX="51.0" layoutY="49.0" prefHeight="17.0" prefWidth="56.0" text="Name" />
-                        <Button fx:id="viewDashboardStudent" layoutX="50.0" layoutY="102.0" mnemonicParsing="false" onAction="#viewDashboardButtonStudent" prefHeight="27.0" prefWidth="132.0" text="View dashboard" />
-                        <Button fx:id="logoutStudentId" layoutX="51.0" layoutY="409.0" mnemonicParsing="false" onAction="#logOutStudentButton" text="Logout" />
-                     </children></AnchorPane>
-                <AnchorPane fx:id="rightPaneStudent" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="879.0" />
-              </items>
-            </SplitPane>
-         </children>
-      </VBox>
-   </children>
+        <VBox fx:id="box" prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <SplitPane fx:id="inputPane" dividerPositions="0.22535211267605634" prefHeight="803.0" prefWidth="1280.0">
+                    <items>
+                        
+                        <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="fixedpane" stylesheets="@../styles/instructorcsvupload.css">
+                            <children>
+                                <Label fx:id="nameId" layoutX="51.0" layoutY="49.0" prefHeight="17.0" prefWidth="56.0" text="Name" />
+                      
+                                <Button fx:id="viewDashboardStudent" layoutY="144.0" mnemonicParsing="false" onAction="#viewDashboardButtonStudent" prefHeight="37.0" prefWidth="240.0" styleClass="buttonEffect" stylesheets="@../styles/studentscreen.css" text="View Dashboard">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                    <tooltip>
+                                        <Tooltip text="Import a Questions File" />
+                                    </tooltip>
+                                
+                                </Button>
+                                <Button fx:id="profileStudentId" layoutX="1.0" layoutY="235.0" mnemonicParsing="false" onAction="#handleProfileStudentButton" prefHeight="37.0" prefWidth="240.0" styleClass="buttonEffect" stylesheets="@../styles/studentscreen.css" text="View Profile">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                    <tooltip>
+                                        <Tooltip text="Import a Questions File" />
+                                    </tooltip>
+                                </Button>
+                                <Button fx:id="takeQuiz" layoutX="1.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleTakeQuizButton" prefHeight="37.0" prefWidth="240.0" styleClass="buttonEffect" stylesheets="@../styles/studentscreen.css" text="Attempt Screen">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                    <tooltip>
+                                        <Tooltip text="Import a Questions File" />
+                                    </tooltip>
+                                </Button>
+                                <Button fx:id="logoutStudentId" layoutX="1.0" layoutY="546.0" mnemonicParsing="false" onAction="#logOutStudentButton" prefHeight="37.0" prefWidth="240.0" styleClass="buttonEffect" stylesheets="@../styles/studentscreen.css" text="Logout">
+                                    <font>
+                                        <Font size="13.0" />
+                                    </font>
+                                    <tooltip>
+                                        <Tooltip text="Import a Questions File" />
+                                    </tooltip>
+                                </Button>
+                                <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="42.0" layoutY="155.0">
+                                    <image>
+                                        <Image url="@../styles/dashboard.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="42.0" layoutY="246.0">
+                                    <image>
+                                        <Image url="@../styles/profile.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="42.0" layoutY="341.0">
+                                    <image>
+                                        <Image url="@../styles/takequiz.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="42.0" layoutY="556.0">
+                                    <image>
+                                        <Image url="@../styles/logout.png" />
+                                    </image>
+                                </ImageView>
+                       
+                       
+                        
+                            </children>
+                        </AnchorPane>
+                   
+                        <AnchorPane fx:id="rightPaneStudent" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="879.0" styleClass="rightpane" stylesheets="@../styles/studentscreen.css" />
+                    </items>
+                </SplitPane>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

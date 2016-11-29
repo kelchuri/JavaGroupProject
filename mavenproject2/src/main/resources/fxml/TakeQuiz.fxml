@@ -14,20 +14,36 @@
         <URL value="@takequiz.css" />
     </stylesheets>
    <children>
-      <Label layoutX="55.0" layoutY="61.0" text="QUIZ DETAILS:">
+      <Label layoutX="161.0" layoutY="66.0" text="QUIZ DETAILS">
          <font>
             <Font name="System Bold" size="34.0" />
          </font></Label>
-      <Label layoutX="67.0" layoutY="256.0" text="QUIZ LEVEL :" />
-      <Label layoutX="481.0" layoutY="256.0" text="NO OF QUESTIONS  : " />
-      <Label layoutX="64.0" layoutY="458.0" text="QUIZ TIMER :" />
-      <Label layoutX="506.0" layoutY="440.0" text="COUSRE :" />
-      <Button fx:id="startQuiz" layoutX="441.0" layoutY="636.0" mnemonicParsing="false" onAction="#TakeQuizButton" text="START QUIZ" />
-    
-      <ComboBox id="cbQuizLevel" fx:id="quiz_level" editable="true" layoutX="251.0" layoutY="246.0" prefHeight="42.0" prefWidth="176.0" promptText="Select" /> 
-      <ComboBox id="cbNoOfQue" fx:id="noOfQue" editable="true" layoutX="676.0" layoutY="246.0" prefHeight="42.0" prefWidth="170.0" promptText="Select" />
-      <ComboBox id="cbQuizTimer" fx:id="quizTimer" editable="true" layoutX="251.0" layoutY="438.0" prefHeight="36.0" prefWidth="176.0" promptText="Select" />
-      <ComboBox id="cbCourse" fx:id="course" editable="true" layoutX="676.0" layoutY="448.0" prefHeight="36.0" prefWidth="187.0" promptText="Select" />
+      <Label layoutX="175.0" layoutY="261.0" text="QUIZ LEVEL :">
+         <font>
+            <Font name="Comic Sans MS Bold" size="24.0" />
+         </font></Label>
+      <Label layoutX="613.0" layoutY="261.0" text="NO OF QUESTIONS :">
+         <font>
+            <Font name="Comic Sans MS Bold" size="24.0" />
+         </font></Label>
+      <Label layoutX="171.0" layoutY="403.0" text="QUIZ TIMER :">
+         <font>
+            <Font name="Comic Sans MS Bold" size="24.0" />
+         </font></Label>
+      <Label layoutX="763.0" layoutY="403.0" text="COUSRE :">
+         <font>
+            <Font name="Comic Sans MS Bold" size="24.0" />
+         </font></Label>
+     
+    <Button fx:id="startQuiz" layoutX="731.0" layoutY="558.0" mnemonicParsing="false" onAction="#TakeQuizButton" styleClass="buttonEffect" stylesheets="@../styles/takequiz.css" text="START QUIZ">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+      
+      <ComboBox id="cbQuizLevel" fx:id="quiz_level" editable="true" layoutX="371.0" layoutY="255.0" prefHeight="20.0" prefWidth="176.0" promptText="Select" styleClass="combo-box-base" stylesheets="@../styles/takequiz.css" /> 
+      <ComboBox id="cbNoOfQue" fx:id="noOfQue" editable="true" layoutX="918.0" layoutY="246.0" prefHeight="20.0" prefWidth="202.0" promptText="Select" styleClass="combo-box-base" stylesheets="@../styles/takequiz.css" />
+      <ComboBox id="cbQuizTimer" fx:id="quizTimer" editable="true" layoutX="371.0" layoutY="388.0" prefHeight="36.0" prefWidth="176.0" promptText="Select" styleClass="combo-box-base" stylesheets="@../styles/takequiz.css" />
+      <ComboBox id="cbCourse" fx:id="course" editable="true" layoutX="918.0" layoutY="388.0" prefHeight="41.0" prefWidth="202.0" promptText="Select" styleClass="combo-box-base" stylesheets="@../styles/takequiz.css" />
    </children>
    <styleClass>
       <String fx:value="mainFxmlClass" />
