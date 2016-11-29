@@ -101,7 +101,6 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                     + "having(diff_lvl='M' AND ins_id=?)";
             stmt1 = connection.prepareStatement(sql);
             stmt1.setString(1, ins_id);
-//            int quizCount = 0;
             rs = stmt1.executeQuery();
 
             while (rs.next()) {
@@ -143,7 +142,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                     }
                 }
             }
-//            System.out.println(countM);
+            System.out.println(countM);
 
             sql = "select stu_id, ins_id, ques_id, diff_lvl, isCorrect\n"
                     + "from (studentquiz inner join quiz on studentquiz.quiz_id=quiz.quiz_id)\n"
