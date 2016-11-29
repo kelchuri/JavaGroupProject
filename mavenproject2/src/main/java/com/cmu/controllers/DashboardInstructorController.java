@@ -5,6 +5,9 @@ package com.cmu.controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.cmu.dao.StudentQuizDAO;
+import com.cmu.dao.StudentQuizDAOFactory;
+import com.cmu.models.User;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -14,8 +17,11 @@ import com.itextpdf.layout.element.Paragraph;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -63,6 +69,8 @@ public class DashboardInstructorController implements Initializable {
     Button pie2btn;
 
     static Stage stage;
+    
+     private static User user;
 
     /**
      * Initializes the controller class.
@@ -71,10 +79,22 @@ public class DashboardInstructorController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         chart1.setTitle("Number of Tests Taken by Students");
-        chart1.getData().add(createChart());
+        StudentQuizDAOFactory sqdaof = new StudentQuizDAOFactory();
+        StudentQuizDAO sqdao = sqdaof.createStudentQuizDAO();
+        ArrayList<Integer> noOfQuiz = new ArrayList<>();
+        ArrayList<Double> avgScore = new ArrayList<>();
+        
+        String userId = String.valueOf(user.getUserId()) ;
+        
+        try {
+            noOfQuiz = sqdao.numberOfQuizTakenPerInstructor(userId);
+        } catch (Exception ex) {
+            Logger.getLogger(DashboardInstructorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        chart1.getData().add(createChart(noOfQuiz));
 
         chart2.setTitle("Average Scores of Students");
-        chart2.getData().add(createChart());
+        chart2.getData().add(createChart(noOfQuiz));
 
         pie1.setTitle("Scores by level of Difficulty");
         createPieChart1();
@@ -106,7 +126,7 @@ public class DashboardInstructorController implements Initializable {
 
     }
 
-    public XYChart.Series<String, Number> createChart() {
+    public XYChart.Series<String, Number> createChart(ArrayList x) {
         final String[] years = {"Last month", "Last quarter", "Last year"};
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -118,9 +138,9 @@ public class DashboardInstructorController implements Initializable {
 
         XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 
-        series1.getData().add(new XYChart.Data<String, Number>(years[0], 100));
-        series1.getData().add(new XYChart.Data<String, Number>(years[1], 300));
-        series1.getData().add(new XYChart.Data<String, Number>(years[2], 1000));
+        series1.getData().add(new XYChart.Data<String, Number>(years[0], (Number)x.get(0)));
+        series1.getData().add(new XYChart.Data<String, Number>(years[1], (Number)x.get(1)));
+        series1.getData().add(new XYChart.Data<String, Number>(years[2], (Number)x.get(2)));
 
         bc.getData().add(series1);
 
@@ -137,7 +157,7 @@ public class DashboardInstructorController implements Initializable {
 
         FileChooser chooser = new FileChooser();
 
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)","   *.pdf ");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)", "   *.pdf ");
         chooser.getExtensionFilters().add(extFilter);
         File file = chooser.showSaveDialog(stage);
         try {
@@ -160,13 +180,13 @@ public class DashboardInstructorController implements Initializable {
         }
 
     }
-    
-     @FXML
+
+    @FXML
     public void print2(ActionEvent event) {
 
         FileChooser chooser = new FileChooser();
 
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)","   *.pdf ");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)", "   *.pdf ");
         chooser.getExtensionFilters().add(extFilter);
         File file = chooser.showSaveDialog(stage);
         try {
@@ -190,12 +210,12 @@ public class DashboardInstructorController implements Initializable {
 
     }
 
-     @FXML
+    @FXML
     public void print3(ActionEvent event) {
 
         FileChooser chooser = new FileChooser();
 
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)","   *.pdf ");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)", "   *.pdf ");
         chooser.getExtensionFilters().add(extFilter);
         File file = chooser.showSaveDialog(stage);
         try {
@@ -219,12 +239,12 @@ public class DashboardInstructorController implements Initializable {
 
     }
 
-     @FXML
+    @FXML
     public void print4(ActionEvent event) {
 
         FileChooser chooser = new FileChooser();
 
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)","   *.pdf ");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF file(*.pdf)", "   *.pdf ");
         chooser.getExtensionFilters().add(extFilter);
         File file = chooser.showSaveDialog(stage);
         try {
@@ -246,5 +266,10 @@ public class DashboardInstructorController implements Initializable {
             exc.printStackTrace();
         }
 
+    }
+    
+    public static void setUser(User user) {
+        DashboardInstructorController.user = user;
+       
     }
 }
