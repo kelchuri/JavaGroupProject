@@ -13,9 +13,9 @@ public class Course {
 
     Integer crs_id;
     String crs_name;
-    String ins_id;
+    Integer ins_id;
 
-    public Course(Integer crs_id, String crs_name, String ins_id) {
+    public Course(Integer crs_id, String crs_name, int ins_id) {
         this.crs_id = crs_id;
         this.crs_name = crs_name;
         this.ins_id = ins_id;
@@ -42,11 +42,11 @@ public class Course {
         this.crs_name = crs_name;
     }
 
-    public String getIns_id() {
+    public int getIns_id() {
         return ins_id;
     }
 
-    public void setIns_id(String ins_id) {
+    public void setIns_id(int ins_id) {
         this.ins_id = ins_id;
     }
 

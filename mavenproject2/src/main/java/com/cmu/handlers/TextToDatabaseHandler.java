@@ -31,12 +31,12 @@ public class TextToDatabaseHandler {
     private File lineFile = null;
     private final String FIELD_SEP = ",";
     
-    public void addData(String path, String courseID) throws IOException, Throwable {
+    public void addData(String path, int courseID) throws IOException, Throwable {
         readTextFile(path, courseID);
         addQuesToDB(questionList);
     }
 
-    public void readTextFile(String path, String courseID) throws IOException {
+    public void readTextFile(String path, int courseID) throws IOException {
         String rtrn = null;
         linePath = Paths.get(path);
         lineFile = linePath.toFile();
@@ -72,7 +72,7 @@ public class TextToDatabaseHandler {
                     String answer3 = columns[8];
                     String option4 = columns[9];
                     String answer4 = columns[10];
-                    String crs_id = courseID;
+                    int crs_id = courseID;
                     Questions ques = new Questions(questionFormat,
                             difficultyLevel, quesDesc, option1, answer1,
                             option2, answer2, option3, answer3, option4, answer4, crs_id, time);
@@ -91,7 +91,7 @@ public class TextToDatabaseHandler {
                     }
                     String quesDesc = columns[2];
                     String answer = columns[3];
-                    String crs_id = courseID;
+                    int crs_id = courseID;
                     Questions ques = new Questions(questionFormat,
                             difficultyLevel, quesDesc, answer, crs_id, time);
                     questionList.add(ques);
@@ -127,7 +127,7 @@ public class TextToDatabaseHandler {
             String answer4 = "";
             String answer = "";
             String ques_id = "";
-            String crs_id = "";
+            int crs_id = 0;
             
             ques_type = q.getQues_type();
             int time =  q.getTime();
@@ -190,7 +190,7 @@ public class TextToDatabaseHandler {
             stmt.setString(10, option4);
             stmt.setString(11, answer4);
             stmt.setString(12, answer);
-            stmt.setString(13, crs_id);
+            stmt.setInt(13, crs_id);
             stmt.setInt(14, time);
 
             stmt.executeUpdate();

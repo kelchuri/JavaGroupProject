@@ -10,7 +10,7 @@ package com.cmu.dao;
  * @author Ayushjain
  */
 public class CourseDAOFactory {
-        public UserDAO createCourseDAO(){
-        return new UserDAOJDBCImpl();
+        public CourseDAO createCourseDAO(){
+        return new CourseDAOJDBCImpl();
     } 
 }

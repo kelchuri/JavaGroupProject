@@ -38,7 +38,7 @@ public class DatabaseWork {
 //        insertToQuiz(conn, stmt);
 //        insertToCourse(conn, stmt);
         updateTime(conn, stmt);
-        updateCrsId(conn, stmt);
+        //updateCrsId(conn, stmt);
         //dropTables(conn, stmt);
 
     }
@@ -126,9 +126,9 @@ public class DatabaseWork {
 
     private static void createCourse(Connection conn, PreparedStatement stmt) throws Throwable {
         String sql = "CREATE TABLE COURSE("
-                + "crs_id VARCHAR(20),"
+                + "crs_id INTEGER,"
                 + "crs_name VARCHAR(20),"
-                + "ins_id DECIMAL)";
+                + "ins_id INTEGER)";
         stmt = conn.prepareStatement(sql);
         stmt.executeUpdate();
     }
@@ -279,7 +279,7 @@ public class DatabaseWork {
         String line = null;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
-            String crs_id = values[0];
+            int crs_id = Integer.parseInt(values[0]);
             String crs_name = values[1];
             int ins_id = Integer.parseInt(values[2]);
             String addRowSql = "INSERT INTO APP.COURSE("
@@ -287,7 +287,7 @@ public class DatabaseWork {
                     + "VALUES(?,?,?)";
 
             stmt = conn.prepareStatement(addRowSql);
-            stmt.setString(1, crs_id);
+            stmt.setInt(1, crs_id);
             stmt.setString(2, crs_name);
             stmt.setInt(3, ins_id);
             stmt.executeUpdate();
@@ -322,9 +322,11 @@ public class DatabaseWork {
         stmt.executeUpdate();
     }
 
-    private static void updateCrsId(Connection conn, PreparedStatement stmt) throws Throwable {
-        String sql = "UPDATE QUESTIONS SET crs_id = 'JAVA'";
-        stmt = conn.prepareStatement(sql);
-        stmt.executeUpdate();
-    }
+
+//    private static void updateCrsId(Connection conn, PreparedStatement stmt) throws Throwable {
+//        String sql = "UPDATE QUESTIONS SET crs_id = 'Java'";
+//        stmt = conn.prepareStatement(sql);
+//        stmt.executeUpdate();
+//    }
+
 }

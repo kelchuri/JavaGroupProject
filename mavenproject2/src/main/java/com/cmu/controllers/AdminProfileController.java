@@ -6,9 +6,16 @@ package com.cmu.controllers;
  * and open the template in the editor.
  */
 
+import com.cmu.handlers.InstructorHandler;
+import com.cmu.models.Course;
+import com.cmu.models.User;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
@@ -20,9 +27,37 @@ public class AdminProfileController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
+    private static User user;
+    
+    public static void setUser(User user){
+        AdminProfileController.user = user;
+    }
+    
+    @FXML
+    private Label fname;
+    
+    @FXML
+    private Label lname;
+    
+    @FXML
+    private Label totalStudents;
+    
+    @FXML
+    private Label courseName;
+    
+    private InstructorHandler instructorHandler = new InstructorHandler();
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            // TODO
+            fname.setText(AdminProfileController.user.getFirstName());
+            lname.setText(AdminProfileController.user.getLastName());
+            courseName.setText(instructorHandler.getCourse(AdminProfileController.user).getCrs_name());
+        } catch (Exception ex) {
+            Logger.getLogger(AdminProfileController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
     
 }
