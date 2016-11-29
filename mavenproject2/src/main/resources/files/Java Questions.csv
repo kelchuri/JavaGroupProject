@@ -1,36 +1,19 @@
 MC,M,Which of the following statements is false? ,A subclass is generally larger than its superclass. ,Incorrect,A superclass object is a subclass object. ,Correct,The class following the extends keyword in a class declaration is the direct superclass of the class being declared.,Incorrect,Java uses interfaces to provide the benefits of multiple inheritance. ,Incorrect
-
 MC,E,Inheritance is also known as the ,""knows-a"" relationship. ,Incorrect,""has-a"" relationship. ,Incorrect,""uses-a"" relationship. ,Incorrect,""is-a"" relationship. ,Correct
-
 MC,H,An advantage of inheritance is that: ,All methods can be inherited. ,Incorrect,All instance variables can be uniformly accessed by subclasses and superclasses. ,Incorrect,Objects of a subclass can be treated like objects of their superclass. ,Correct,None of the above. ,Incorrect
-
 MC,E,Which of the following keywords allows a subclass to access a superclass method even when the subclass has overridden the superclass method? ,base. ,Incorrect,this. ,Correct,public. ,Incorrect,super. ,Correct
-
 MC,E,Using the protected keyword gives a member: ,public access. ,Incorrect,package access. ,Correct,private access. ,Incorrect,block scope. ,Incorrect
-
 MC,E,Superclass methods with this level of access cannot be called from subclasses. ,private. ,Correct,public. ,Incorrect,protected. ,Incorrect,package. ,Incorrect
-
 FIB,H,"Every class in Java, except ________, extends an existing class. ",Object.
-
 TF,H,Overriding a method differs from overloading a method because Overridden methods have the same signature. ,TRUE
-
-FIB,H,"To avoid duplicating code (and possibly errors), use ________, rather than ________. ","inheritance, the Òcopy-and-pastÓ approach. "
-
+FIB,H,"To avoid duplicating code (and possibly errors), use ________, rather than ________. ","inheritance, the ï¿½copy-and-pastï¿½ approach. "
 MC,M,"Consider the classes below, declared in the same file: class A {   int a;   public A()   {a = 7; }}class B extends A{   int b;   public B()   {b = 8; }}Which of the statements below is false?",Both variables a and b are instance variables.,Incorrect,"After the constructor for class B executes, the variable a will have the value 7.",Incorrect,"After the constructor for class B executes, the variable b will have the value 8.",Incorrect,A reference of type A can be treated as a reference of type B.,Correct
-
 MC,M,Which of the following is the superclass constructor call syntax? ,"keyword super, followed by a dot (.) . ",Incorrect,"keyword super, followed by a set of parentheses containing the superclass constructor arguments.",Correct,"keyword super, followed by a dot and the superclass constructor name.",Incorrect,None of the above. ,Incorrect
-
 MC,E,Which superclass members are inherited by all subclasses of that superclass? ,private instance variables and methods. ,Incorrect,protected instance variables and methods. ,Correct,private constructors. ,Incorrect,protected constructors. ,Incorrect
-
-MA,M,Which statement is true when a superclass has protected instance variables? ,"A subclass object can assign an invalid value to the superclassÕs instance variables, thus leaving an object in an inconsistent state. ",Correct,Subclass methods are more likely to be written so that they depend on the superclassÕs data implementation. ,Correct,We may need to modify all the subclasses of the superclass if the superclass implementation changes. ,Correct,None of the above. ,Incorrect
-
+MA,M,Which statement is true when a superclass has protected instance variables? ,"A subclass object can assign an invalid value to the superclassï¿½s instance variables, thus leaving an object in an inconsistent state. ",Correct,Subclass methods are more likely to be written so that they depend on the superclassï¿½s data implementation. ,Correct,We may need to modify all the subclasses of the superclass if the superclass implementation changes. ,Correct,None of the above. ,Incorrect
 MC,H,private fields of a superclass can be accessed in a subclass ,by calling private methods declared in the superclass. ,Incorrect,by calling public or protected methods declared in the superclass. ,Correct,directly. ,Incorrect,All of the above. ,Incorrect
-FIB,E,Failure to prefix the superclass method name with the keyword super and a dot (.) separator when referencing the superclassÕs method causes a(n) ________. ,infinite recursion. ,,,,,,,
-
-MC,M,"When a subclass constructor calls its superclass constructor, what happens if the superclassÕs constructor does not assign a value to an instance variable? ",A syntax error occurs. ,Incorrect,A compile-time error occurs. ,Incorrect,A run-time error occurs. ,Incorrect,The program compiles and runs because the instance variables are initialized to their default values. ,Correct
-
+FIB,E,Failure to prefix the superclass method name with the keyword super and a dot (.) separator when referencing the superclassï¿½s method causes a(n) ________. ,infinite recursion. ,,,,,,,
+MC,M,"When a subclass constructor calls its superclass constructor, what happens if the superclassï¿½s constructor does not assign a value to an instance variable? ",A syntax error occurs. ,Incorrect,A compile-time error occurs. ,Incorrect,A run-time error occurs. ,Incorrect,The program compiles and runs because the instance variables are initialized to their default values. ,Correct
 MA,H,Which of the following statements are true?,We can use inheritance to customize existing software. ,Correct,A superclass specifies commonality. ,Correct,A superclass can be modified without modifying subclasses,Correct,A subclass can be modified without modifying its superclass. ,Correct
-
-MC,M,Which of the following is an example of a functionality that should not be Òfactored outÓ to a superclass? ,Both ducks and geese are birds that know how to start flying from the water. ,Incorrect,All vehicles know how to start and stop. ,Incorrect,"All animals lay eggs, except for mammals. ",Correct,All paints have a color. ,Incorrect
-
+MC,M,Which of the following is an example of a functionality that should not be ï¿½factored outï¿½ to a superclass? ,Both ducks and geese are birds that know how to start flying from the water. ,Incorrect,All vehicles know how to start and stop. ,Incorrect,"All animals lay eggs, except for mammals. ",Correct,All paints have a color. ,Incorrect
 MC,M,The default equals implementation determines: ,whether two references refer to the same object in memory. ,Correct,whether two references have the same type. ,Incorrect,whether two objects have the same instance variables. ,Incorrect,whether two objects have the same instance variable values. ,Incorrect

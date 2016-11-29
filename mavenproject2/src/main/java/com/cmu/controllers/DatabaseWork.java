@@ -37,8 +37,8 @@ public class DatabaseWork {
 //        insertToQuestions(conn, stmt);
 //        insertToQuiz(conn, stmt);
 //        insertToCourse(conn, stmt);
-//        updateTime(conn, stmt);
-//        updateCrsId(conn, stmt);
+        updateTime(conn, stmt);
+        updateCrsId(conn, stmt);
         //dropTables(conn, stmt);
 
     }
