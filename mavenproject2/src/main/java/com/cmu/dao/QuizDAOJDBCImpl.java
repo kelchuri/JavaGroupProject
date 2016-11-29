@@ -205,10 +205,10 @@ public class QuizDAOJDBCImpl implements QuizDAO {
     }
 
     @Override
-    public ArrayList<Questions> getQuizQuestion(int NoQ, String crs_id, String diff_lvl) throws Exception {
+    public ArrayList<Questions> getQuizQuestion(int NoQ, int crs_id, String diff_lvl) throws Exception {
         try (Statement stmt = connection.createStatement()) {
             ArrayList<Questions> questionList = new ArrayList<>();
-            
+            System.out.println(NoQ + " " + crs_id + " " +  diff_lvl);
             PreparedStatement stmt1 = null;
             String sql = null;
             sql = "Select ques_id, ques_type,diff_lvl,ques_desc,\n"
@@ -218,7 +218,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                     + "crs_id=? and diff_lvl=?\n"
                     + "ORDER BY RANDOM() OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
             stmt1 = connection.prepareStatement(sql);
-            stmt1.setString(1, crs_id);
+            stmt1.setInt(1, crs_id);
             stmt1.setString(2, diff_lvl);
             stmt1.setInt(3, NoQ);
             ResultSet rs = stmt1.executeQuery();
@@ -226,7 +226,9 @@ public class QuizDAOJDBCImpl implements QuizDAO {
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
-                int ques_ID = Integer.getInteger(rs.getString(1));
+                System.out.println(rs.getInt(1));
+                int ques_ID = (rs.getInt(1));
+                
                 String ques_type = rs.getString(2);
                 String rtrn;
                 if (ques_type.equalsIgnoreCase("MC") || ques_type.equalsIgnoreCase("MA")) {
@@ -240,8 +242,8 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                     String answer3 = rs.getString(10);
                     String option4 = rs.getString(11);
                     String answer4 = rs.getString(12);
-                    int crs_id1 = Integer.getInteger(rs.getString(14));
-                    Integer time = Integer.getInteger(rs.getString(15));
+                    int crs_id1 = rs.getInt(14);
+                    Integer time = rs.getInt(15);
 
                     Questions ques = new Questions(ques_type,
                             difficultyLevel, quesDesc, option1, answer1,
@@ -252,8 +254,8 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                     String difficultyLevel = rs.getString(3);
                     String quesDesc = rs.getString(4);
                     String answer = rs.getString(13);
-                    int crs_id1 = Integer.getInteger(rs.getString(14));
-                    Integer time = Integer.getInteger(rs.getString(15));
+                    int crs_id1 = rs.getInt(14);
+                    Integer time = rs.getInt(15);
                     
                     Questions ques = new Questions(ques_type,
                             difficultyLevel, quesDesc, answer, crs_id1, time);
