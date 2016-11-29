@@ -18,12 +18,12 @@
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>
-      <TextArea fx:id="csvtext" layoutX="307.0" layoutY="59.0" prefHeight="216.0" prefWidth="242.0" text="Upload A CSV File to add more questions to the database. Click on the Import CSV Button and choose the csv file from the desired location. " wrapText="true">
+      <TextArea fx:id="csvtext" layoutX="307.0" layoutY="59.0" prefHeight="216.0" prefWidth="242.0" text="Select a course and Upload A CSV File to add more questions to the database. Click on the Import CSV Button and choose the csv file from the desired location. " wrapText="true">
          <font>
             <Font name="Comic Sans MS" size="13.0" />
          </font>
       </TextArea>
-      <ComboBox fx:id="courseId" id="coursesList" editable="true" layoutX="96.0" layoutY="93.0" prefHeight="37.0" prefWidth="136.0" promptText="Select Course" styleClass="combo-boxEffect" stylesheets="@../styles/instructorcsvupload.css" >
+      <ComboBox id="coursesList" fx:id="courseId" editable="true" layoutX="96.0" layoutY="93.0" prefHeight="37.0" prefWidth="136.0" promptText="Select Course" styleClass="combo-boxEffect" stylesheets="@../styles/instructorcsvupload.css">
   <items>
        <FXCollections fx:factory="observableArrayList">
       <String fx:value="History" />

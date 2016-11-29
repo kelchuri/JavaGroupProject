@@ -18,6 +18,10 @@ public class User {
     private String password;
     private String emailId;
     private String userType;
+    
+    public User(){
+        
+    }
 
     public User(Integer userId, String firstName, String lastName, String password, String emailId, String userType) {
         this.userId = userId;

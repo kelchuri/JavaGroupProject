@@ -11,13 +11,15 @@ import com.cmu.models.User;
  * @author kavya
  */
 public interface UserDAO extends AutoCloseable {
-    public void add(User emp) throws Exception;
+    public void add(User user) throws Exception;
+    
+    public User addInstructor(User user) throws Exception;
 
-    public void update(User emp) throws Exception;
+    public void update(User user) throws Exception;
 
     public User findById(int id) throws Exception;
     
-    public boolean checkUserExists(String userId, String password) throws Exception;
+    public User checkUserExists(String userId, String password) throws Exception;
     
     public String checkUserType(String userId) throws Exception;
 

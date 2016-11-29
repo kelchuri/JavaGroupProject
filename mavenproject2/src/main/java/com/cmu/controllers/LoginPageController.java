@@ -56,6 +56,8 @@ public class LoginPageController implements Initializable {
     private Login_Page_Database_Controller login_Page_Database_Controller;
 
     private MainApp application;
+    
+    public String userName;
 
     public void setApp(MainApp application) {
         this.application = application;
@@ -80,11 +82,14 @@ public class LoginPageController implements Initializable {
             errorId.setVisible(false);
             System.out.println(userId.getText());
             System.out.println(password.getText());
-            String result = login_Page_Database_Controller.checkCredentials(userId.getText(), password.getText());
-            if (result.equals("student")) {
+            User result = login_Page_Database_Controller.checkCredentials(userId.getText(), password.getText());
+            String userType = result.getUserType();
+//            userName = result.getFirstName() + " " + result.getLastName();
+            InstructorScreen.setUser(result);
+            if (userType.equals("student")) {
                 showStudentScreen();
 
-            } else if (result.equals("instructor")) {
+            } else if (userType.equals("instructor")) {
                 Stage takeQuizStage;
                 takeQuizStage = ((Stage) userId.getScene().getWindow());
                 InstructorScreen.setStage(takeQuizStage);

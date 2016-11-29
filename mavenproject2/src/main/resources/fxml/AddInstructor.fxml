@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.cmu.controllers.AddInstructorController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cmu.controllers.AddInstructorController">
     <stylesheets>
         <URL value="@/styles/addinstructor.css" />
     </stylesheets>
    <children>
-      <Label layoutX="115.0" layoutY="123.0" prefHeight="17.0" prefWidth="47.0" text="Email" />
-      <Label layoutX="115.0" layoutY="181.0" text="Name" />
-      <TextField layoutX="216.0" layoutY="118.0" />
-      <TextField layoutX="216.0" layoutY="176.0" />
-      <Button layoutX="181.0" layoutY="264.0" mnemonicParsing="false" text="Add" />
-      <Label layoutX="169.0" layoutY="56.0" prefHeight="17.0" prefWidth="157.0" text="Add Instructor" />
+      <TextField fx:id="newuseremail" layoutX="216.0" layoutY="118.0" prefHeight="37.0" prefWidth="167.0" promptText="User Email" />
+      <PasswordField fx:id="newuserpassword" layoutX="216.0" layoutY="176.0" prefHeight="37.0" prefWidth="167.0" promptText="Password" />
+      <Button fx:id="addId" focusTraversable="false" layoutX="248.0" layoutY="358.0" minWidth="103.0" mnemonicParsing="false" onAction="#addInstructor" opacity="0.8" prefHeight="42.0" prefWidth="103.0" styleClass="buttonLogin" stylesheets="@../styles/loginpage.css" text="Add" textFill="#e86a5e">
+         <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+         </font>
+      </Button>
+      <ComboBox id="coursesList" fx:id="courseIdIns" editable="true" layoutX="216.0" layoutY="243.0" prefHeight="37.0" prefWidth="167.0" promptText="Select Course" styleClass="combo-boxEffect" stylesheets="@../styles/instructorcsvupload.css">
+  <items>
+       <FXCollections fx:factory="observableArrayList">
+      <String fx:value="History" />
+      <String fx:value="JAVA" />
+      <String fx:value="General Knowledge" />
+       </FXCollections>
+     </items>
+   </ComboBox>
+      <Label layoutX="226.0" layoutY="41.0" prefHeight="29.0" prefWidth="167.0" text="Add Instructor">
+         <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+         </font></Label>
    </children>
 </AnchorPane>

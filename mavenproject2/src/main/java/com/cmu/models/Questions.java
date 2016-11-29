@@ -39,7 +39,7 @@ public class Questions {
     
     private String answer;
     
-    private String crs_id;
+    private int crs_id;
     
     private int time;
     
@@ -49,7 +49,7 @@ public class Questions {
             String quesDesc, String option1, String answer1,
             String option2, String answer2,
             String option3, String answer3,
-            String option4, String answer4, String crs_id, Integer time) {
+            String option4, String answer4, int crs_id, Integer time) {
         this.option1 = option1;
         this.answer1 = answer1;
         this.option2 = option2;
@@ -64,7 +64,7 @@ public class Questions {
     }
 
     public Questions(String questionFormat, String difficultyLevel,
-            String quesDesc, String answer, String crs_id, Integer time) {
+            String quesDesc, String answer, int crs_id, Integer time) {
         this.ques_type = questionFormat;
         this.diff_lvl = difficultyLevel;
         this.ques_desc = quesDesc;
@@ -215,11 +215,11 @@ public class Questions {
     /**
      * @return the crs_id
      */
-    public String getCrs_id() {
+    public int getCrs_id() {
         return crs_id;
     }
 
-    public void setCrs_id(String crs_id) {
+    public void setCrs_id(int crs_id) {
         this.crs_id = crs_id;
     }
 

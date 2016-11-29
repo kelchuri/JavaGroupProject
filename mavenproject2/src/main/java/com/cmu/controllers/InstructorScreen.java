@@ -6,6 +6,7 @@ package com.cmu.controllers;
  * and open the template in the editor.
  */
 import com.cmu.handlers.TextToDatabaseHandler;
+import com.cmu.models.User;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
@@ -58,6 +60,11 @@ public class InstructorScreen implements Initializable {
     private SplitPane inputPane;
 
     private static Stage stage;
+    
+    private static User user;
+    
+    @FXML
+    private Label nameId;
 
     @FXML
     private Button importCSV;
@@ -67,6 +74,8 @@ public class InstructorScreen implements Initializable {
     @FXML
     private ComboBox courseId;
     
+    private boolean first = true;
+    
     private String course;
 
     private TextToDatabaseHandler textToDatabaseHandler = new TextToDatabaseHandler();
@@ -75,9 +84,18 @@ public class InstructorScreen implements Initializable {
         InstructorScreen.stage = takeQuizStage;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public static void setUser(User user) {
+        InstructorScreen.user = user;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if(first) {
+            //nameId.setText("Welcome, " + InstructorScreen.user.getFirstName());
+            first = false;
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardInstructor.fxml"));
         try {
             Pane cmdPane = (Pane) fxmlLoader.load();
@@ -116,7 +134,7 @@ public class InstructorScreen implements Initializable {
     @FXML
     private void handleProfileButton() throws IOException {
         System.out.println("Profile Button Called");
-
+        AdminProfileController.setUser(InstructorScreen.user);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AdminProfile.fxml"));
         Pane cmdPane = (Pane) fxmlLoader.load();
         try {
@@ -171,22 +189,25 @@ public class InstructorScreen implements Initializable {
     }
 
     private void openFile(File file) throws IOException, Throwable {
-//        try {
-//
-//            String line;
-//            Scanner input = new Scanner(file);
-//            while (input.hasNextLine()) {
-//                line = input.nextLine();
-//                System.out.println(line);
-//            }
-//        } catch (IOException ex) {
-//            Logger.getLogger(InstructorScreen.class.getName()).log(
-//                    Level.SEVERE, null, ex
-//            );
-//        }
-        course = courseId.getSelectionModel().getSelectedItem().toString();
-        System.out.println(file.getAbsolutePath() + "  " + course);
-        //textToDatabaseHandler.addData(file.getAbsolutePath(), "HIS");
+        int courseID = getCourseId();
+        System.out.println(courseID);
+        textToDatabaseHandler.addData(file.getAbsolutePath(), courseID);
 
+    }
+
+    private int getCourseId() {
+        int courseID = 0;
+        course = courseId.getSelectionModel().getSelectedItem().toString();
+        if(course.equalsIgnoreCase("history")){
+            courseID = 3;
+        } else if(course.equalsIgnoreCase("General Knowledge")) {
+            System.out.println("In the course comparision");
+            courseID = 2;
+        }
+        else if(course.equalsIgnoreCase("Java")) {
+            System.out.println("In the course comparision");
+            courseID = 1;
+        }
+        return courseID;
     }
 }

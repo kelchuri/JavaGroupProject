@@ -36,7 +36,10 @@
                               <Tooltip text="View your Profile" />
                            </tooltip>
                         </Button>
-                        <Label fx:id="nameId" layoutX="51.0" layoutY="49.0" prefHeight="17.0" prefWidth="56.0" text="Name" />
+                        <Label fx:id="nameId" layoutX="16.0" layoutY="49.0" prefHeight="17.0" prefWidth="164.0" text="Welcome, " textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Comic Sans MS" size="14.0" />
+                           </font></Label>
                         <Button fx:id="addInstructorId" layoutX="-1.0" layoutY="431.0" mnemonicParsing="false" onAction="#addInstructorButton" prefHeight="39.0" prefWidth="240.0" styleClass="buttonEffect" stylesheets="@../styles/instructorcsvupload.css" text="Add Instructor">
                             <font>
                               <Font name="Comic Sans MS Bold" size="13.0" />

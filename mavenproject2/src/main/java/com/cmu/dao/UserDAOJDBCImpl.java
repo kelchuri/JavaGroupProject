@@ -31,6 +31,11 @@ public class UserDAOJDBCImpl implements UserDAO{
         }
     }
     
+    public User addInstructor(User user) throws Exception{
+        add(user);
+        return checkUserExists(user.getEmailId(), user.getPassword());
+    }
+    
     // Add an User record using an INSERT SQL command
     public void add(User user) throws Exception {
         try (Statement stmt = connection.createStatement()) {
@@ -76,9 +81,9 @@ public class UserDAOJDBCImpl implements UserDAO{
             if (!rs.next()) {
                 return null;
             }
-            return (new User(rs.getInt("userId"), rs.getString("FIRST_NAME"),
+            return (new User(rs.getInt("user_id"), rs.getString("FIRST_NAME"),
                     rs.getString("LAST_NAME"), rs.getString("password"),
-                    rs.getString("email"), rs.getString("userType")));
+                    rs.getString("email"), rs.getString("stuinsid")));
         } catch (SQLException se) {
             //se.printStackTrace();
             throw new Exception("Error finding User in DAO", se);
@@ -94,9 +99,9 @@ public class UserDAOJDBCImpl implements UserDAO{
             // Iterate through the results and create user objects
             while (rs.next()) {
                 
-                    students.add(new User(rs.getInt("userId"), rs.getString("FIRST_NAME"),
+                    students.add(new User(rs.getInt("user_id"), rs.getString("FIRST_NAME"),
                     rs.getString("LAST_NAME"), rs.getString("password"),
-                    rs.getString("email"), rs.getString("userType")));
+                    rs.getString("email"), rs.getString("stuinsid")));
                 
                 
             }
@@ -116,9 +121,9 @@ public class UserDAOJDBCImpl implements UserDAO{
             // Iterate through the results and create user objects
             while (rs.next()) {
                 
-                    students.add(new User(rs.getInt("userId"), rs.getString("FIRST_NAME"),
+                    students.add(new User(rs.getInt("user_id"), rs.getString("FIRST_NAME"),
                     rs.getString("LAST_NAME"), rs.getString("password"),
-                    rs.getString("email"), rs.getString("userType")));
+                    rs.getString("email"), rs.getString("stuinsid")));
                 
                 
             }
@@ -139,15 +144,18 @@ public class UserDAOJDBCImpl implements UserDAO{
     }
 
     @Override
-    public boolean checkUserExists(String userId, String password) throws Exception {
+    public User checkUserExists(String userId, String password) throws Exception {
         try (Statement stmt = connection.createStatement()) {
             String query = "SELECT * FROM USERTBL WHERE email='" + userId +"' and password='"+ password + "'";
             ResultSet rs = stmt.executeQuery(query);
             if (!rs.next()) {
-                return false;
+                return new User();
             } else {
-                return true;
+                return new User(rs.getInt("user_id"), rs.getString("FIRST_NAME"),
+                    rs.getString("LAST_NAME"), rs.getString("password"),
+                    rs.getString("email"), rs.getString("stuinsid"));
             }
+            
            
         } catch (SQLException se) {
             //se.printStackTrace();

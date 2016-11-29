@@ -6,6 +6,7 @@
 package com.cmu.dao;
 
 import com.cmu.models.Course;
+import com.cmu.models.User;
 
 /**
  *
@@ -16,5 +17,11 @@ public interface CourseDAO {
     public void add(Course c) throws Exception;
 
     public void update(Course c) throws Exception;
+    
+    public Course getCourse(User user) throws Exception;
+    
+    public Course getCourseById(int id) throws Exception;
+    
+    
 
 }
