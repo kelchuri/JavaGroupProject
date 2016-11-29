@@ -87,7 +87,7 @@ public class DatabaseWork {
                 + "quiz_id DECIMAL,"
                 + "marks VARCHAR(20),"
                 + "date DATE,"
-                + "crs_id VARCHAR(20))";
+                + "crs_id int)";
         stmt = conn.prepareStatement(sql);
         stmt.executeUpdate();
     }
