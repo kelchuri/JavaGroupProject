@@ -5,6 +5,8 @@ package com.cmu.controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.cmu.dao.QuizDAO;
+import com.cmu.dao.QuizDAOFactory;
 import com.cmu.dao.StudentQuizDAO;
 import com.cmu.dao.StudentQuizDAOFactory;
 import com.cmu.models.User;
@@ -69,8 +71,8 @@ public class DashboardInstructorController implements Initializable {
     Button pie2btn;
 
     static Stage stage;
-    
-     private static User user;
+
+    private static User user;
 
     /**
      * Initializes the controller class.
@@ -83,9 +85,10 @@ public class DashboardInstructorController implements Initializable {
         StudentQuizDAO sqdao = sqdaof.createStudentQuizDAO();
         ArrayList<Integer> noOfQuiz = new ArrayList<>();
         ArrayList<Double> avgScore = new ArrayList<>();
-        
-        String userId = String.valueOf(user.getUserId()) ;
-        
+        ArrayList<Double> noByDifficultyLevel = new ArrayList<>();
+
+        String userId = String.valueOf(user.getUserId());
+
         try {
             noOfQuiz = sqdao.numberOfQuizTakenPerInstructor(userId);
         } catch (Exception ex) {
@@ -93,11 +96,25 @@ public class DashboardInstructorController implements Initializable {
         }
         chart1.getData().add(createChart(noOfQuiz));
 
-        chart2.setTitle("Average Scores of Students");
-        chart2.getData().add(createChart(noOfQuiz));
+        try {
+            avgScore = sqdao.avgScoreForInstructor(userId);
+        } catch (Exception ex) {
+            Logger.getLogger(DashboardInstructorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        chart2.setTitle("Average Scores of Students");
+        chart2.getData().add(createChart(avgScore));
+
+        QuizDAOFactory qdaof = new QuizDAOFactory();
+        QuizDAO aO = qdaof.createQuizDAO();
+        try {
+            noByDifficultyLevel = aO.noOfCrrctQuesAsPerDiffLvlInstructor(userId);
+        } catch (Exception ex) {
+            Logger.getLogger(DashboardInstructorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         pie1.setTitle("Scores by level of Difficulty");
-        createPieChart1();
+        createPieChart1(noByDifficultyLevel);
 
         pie2.setTitle("Students Passed and Failed");
         createPieChart2();
@@ -105,12 +122,12 @@ public class DashboardInstructorController implements Initializable {
         // TODO
     }
 
-    public void createPieChart1() {
+    public void createPieChart1(ArrayList x) {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
-                        new PieChart.Data("Easy", 60),
-                        new PieChart.Data("Medium", 25),
-                        new PieChart.Data("Hard", 15));
+                        new PieChart.Data("Easy", (double) (Number) x.get(0)),
+                        new PieChart.Data("Medium", (double) (Number) x.get(1)),
+                        new PieChart.Data("Hard", (double) (Number) x.get(2)));
 
         pie1.setData(pieChartData);
 
@@ -138,9 +155,9 @@ public class DashboardInstructorController implements Initializable {
 
         XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 
-        series1.getData().add(new XYChart.Data<String, Number>(years[0], (Number)x.get(0)));
-        series1.getData().add(new XYChart.Data<String, Number>(years[1], (Number)x.get(1)));
-        series1.getData().add(new XYChart.Data<String, Number>(years[2], (Number)x.get(2)));
+        series1.getData().add(new XYChart.Data<String, Number>(years[0], (Number) x.get(0)));
+        series1.getData().add(new XYChart.Data<String, Number>(years[1], (Number) x.get(1)));
+        series1.getData().add(new XYChart.Data<String, Number>(years[2], (Number) x.get(2)));
 
         bc.getData().add(series1);
 
@@ -267,9 +284,9 @@ public class DashboardInstructorController implements Initializable {
         }
 
     }
-    
+
     public static void setUser(User user) {
         DashboardInstructorController.user = user;
-       
+
     }
 }

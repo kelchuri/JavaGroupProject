@@ -37,12 +37,13 @@ public class QuizDAOJDBCImpl implements QuizDAO {
     }
 
     @Override
-    public TreeMap<Integer, Integer[]> noOfCrrctQuesAsPerDiffLvlInstructor(String ins_id) throws Exception {
+    public ArrayList<Double> noOfCrrctQuesAsPerDiffLvlInstructor(String ins_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
             TreeMap<Integer, Integer[]> s = new TreeMap<>();
-            Integer countE = 0;
-            Integer countM = 0;
-            Integer countH = 0;
+            ArrayList<Double> a = new ArrayList<>();
+            Double countE = 0.00;
+            Double countM = 0.00;
+            Double countH = 0.00;
 
             PreparedStatement stmt1 = null;
             String sql = null;
@@ -91,7 +92,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                     Integer key = entry.getKey();
                     Integer[] value = entry.getValue();
                     if (((value[0] * 100.00) / (value[0] + value[1])) >= 50) {
-                        countE = countE + 1;
+                        countE = countE + 1.00;
                     }
                 }
             }
@@ -141,7 +142,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                     Integer key = entry.getKey();
                     Integer[] value = entry.getValue();
                     if (((value[0] * 100.00) / (value[0] + value[1])) >= 50) {
-                        countM = countM + 1;
+                        countM = countM + 1.00;
                     }
                 }
             }
@@ -191,13 +192,17 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                     Integer key = entry.getKey();
                     Integer[] value = entry.getValue();
                     if (((value[0] * 100.00) / (value[0] + value[1])) >= 50) {
-                        countH = countH + 1;
+                        countH = countH + 1.00;
                     }
                 }
             }
             System.out.println(countH);
 
-            return s;
+            a.add(countE);
+            a.add(countM);
+            a.add(countH);
+            
+            return a;
         } catch (SQLException se) {
             //se.printStackTrace();
             throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
