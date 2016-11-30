@@ -24,7 +24,7 @@ import java.util.Locale;
 public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
 
     private Connection connection;
-    private ArrayList<String> studentMarksList;
+    private ArrayList<Double> studentMarksList;
 
     StudentQuizDAOJDBCImpl() {
         String url = "jdbc:derby://localhost:1527/QCASDB";
@@ -75,8 +75,6 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                 cal.setTimeInMillis(rs.getDate("date").getTime());
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
 
-                String text = "Instructor: " + ins_id + "| Quiz Count: " + quizCount + "| Date: " + sdf.format(cal.getTime());
-                System.out.println(text);
                 Calendar lastMonth1 = Calendar.getInstance();
                 lastMonth1.add(Calendar.MONTH, -1);
                 Calendar lastQuarter1 = Calendar.getInstance();
@@ -86,8 +84,11 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
 
                 if (cal.after(lastMonth1)) {
                     lastMonth = lastMonth + 1;
+                    lastQuarter = lastQuarter + 1;
+                    lastYear = lastYear + 1;
                 } else if (cal.after(lastQuarter1)) {
                     lastQuarter = lastQuarter + 1;
+                    lastYear = lastYear + 1;
                 } else if (cal.after(lastYear1)) {
                     lastYear = lastYear + 1;
                 }
@@ -107,37 +108,50 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
     public void close() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public ArrayList<String> passFailStudent(int stu_id) throws Throwable {
 
-        studentMarksList = new ArrayList<>();
-        PreparedStatement stmt = null;
-        Connection conn = null;
-        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
-        conn = DriverManager.getConnection(dbURL);
+    public ArrayList<Double> passFailStudent(int stu_id) throws Throwable {
 
-        String sql = "select stu_id, studentquiz.quiz_id, marks, total_marks\n"
-                + "from quizmarks inner join studentquiz\n"
-                + "on quizmarks.QUIZ_ID=studentquiz.QUIZ_ID \n"
-                + "where stu_id=? \n"
-                + "group by stu_id, studentquiz.quiz_id, marks, total_marks";
-        stmt = conn.prepareStatement(sql);
-        stmt.setInt(1, stu_id);
-        ResultSet rs = stmt.executeQuery();
-        ResultSetMetaData rsmd = rs.getMetaData();
-        int columnsNumber = rsmd.getColumnCount();
-        while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) {
-                    System.out.print(",  ");
-}
-                String columnValue = rs.getString(i);
-                studentMarksList.add(rsmd.getColumnName(i));
-                //System.out.print(columnValue + " " + rsmd.getColumnName(i));
+        try (Statement stmt = connection.createStatement()) {
+            studentMarksList = new ArrayList<>();
+            Double pass = 0.00;
+            Double fail = 0.00;
+            Double marks = 0.00;
+            Double totalMarks = 0.00;
+            PreparedStatement stmt1 = null;
+            String sql = null;
+
+            sql = "select stu_id, studentquiz.quiz_id, marks, total_marks\n"
+                    + "from quizmarks inner join studentquiz\n"
+                    + "on quizmarks.QUIZ_ID=studentquiz.QUIZ_ID \n"
+                    + "where stu_id=? \n"
+                    + "group by stu_id, studentquiz.quiz_id, marks, total_marks";
+            stmt1 = connection.prepareStatement(sql);
+            stmt1.setInt(1, stu_id);
+            ResultSet rs = stmt1.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+
+            while (rs.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    marks = (rs.getInt("marks"))+0.0;
+                    totalMarks = (rs.getInt("total_marks"))+0.0;
+
+                    if((marks/totalMarks)>=0.5){
+                        pass = pass + 1.0;
+                    }else{
+                        fail = fail +1.0;
+                    }
+                    
+                }
             }
-
+            studentMarksList.add(pass);
+            studentMarksList.add(fail);
+            return studentMarksList;
+        } catch (SQLException se) {
+            //se.printStackTrace();
+            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
         }
-        return studentMarksList;
+
     }
 
     @Override
@@ -200,7 +214,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             if (lastYear > 0) {
                 avgMarksYear = totalMarksYear / lastYear;
             }
-            
+
             avgScore.add(avgMarksMonth);
             avgScore.add(avgMarksQuarter);
             avgScore.add(avgMarksYear);
@@ -210,7 +224,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
         }
     }
-    
+
     @Override
     public ArrayList<Integer> numberOfQuizTakenPerStudent(String stu_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
@@ -221,39 +235,38 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             PreparedStatement stmt1 = null;
             String sql = null;
             sql = "SELECT stu_id, quiz_id,date\n"
-                + "FROM StudentQuiz\n"
-                + "where stu_id=?";
+                    + "FROM StudentQuiz\n"
+                    + "where stu_id=?";
             stmt1 = connection.prepareStatement(sql);
             stmt1.setString(1, stu_id);
-//            int quizCount = 0;
             ResultSet rs = stmt1.executeQuery();
- 
+
             while (rs.next()) {
                 stu_id = rs.getString("stu_id");
-//                quizCount = (rs.getInt("QuizCount"));
- 
+
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(rs.getDate("date").getTime());
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
- 
-                String text = "Instructor: " + stu_id + "| Date: " + sdf.format(cal.getTime());
-                System.out.println(text);
+
                 Calendar lastMonth1 = Calendar.getInstance();
                 lastMonth1.add(Calendar.MONTH, -1);
                 Calendar lastQuarter1 = Calendar.getInstance();
                 lastQuarter1.add(Calendar.MONTH, -3);
                 Calendar lastYear1 = Calendar.getInstance();
                 lastYear1.add(Calendar.YEAR, -1);
- 
+
                 if (cal.after(lastMonth1)) {
                     lastMonth = lastMonth + 1;
+                    lastQuarter = lastQuarter + 1;
+                    lastYear = lastYear + 1;
                 } else if (cal.after(lastQuarter1)) {
                     lastQuarter = lastQuarter + 1;
+                    lastYear = lastYear + 1;
                 } else if (cal.after(lastYear1)) {
                     lastYear = lastYear + 1;
                 }
             }
- 
+
             numberOfTestTaken.add(lastMonth);
             numberOfTestTaken.add(lastQuarter);
             numberOfTestTaken.add(lastYear);
@@ -262,6 +275,45 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             //se.printStackTrace();
             throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
         }
+    }
+
+    @Override
+    public Double overallAvgMarksStudent(int stu_id) throws Exception {
+
+        try (Statement stmt = connection.createStatement()) {
+            Double noOfQuizes = 0.00;
+            Double marks = 0.00;
+            Double totalMarks = 0.00;
+            Double overallAvgMarks = 0.00;
+            PreparedStatement stmt1 = null;
+            String sql = null;
+
+            sql = "select stu_id, studentquiz.quiz_id, marks, total_marks\n"
+                    + "from quizmarks inner join studentquiz\n"
+                    + "on quizmarks.QUIZ_ID=studentquiz.QUIZ_ID \n"
+                    + "where stu_id=? \n"
+                    + "group by stu_id, studentquiz.quiz_id, marks, total_marks";
+            stmt1 = connection.prepareStatement(sql);
+            stmt1.setInt(1, stu_id);
+            ResultSet rs = stmt1.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+
+            while (rs.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    marks = (rs.getInt("marks"))+0.0;
+                    totalMarks = (rs.getInt("total_marks"))+0.0;
+                    overallAvgMarks = overallAvgMarks + (marks/totalMarks);
+                    noOfQuizes = noOfQuizes + 1.0;
+                }
+            }
+            overallAvgMarks = overallAvgMarks/noOfQuizes;
+            return overallAvgMarks;
+        } catch (SQLException se) {
+            //se.printStackTrace();
+            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+        }
+
     }
 
 }
