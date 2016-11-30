@@ -201,7 +201,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
             a.add(countE);
             a.add(countM);
             a.add(countH);
-            
+
             return a;
         } catch (SQLException se) {
             //se.printStackTrace();
@@ -213,27 +213,41 @@ public class QuizDAOJDBCImpl implements QuizDAO {
     public ArrayList<Questions> getQuizQuestion(int NoQ, int crs_id, String diff_lvl) throws Exception {
         try (Statement stmt = connection.createStatement()) {
             ArrayList<Questions> questionList = new ArrayList<>();
-            System.out.println(NoQ + " " + crs_id + " " +  diff_lvl);
+            System.out.println(NoQ + " " + crs_id + " " + diff_lvl);
             PreparedStatement stmt1 = null;
             String sql = null;
-            sql = "Select ques_id, ques_type,diff_lvl,ques_desc,\n"
-                    + "option1,answer1,option2,answer2,option3,answer3,\n"
-                    + "option4,answer4,answer,crs_id,time\n"
-                    + "from questions where\n"
-                    + "crs_id=? and diff_lvl=?\n"
-                    + "ORDER BY RANDOM() OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
-            stmt1 = connection.prepareStatement(sql);
-            stmt1.setInt(1, crs_id);
-            stmt1.setString(2, diff_lvl);
-            stmt1.setInt(3, NoQ);
-            ResultSet rs = stmt1.executeQuery();
+            ResultSet rs = null;
+            ResultSetMetaData rsmd = null;
+            if (diff_lvl.equalsIgnoreCase("E") || diff_lvl.equalsIgnoreCase("M") || diff_lvl.equalsIgnoreCase("H")) {
+                sql = "Select ques_id, ques_type,diff_lvl,ques_desc,\n"
+                        + "option1,answer1,option2,answer2,option3,answer3,\n"
+                        + "option4,answer4,answer,crs_id,time\n"
+                        + "from questions where\n"
+                        + "crs_id=? and diff_lvl=?\n"
+                        + "ORDER BY RANDOM() OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
+                stmt1 = connection.prepareStatement(sql);
+                stmt1.setInt(1, crs_id);
+                stmt1.setString(2, diff_lvl);
+                stmt1.setInt(3, NoQ);
+                rs = stmt1.executeQuery();
+                rsmd = rs.getMetaData();
+            } else {
+                sql = "Select ques_id, ques_type,diff_lvl,ques_desc,\n"
+                        + "option1,answer1,option2,answer2,option3,answer3,\n"
+                        + "option4,answer4,answer,crs_id,time\n"
+                        + "from questions where\n"
+                        + "crs_id=?\n"
+                        + "ORDER BY RANDOM() OFFSET 0 ROWS FETCH NEXT ? ROWS ONLY";
+                stmt1 = connection.prepareStatement(sql);
+                stmt1.setInt(1, crs_id);
+                stmt1.setInt(2, NoQ);
+                rs = stmt1.executeQuery();
 
-            ResultSetMetaData rsmd = rs.getMetaData();
+                rsmd = rs.getMetaData();
+            }
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
-                System.out.println(rs.getInt(1));
                 int ques_ID = (rs.getInt(1));
-                
                 String ques_type = rs.getString(2);
                 String rtrn;
                 if (ques_type.equalsIgnoreCase("MC") || ques_type.equalsIgnoreCase("MA")) {
@@ -254,18 +268,18 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                             difficultyLevel, quesDesc, option1, answer1,
                             option2, answer2, option3, answer3, option4, answer4, crs_id1, time);
                     questionList.add(ques);
-                    
+
                 } else if (ques_type.equalsIgnoreCase("TF") || ques_type.equalsIgnoreCase("FIB")) {
                     String difficultyLevel = rs.getString(3);
                     String quesDesc = rs.getString(4);
                     String answer = rs.getString(13);
                     int crs_id1 = rs.getInt(14);
                     Integer time = rs.getInt(15);
-                    
+
                     Questions ques = new Questions(ques_type,
                             difficultyLevel, quesDesc, answer, crs_id1, time);
                     questionList.add(ques);
-                    
+
                 }
             }
             return questionList;
@@ -280,7 +294,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
     public void close() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public int studentQuiz(int stu_id) throws Throwable {
         int quizCount = 0;
         try {
@@ -300,15 +314,14 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                 quizCount = rs.getInt("QuizCount");
                 String text = "Student Id: " + stu_id + "| Quiz Count: " + quizCount;
                 System.out.println(text);
-                
+
             }
             return quizCount;
         } catch (Exception ex) {
 
             throw new Exception("Total number of quizzes cannot be retrieved", ex);
         }
-     
-    }
 
+    }
 
 }
