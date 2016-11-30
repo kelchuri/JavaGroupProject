@@ -20,6 +20,11 @@ import java.util.ArrayList;
 public class UserDAOJDBCImpl implements UserDAO{
     private Connection connection;
     
+    /**
+     * 
+     * this constructor creates the connection with the database
+     * 
+     */
     UserDAOJDBCImpl(){
         String url = "jdbc:derby://localhost:1527/QCASDB";
 
@@ -30,13 +35,29 @@ public class UserDAOJDBCImpl implements UserDAO{
             System.exit(-1);
         }
     }
-    
+        
+    /**
+     * 
+     * this method is adds the instructor to the database
+     * 
+     * @param user
+     * @return 
+     * @throws java.lang.Exception
+     */
+    @Override
     public User addInstructor(User user) throws Exception{
         add(user);
         return checkUserExists(user.getEmailId(), user.getPassword());
     }
-    
-    // Add an User record using an INSERT SQL command
+        
+    /**
+     * 
+     * this method adds an User record using an INSERT SQL command
+     * 
+     * @param user
+     * @throws java.lang.Exception
+     */ 
+    @Override
     public void add(User user) throws Exception {
         try (Statement stmt = connection.createStatement()) {
 
@@ -55,8 +76,15 @@ public class UserDAOJDBCImpl implements UserDAO{
             throw new Exception("Error adding User in DAO", se);
         }
     }
-    
-    // Update an User record with a SQL UPDATE command
+           
+    /**
+     * 
+     * this method Update an User record with a SQL UPDATE command
+     * 
+     * @param user
+     * @throws java.lang.Exception
+     */ 
+    @Override
     public void update(User user) throws Exception {
         try (Statement stmt = connection.createStatement()) {
             String query = "UPDATE USERTBL "
@@ -72,8 +100,15 @@ public class UserDAOJDBCImpl implements UserDAO{
             throw new Exception("Error updating User in DAO", se);
         }
     }
-   
-    // Find an user record using this ID
+             
+    /**
+     * 
+     * this method Find an user record using this ID
+     * 
+     * @param id
+     * @throws java.lang.Exception
+     */  
+    @Override
     public User findById(int id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
             String query = "SELECT * FROM USERTBL WHERE userId=" + id;
@@ -89,7 +124,15 @@ public class UserDAOJDBCImpl implements UserDAO{
             throw new Exception("Error finding User in DAO", se);
         }
     }
-    
+                
+    /**
+     * 
+     * this method gets all the students from the user table
+     * 
+     * @return 
+     * @throws java.lang.Exception
+     */  
+    @Override
     public User[] getAllStudents() throws Exception {
         try (Statement stmt = connection.createStatement()) {
             String query = "SELECT * FROM USERTBL where userType='student'";
@@ -111,7 +154,15 @@ public class UserDAOJDBCImpl implements UserDAO{
             throw new Exception("Error getting all Students in DAO: " + se.getMessage(), se);
         }
     }
-    
+              
+    /**
+     * 
+     * this method s all the instructors from user table
+     * 
+     * @return 
+     * @throws java.lang.Exception
+     */    
+    @Override
     public User[] getAllInstructors() throws Exception {
         try (Statement stmt = connection.createStatement()) {
             String query = "SELECT * FROM USERTBL where userType='instructor'";
@@ -133,16 +184,38 @@ public class UserDAOJDBCImpl implements UserDAO{
             throw new Exception("Error getting all Instrutors in DAO: " + se.getMessage(), se);
         }
     }
-
+            
+    /**
+     * 
+     * this method deletes the user record for given user id
+     * 
+     * @param id
+     * @throws java.lang.Exception
+     */  
     public void delete(int id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+            
+    /**
+     * 
+     * this method closes all the open connections to the database
+     * 
+     * @throws java.lang.Exception
+     */  
     @Override
     public void close() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+            
+    /**
+     * 
+     * this method checks if the given user id exists and the password entered is correct
+     * 
+     * @param userId
+     * @param password
+     * @return 
+     * @throws java.lang.Exception
+     */  
     @Override
     public User checkUserExists(String userId, String password) throws Exception {
         try (Statement stmt = connection.createStatement()) {
@@ -162,7 +235,15 @@ public class UserDAOJDBCImpl implements UserDAO{
             throw new Exception("Error finding User in DAO", se);
         }
     }
-
+            
+    /**
+     * 
+     * this method checks the user type for the given user id
+     * 
+     * @param userId
+     * @return 
+     * @throws java.lang.Exception
+     */  
     @Override
     public String checkUserType(String userId) throws Exception {
         String type= "";
