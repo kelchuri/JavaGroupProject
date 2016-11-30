@@ -6,13 +6,12 @@
  */
 package com.cmu.models;
 
-import java.util.Calendar;
-
 /**
  *
  * @author Ayushjain
  */
 public class Quiz {
+
     private Integer quizID;
     private Integer questionNo;
     private String diffLevel;
@@ -20,14 +19,19 @@ public class Quiz {
     private Double time;
 
     /**
-     * @return the quizID
+     * this constructor creates an object of quiz and assign the respective
+     * values
+     *
+     * @param question_id
+     * @param difficulty_level
+     * @param iscorrect
      */
-    
     public Quiz(int question_id, String difficulty_level, boolean iscorrect) {
         setQuestionNo(question_id);
         setDiffLevel(difficulty_level);
         setIsCorrect(iscorrect);
     }
+
     public Integer getQuizID() {
         return quizID;
     }
