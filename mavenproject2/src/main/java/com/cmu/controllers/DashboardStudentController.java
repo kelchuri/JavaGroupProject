@@ -94,12 +94,25 @@ public class DashboardStudentController implements Initializable {
         }
         chart3.getData().add(createChart(noOfQuiz));
 
+        
         chart4.setTitle("Average Scores of Students");
-        chart4.getData().add(createChart(noOfQuiz));
+        try {
+            avgScore = sqdao.averageScoreOfStudent("1");
+        } catch (Exception ex) {
+            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        chart4.getData().add(createChart(avgScore));
 
+        
         pie3.setTitle("Scores by level of Difficulty");
-        createPieChart1();
+        try {
+            noByDifficultyLevel = sqdao.scoresByLODForStudent("1");
+        } catch (Exception ex) {
+            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        createPieChart1(noByDifficultyLevel);
 
+        
         pie4.setTitle("Number of Tests Passed and Failed");
         try {
             passFail = sqdao.passFailStudent(1);
@@ -110,12 +123,12 @@ public class DashboardStudentController implements Initializable {
         // TODO
     }
 
-    public void createPieChart1() {
+    public void createPieChart1(ArrayList<Double> x) {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
-                        new PieChart.Data("Easy", 60),
-                        new PieChart.Data("Medium", 25),
-                        new PieChart.Data("Hard", 15));
+                        new PieChart.Data("Easy", x.get(0)),
+                        new PieChart.Data("Medium", x.get(2)),
+                        new PieChart.Data("Hard", x.get(1)));
 
         pie3.setData(pieChartData);
 
