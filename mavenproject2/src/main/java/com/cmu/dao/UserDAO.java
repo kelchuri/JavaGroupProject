@@ -11,7 +11,7 @@ import com.cmu.models.User;
  * @author kavya
  */
 public interface UserDAO extends AutoCloseable {
-    public void add(User user) throws Exception;
+    public User add(User user) throws Exception;
     
     public User addInstructor(User user) throws Exception;
 

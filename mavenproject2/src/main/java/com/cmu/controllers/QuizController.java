@@ -5,13 +5,13 @@ package com.cmu.controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.cmu.handlers.StudentHandler;
 import com.cmu.models.Questions;
 import com.cmu.models.Quiz;
+import com.cmu.models.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -33,7 +33,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -109,6 +108,12 @@ public class QuizController implements Initializable {
 
     private static boolean timerOn;
 
+    private int course_id;
+
+    private static User user;
+
+    private StudentHandler studentHandler = new StudentHandler();
+
     static int correct = 0;
     int incorrect = 0;
 
@@ -116,7 +121,7 @@ public class QuizController implements Initializable {
     private Questions currentQuestion;
 
     private int iMinutes = 0,
-            iSeconds = 10;
+            iSeconds = 0;
 
     public static void setStage(Stage takeQuizStage) {
         QuizController.stage = takeQuizStage;
@@ -125,6 +130,11 @@ public class QuizController implements Initializable {
 
     public static void setQuestions(List questions) {
         QuizController.ques = questions;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static void setUser(User user) {
+        QuizController.user = user;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -166,7 +176,7 @@ public class QuizController implements Initializable {
     }
 
     @FXML
-    public void goToNext() {
+    public void goToNext() throws Throwable {
         calculateAnswer();
         i = i + 1;
         if (i < QuizController.ques.size()) {
@@ -175,6 +185,8 @@ public class QuizController implements Initializable {
         } else {
             System.out.println(QuizController.ques.size() + " " + correct + " " + incorrect);
             next.setDisable(true);
+            printQuiz(quiz);
+            studentHandler.addIntoQuiz(quiz, QuizController.user, course_id);
         }
     }
 
@@ -322,6 +334,8 @@ public class QuizController implements Initializable {
 
     public void displayQuestion(int i) {
         currentQuestion = QuizController.ques.get(i);
+        course_id = currentQuestion.getCrs_id();
+
         question.setText(currentQuestion.getQues_desc());
         System.out.println(currentQuestion.getQues_desc());
 

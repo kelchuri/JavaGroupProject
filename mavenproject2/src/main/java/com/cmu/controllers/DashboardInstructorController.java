@@ -87,7 +87,7 @@ public class DashboardInstructorController implements Initializable {
         ArrayList<Double> avgScore = new ArrayList<>();
         ArrayList<Double> noByDifficultyLevel = new ArrayList<>();
 
-        String userId = String.valueOf(user.getUserId());
+        int userId = user.getUserId();
 
         try {
             noOfQuiz = sqdao.numberOfQuizTakenPerInstructor(userId);

@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
@@ -29,6 +30,9 @@ public class StudentScreenController implements Initializable {
 
     @FXML
     private AnchorPane rightPaneStudent;
+
+    @FXML
+    private Label loggedInUser;
 
     private static Stage stage;
 
@@ -52,7 +56,7 @@ public class StudentScreenController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardStudent.fxml"));
         try {
             Pane cmdPane = (Pane) fxmlLoader.load();
-
+            loggedInUser.setText(user.getFirstName());
             rightPaneStudent.getChildren().clear();
             rightPaneStudent.getChildren().add(cmdPane);
         } catch (Exception e) {
@@ -78,6 +82,7 @@ public class StudentScreenController implements Initializable {
     private void handleTakeQuizButton() throws IOException {
         System.out.println("AddInst Button Called");
         TakeQuizController.setStage(StudentScreenController.stage);
+        TakeQuizController.setUser(StudentScreenController.user);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/TakeQuiz.fxml"));
         Pane cmdPane = (Pane) fxmlLoader.load();
         try {

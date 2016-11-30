@@ -52,8 +52,8 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public ArrayList<Integer> numberOfQuizTakenPerInstructor(String ins_id) throws Exception {
+    
+    public ArrayList<Integer> numberOfQuizTakenPerInstructor(int ins_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
             ArrayList<Integer> numberOfTestTaken = new ArrayList<>();
             Integer lastMonth = 0;
@@ -63,12 +63,12 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             String sql = null;
             sql = "SELECT ins_id, Count(quiz_id) AS QuizCount, date FROM Course INNER JOIN StudentQuiz ON Course.crs_id = StudentQuiz.crs_id WHERE ins_id=? GROUP BY ins_id, date";
             stmt1 = connection.prepareStatement(sql);
-            stmt1.setString(1, ins_id);
+            stmt1.setInt(1, ins_id);
             int quizCount = 0;
             ResultSet rs = stmt1.executeQuery();
 
             while (rs.next()) {
-                ins_id = rs.getString("ins_id");
+                ins_id = rs.getInt("ins_id");
                 quizCount = (rs.getInt("QuizCount"));
 
                 Calendar cal = Calendar.getInstance();
@@ -141,7 +141,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
     }
 
     @Override
-    public ArrayList<Double> avgScoreForInstructor(String ins_id) throws Exception {
+    public ArrayList<Double> avgScoreForInstructor(int ins_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
             ArrayList<Double> avgScore = new ArrayList<>();
             Double lastMonth = 0.00;
@@ -159,12 +159,12 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                     + "FROM Course INNER JOIN StudentQuiz ON Course.crs_id = StudentQuiz.crs_id\n"
                     + " where ins_id=? GROUP BY Course.ins_id, Course.crs_id, StudentQuiz.stu_id, StudentQuiz.marks, StudentQuiz.date";
             stmt1 = connection.prepareStatement(sql);
-            stmt1.setString(1, ins_id);
+            stmt1.setInt(1, ins_id);
             int quizMarks = 0;
             ResultSet rs = stmt1.executeQuery();
 
             while (rs.next()) {
-                ins_id = rs.getString("ins_id");
+                ins_id = rs.getInt("ins_id");
                 quizMarks = (rs.getInt("marks"));
 
                 Calendar cal = Calendar.getInstance();
@@ -211,8 +211,8 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
         }
     }
     
-    @Override
-    public ArrayList<Integer> numberOfQuizTakenPerStudent(String stu_id) throws Exception {
+
+    public ArrayList<Integer> numberOfQuizTakenPerStudent(int stu_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
             ArrayList<Integer> numberOfTestTaken = new ArrayList<>();
             Integer lastMonth = 0;
@@ -224,12 +224,12 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                 + "FROM StudentQuiz\n"
                 + "where stu_id=?";
             stmt1 = connection.prepareStatement(sql);
-            stmt1.setString(1, stu_id);
+            stmt1.setInt(1, stu_id);
 //            int quizCount = 0;
             ResultSet rs = stmt1.executeQuery();
  
             while (rs.next()) {
-                stu_id = rs.getString("stu_id");
+                stu_id = rs.getInt("stu_id");
 //                quizCount = (rs.getInt("QuizCount"));
  
                 Calendar cal = Calendar.getInstance();
@@ -263,5 +263,6 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
         }
     }
+
 
 }

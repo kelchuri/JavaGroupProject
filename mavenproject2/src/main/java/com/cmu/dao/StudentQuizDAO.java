@@ -19,12 +19,12 @@ public interface StudentQuizDAO extends AutoCloseable {
 
     public String deleteStudentQuiz() throws Exception;
 
-    public ArrayList<Integer> numberOfQuizTakenPerInstructor(String ins_id) throws Exception;
+    public ArrayList<Integer> numberOfQuizTakenPerInstructor(int ins_id) throws Exception;
 
     public ArrayList<String> passFailStudent(int stu_id) throws Throwable;
     
-    public ArrayList<Double> avgScoreForInstructor(String ins_id) throws Exception;
+    public ArrayList<Double> avgScoreForInstructor(int ins_id) throws Exception;
 
-    public ArrayList<Integer> numberOfQuizTakenPerStudent(String stu_id) throws Exception;
+    public ArrayList<Integer> numberOfQuizTakenPerStudent(int stu_id) throws Exception;
 
 }

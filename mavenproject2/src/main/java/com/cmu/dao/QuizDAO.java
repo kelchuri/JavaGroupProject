@@ -6,7 +6,10 @@
 package com.cmu.dao;
 
 import com.cmu.models.Questions;
+import com.cmu.models.Quiz;
+import com.cmu.models.User;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,9 +17,11 @@ import java.util.ArrayList;
  */
 public interface QuizDAO extends AutoCloseable{
     
-    public ArrayList<Double> noOfCrrctQuesAsPerDiffLvlInstructor(String ins_id) throws Exception;
+    public ArrayList<Double> noOfCrrctQuesAsPerDiffLvlInstructor(int ins_id) throws Exception;
 
     public ArrayList<Questions> getQuizQuestion(int NoQ, int crs_id, String diff_lvl) throws Exception;
  
     public int studentQuiz(int stu_id) throws Throwable;
+    
+    public void addIntoDB(List<Quiz> quiz, User student, int course_id) throws Throwable;
 }

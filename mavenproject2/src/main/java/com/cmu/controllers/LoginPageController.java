@@ -97,7 +97,7 @@ public class LoginPageController implements Initializable {
                 showStudentScreen();
 
             } else if (userType.equals("instructor")) {
-                    InstructorScreen.setUser(result);
+                InstructorScreen.setUser(result);
                 Stage takeQuizStage;
                 takeQuizStage = ((Stage) userId.getScene().getWindow());
                 InstructorScreen.setStage(takeQuizStage);
@@ -189,7 +189,8 @@ public class LoginPageController implements Initializable {
             System.out.println("ready for signup");
             User student = new User(fnameId.getText(), lnameId.getText(), password1.getText(), emailId.getText(), "student");
             try {
-                login_Page_Database_Controller.addANewUser(student);
+                User user = login_Page_Database_Controller.addANewUser(student);
+                 StudentScreenController.setUser(user);
                 showStudentScreen();
             } catch (Exception e) {
                 errorId.setText("There was an error processing your request. please try again later.");

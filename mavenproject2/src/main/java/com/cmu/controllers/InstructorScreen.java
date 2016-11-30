@@ -60,9 +60,12 @@ public class InstructorScreen implements Initializable {
     private SplitPane inputPane;
 
     private static Stage stage;
-    
+
     private static User user;
-    
+
+    @FXML
+    private Label loggedInUser;
+
     @FXML
     private Label nameId;
 
@@ -73,9 +76,9 @@ public class InstructorScreen implements Initializable {
 
     @FXML
     private ComboBox courseId;
-    
+
     private boolean first = true;
-    
+
     private String course;
 
     private TextToDatabaseHandler textToDatabaseHandler = new TextToDatabaseHandler();
@@ -84,7 +87,7 @@ public class InstructorScreen implements Initializable {
         InstructorScreen.stage = takeQuizStage;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public static void setUser(User user) {
         InstructorScreen.user = user;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -92,14 +95,11 @@ public class InstructorScreen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if(first) {
-            //nameId.setText("Welcome, " + InstructorScreen.user.getFirstName());
-            first = false;
-        }
+        loggedInUser.setText(InstructorScreen.user.getFirstName());
+        DashboardInstructorController.setUser(InstructorScreen.user);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardInstructor.fxml"));
         try {
             Pane cmdPane = (Pane) fxmlLoader.load();
-
             rightPane.getChildren().clear();
             rightPane.getChildren().add(cmdPane);
         } catch (Exception e) {
@@ -198,13 +198,12 @@ public class InstructorScreen implements Initializable {
     private int getCourseId() {
         int courseID = 0;
         course = courseId.getSelectionModel().getSelectedItem().toString();
-        if(course.equalsIgnoreCase("history")){
+        if (course.equalsIgnoreCase("history")) {
             courseID = 3;
-        } else if(course.equalsIgnoreCase("General Knowledge")) {
+        } else if (course.equalsIgnoreCase("General Knowledge")) {
             System.out.println("In the course comparision");
             courseID = 2;
-        }
-        else if(course.equalsIgnoreCase("Java")) {
+        } else if (course.equalsIgnoreCase("Java")) {
             System.out.println("In the course comparision");
             courseID = 1;
         }

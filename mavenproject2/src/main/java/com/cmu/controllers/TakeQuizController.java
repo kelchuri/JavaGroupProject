@@ -7,6 +7,7 @@ package com.cmu.controllers;
 
 import com.cmu.handlers.StudentHandler;
 import com.cmu.models.Questions;
+import com.cmu.models.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -43,11 +44,18 @@ public class TakeQuizController implements Initializable {
     private ComboBox course;
 
     private static Stage stage;
+    
+    private static User user;
 
     private StudentHandler studentHandler = new StudentHandler();
 
     public static void setStage(Stage takeQuizStage) {
         TakeQuizController.stage = takeQuizStage;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public static void setUser(User user) {
+        TakeQuizController.user = user;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -195,6 +203,7 @@ public class TakeQuizController implements Initializable {
         } else {
             QuizController.setTimer(false);
         }
+        QuizController.setUser(TakeQuizController.user);
         QuizController.setQuestions(questions);
         QuizInstructionController.setStage(TakeQuizController.stage);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/QuizInstruction.fxml"));

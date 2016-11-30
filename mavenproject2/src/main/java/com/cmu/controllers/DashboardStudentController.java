@@ -86,7 +86,7 @@ public class DashboardStudentController implements Initializable {
         ArrayList<Double> avgScore = new ArrayList<>();
         ArrayList<Double> noByDifficultyLevel = new ArrayList<>();
         try {
-            noOfQuiz = sqdao.numberOfQuizTakenPerStudent("1");
+            noOfQuiz = sqdao.numberOfQuizTakenPerStudent(1);
         } catch (Exception ex) {
             Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
