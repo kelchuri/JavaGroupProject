@@ -83,13 +83,21 @@ public class LoginPageController implements Initializable {
             System.out.println(userId.getText());
             System.out.println(password.getText());
             User result = login_Page_Database_Controller.checkCredentials(userId.getText(), password.getText());
+            if (result == null) {
+                errorId.setText("Invalid Credentials");
+                errorId.setVisible(true);
+                // 0 is returned if the username is incorrect or the password does not match.
+            } else {
             String userType = result.getUserType();
 //            userName = result.getFirstName() + " " + result.getLastName();
-            InstructorScreen.setUser(result);
+
+                
             if (userType.equals("student")) {
+                     StudentScreenController.setUser(result);
                 showStudentScreen();
 
             } else if (userType.equals("instructor")) {
+                    InstructorScreen.setUser(result);
                 Stage takeQuizStage;
                 takeQuizStage = ((Stage) userId.getScene().getWindow());
                 InstructorScreen.setStage(takeQuizStage);
@@ -107,6 +115,8 @@ public class LoginPageController implements Initializable {
                 errorId.setVisible(true);
                 // 0 is returned if the username is incorrect or the password does not match.
             }
+            }
+
         } else {
             errorId.setVisible(true);
         }

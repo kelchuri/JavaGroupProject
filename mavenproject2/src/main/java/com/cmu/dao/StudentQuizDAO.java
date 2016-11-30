@@ -21,6 +21,7 @@ public interface StudentQuizDAO extends AutoCloseable {
     
     public ArrayList<Integer> numberOfQuizTakenPerInstructor(String ins_id) throws Exception;
     
+    public ArrayList<String> passFailStudent(int stu_id) throws Throwable;
     
     
 }

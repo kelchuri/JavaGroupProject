@@ -273,5 +273,35 @@ public class QuizDAOJDBCImpl implements QuizDAO {
     public void close() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public int studentQuiz(int stu_id) throws Throwable {
+        int quizCount = 0;
+        try {
+
+            PreparedStatement stmt = null;
+            Connection conn = null;
+            String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+            conn = DriverManager.getConnection(dbURL);
+
+            String sql = "SELECT stu_id, Count(quiz_id) AS QuizCount\n"
+                    + "FROM StudentQuiz\n"
+                    + "where stu_id=? GROUP BY stu_id";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, stu_id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                quizCount = rs.getInt("QuizCount");
+                String text = "Student Id: " + stu_id + "| Quiz Count: " + quizCount;
+                System.out.println(text);
+                
+            }
+            return quizCount;
+        } catch (Exception ex) {
+
+            throw new Exception("Total number of quizzes cannot be retrieved", ex);
+        }
+     
+    }
+
 
 }

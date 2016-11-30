@@ -5,6 +5,7 @@ package com.cmu.controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.cmu.models.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,9 +32,15 @@ public class StudentScreenController implements Initializable {
 
     private static Stage stage;
 
+    private static User user;
+
     /**
      * Initializes the controller class.
      */
+    public static void setUser(User user) {
+        StudentScreenController.user = user;
+    }
+
     public static void setStage(Stage takeQuizStage) {
         StudentScreenController.stage = takeQuizStage;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -42,12 +49,21 @@ public class StudentScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardInstructor.fxml"));
+        try {
+            Pane cmdPane = (Pane) fxmlLoader.load();
+
+            rightPaneStudent.getChildren().clear();
+            rightPaneStudent.getChildren().add(cmdPane);
+        } catch (Exception e) {
+
+        }
     }
 
     @FXML
     private void handleProfileStudentButton() throws IOException {
         System.out.println("Profile Button Called");
-
+        ProfilePageController.setUser(user);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Profile.fxml"));
         Pane cmdPane = (Pane) fxmlLoader.load();
         try {

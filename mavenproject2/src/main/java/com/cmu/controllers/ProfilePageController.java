@@ -5,11 +5,17 @@
  */
 package com.cmu.controllers;
 
+import com.cmu.handlers.InstructorHandler;
+import com.cmu.models.User;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
@@ -18,16 +24,29 @@ import javafx.scene.control.TextField;
  */
 public class ProfilePageController implements Initializable{
     
+     private static User user;
+    
+    public static void setUser(User user){
+        ProfilePageController.user = user;
+    }
+    
     @FXML
-    TextField lname;
+    private Label fname;
+    
     @FXML
-    TextField fname;
+    private Label lname;
+    
     @FXML
-    TextField totalquiz;
+    private Label totalQuiz;
+    
     @FXML
-    TextField avggrade;
+    private Label grade;
     
     private MainApp application;
+    
+    ArrayList<String> studentDetailList = new ArrayList<>();
+    
+    InstructorHandler instructorHandler = new InstructorHandler();
     
     public void setApp(MainApp application){
         this.application = application;
@@ -36,11 +55,17 @@ public class ProfilePageController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
        
-    lname.setText("Shree");
-    fname.setText("Nidhi");
-    totalquiz.setText("10");
-    avggrade.setText("A");
-    
+          fname.setText(ProfilePageController.user.getFirstName());
+          lname.setText(ProfilePageController.user.getLastName());
+         try {
+             studentDetailList = instructorHandler.getStudentMarksDetail(ProfilePageController.user);
+          //  studentDetailList.get(2)/studentDetailList(3)
+            // grade.setText(Strin);
+             totalQuiz.setText(String.valueOf(instructorHandler.getStudentQuizCount(ProfilePageController.user)));
+         } catch (Throwable ex) {
+             Logger.getLogger(ProfilePageController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+       
     }
     
     @FXML

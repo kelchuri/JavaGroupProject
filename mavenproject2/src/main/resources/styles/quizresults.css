@@ -5,3 +5,29 @@
 .mainFxmlClass {
 
 }
+
+.anchor {
+    
+    -fx-background-image: url('./resultbg.png');
+    -fx-background-size: 100% 100%
+}
+
+
+.buttonEffect {
+     -fx-background-color: 
+        #666666;
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: #E5E5E5;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-padding: 10 20 10 20;
+    -fx-text-font: Comic Sans MS;
+}
+
+.buttonEffect:hover{
+    -fx-background-color: #03A3D3;
+}
+
+.buttonEffect:pressed{
+    -fx-background-color: #03A3D3;
+}

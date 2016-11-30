@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,7 @@ import java.util.Locale;
 public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
 
     private Connection connection;
+    private ArrayList<String> studentMarksList;
 
     StudentQuizDAOJDBCImpl() {
         String url = "jdbc:derby://localhost:1527/QCASDB";
@@ -106,4 +108,36 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
+    public ArrayList<String> passFailStudent(int stu_id) throws Throwable {
+
+        studentMarksList = new ArrayList<>();
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        conn = DriverManager.getConnection(dbURL);
+
+        String sql = "select stu_id, studentquiz.quiz_id, marks, total_marks\n"
+                + "from quizmarks inner join studentquiz\n"
+                + "on quizmarks.QUIZ_ID=studentquiz.QUIZ_ID \n"
+                + "where stu_id=? \n"
+                + "group by stu_id, studentquiz.quiz_id, marks, total_marks";
+        stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, stu_id);
+        ResultSet rs = stmt.executeQuery();
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int columnsNumber = rsmd.getColumnCount();
+        while (rs.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) {
+                    System.out.print(",  ");
+}
+                String columnValue = rs.getString(i);
+                studentMarksList.add(rsmd.getColumnName(i));
+                //System.out.print(columnValue + " " + rsmd.getColumnName(i));
+            }
+
+        }
+        return studentMarksList;
+    }
 }
