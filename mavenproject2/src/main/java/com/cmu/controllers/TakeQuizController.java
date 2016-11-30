@@ -174,7 +174,10 @@ public class TakeQuizController implements Initializable {
                 return cell;
             }
         });
-
+        quiz_level.getSelectionModel().select("Easy");
+        noOfQue.getSelectionModel().select("10");
+        quizTimer.getSelectionModel().select("Off");
+        course.getSelectionModel().select("Java");
     }
 
     @FXML
@@ -186,6 +189,11 @@ public class TakeQuizController implements Initializable {
 
         List<Questions> questions = studentHandler.getQuestions(quiz, no, course);
         printQuestions(questions);
+        if (quizTime.equalsIgnoreCase("on")) {
+            QuizController.setTimer(true);
+        } else {
+            QuizController.setTimer(false);
+        }
         QuizController.setQuestions(questions);
         QuizInstructionController.setStage(TakeQuizController.stage);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/QuizInstruction.fxml"));
@@ -212,7 +220,7 @@ public class TakeQuizController implements Initializable {
         }
         return courseID;
     }
-    
+
     private String getDifficultyLevel(String name) {
         String courseID = "";
         if (name.equalsIgnoreCase("easy")) {

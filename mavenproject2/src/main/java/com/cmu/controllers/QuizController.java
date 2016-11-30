@@ -10,8 +10,17 @@ import com.cmu.models.Quiz;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,12 +30,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -90,15 +101,26 @@ public class QuizController implements Initializable {
     private TextField fib;
 
     @FXML
+    private Label timer;
+
+    @FXML
     private Button next;
 
+    @FXML
+    private Button submitQuizId;
+
     private static int i = 0;
+
+    private static boolean timerOn;
 
     static int correct = 0;
     int incorrect = 0;
 
     private List<Quiz> quiz = new ArrayList<Quiz>();
     private Questions currentQuestion;
+
+    private int iMinutes = 0,
+            iSeconds = 10;
 
     public static void setStage(Stage takeQuizStage) {
         QuizController.stage = takeQuizStage;
@@ -110,8 +132,37 @@ public class QuizController implements Initializable {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public static void setTimer(boolean flag) {
+        QuizController.timerOn = flag;
+    }
+
+    private int getTime() {
+        int time = 0;
+        for (Questions que : ques) {
+            time += que.getTime();
+        }
+        return time;
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        timer.setVisible(false);
+        if (QuizController.timerOn) {
+            timer.setVisible(true);
+            int time = getTime();
+            System.out.println("Time is" + time);
+
+            if (time > 60) {
+                iMinutes = time / 60;
+                iSeconds = time - (iMinutes * 60);
+            } else {
+                iSeconds = time;
+            }
+            System.out.println("Time is" + iMinutes + " " + iSeconds);
+            Timer timer = new Timer(true); //set it as a deamon
+            timer.schedule(new MyTimer(), 0, 1000);
+        }
 
         displayQuestion(i);
 
@@ -201,15 +252,15 @@ public class QuizController implements Initializable {
         if (iscorrect.equalsIgnoreCase("correct")) {
             options.add(option);
         }
-       
+
     }
 
     public void calculateAnswer() {
         List<String> answers = new ArrayList<String>();
         if (currentQuestion.getQues_type().equals("MA")) {
-        getSelectedOptions(currentQuestion.getAnswer1(), answers, currentQuestion.getOption1());
+            getSelectedOptions(currentQuestion.getAnswer1(), answers, currentQuestion.getOption1());
             getSelectedOptions(currentQuestion.getAnswer2(), answers, currentQuestion.getOption2());
-          getSelectedOptions(currentQuestion.getAnswer3(), answers, currentQuestion.getOption3());
+            getSelectedOptions(currentQuestion.getAnswer3(), answers, currentQuestion.getOption3());
             getSelectedOptions(currentQuestion.getAnswer4(), answers, currentQuestion.getOption4());
             int count = 0;
             for (String option : answers) {
@@ -290,7 +341,7 @@ public class QuizController implements Initializable {
             option2.setText(currentQuestion.getOption2());
             option3.setText(currentQuestion.getOption3());
             option4.setText(currentQuestion.getOption4());
-           
+
         } else if (currentQuestion.getQues_type().equals("MC")) {
             clearSelectionMC();
             System.out.println("In MC");
@@ -338,6 +389,38 @@ public class QuizController implements Initializable {
         QuizController.stage.setTitle("JavaFX and Maven");
         QuizController.stage.setScene(scene);
         QuizController.stage.show();
+    }
+
+    public class MyTimer extends TimerTask {
+
+        @Override
+        public void run() {
+            String time = iMinutes + ":" + iSeconds;
+
+            Platform.runLater(() -> {
+                timer.setText(time);
+            });
+
+            if (iSeconds < 1) {
+                if (iMinutes < 1) {
+
+                    this.cancel();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            submitQuizId.fire();
+
+                        }
+                    });
+                } else {
+                    iMinutes--;
+                    iSeconds = 59;
+                }
+            } else {
+                iSeconds--;
+
+            }
+        }
     }
 
 }
