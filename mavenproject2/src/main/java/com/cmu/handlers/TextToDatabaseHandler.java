@@ -30,12 +30,27 @@ public class TextToDatabaseHandler {
     private Path linePath = null;
     private File lineFile = null;
     private final String FIELD_SEP = ",";
-    
+      
+    /**
+     * this method reads the text file and calls addQuesToDB method
+     * 
+     * @param path
+     * @param courseID
+     * @throws java.io.IOException
+     * @throws Exception 
+     */
     public void addData(String path, int courseID) throws IOException, Throwable {
         readTextFile(path, courseID);
         addQuesToDB(questionList);
     }
-
+    
+    /**
+     * this method reads the text file of questions
+     *  
+     * @param path
+     * @param courseID
+     * @throws java.io.IOException
+     */
     public void readTextFile(String path, int courseID) throws IOException {
         String rtrn = null;
         linePath = Paths.get(path);
@@ -107,7 +122,14 @@ public class TextToDatabaseHandler {
 
 
     }
-
+    
+    /**
+     * this method s the questions to the db
+     * 
+     * @param user
+     * @return
+     * @throws Exception 
+     */
     private void addQuesToDB(ArrayList questinoList) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
