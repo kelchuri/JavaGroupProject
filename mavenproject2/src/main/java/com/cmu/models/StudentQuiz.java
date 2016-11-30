@@ -33,7 +33,7 @@ public class StudentQuiz {
      *
      * this method sets the course id
      *
-     * @return
+     * @param crs_Id
      */
     public void setCrs_Id(String crs_Id) {
         this.crs_Id = crs_Id;
@@ -53,7 +53,7 @@ public class StudentQuiz {
      *
      * this method sets the date
      *
-     * @return
+     * @param date
      */
     public void setDate(Calendar date) {
         this.date = date;
