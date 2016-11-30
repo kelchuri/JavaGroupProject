@@ -59,7 +59,8 @@ public class TakeQuizController implements Initializable {
         quiz_level.getItems().addAll(
                 "Easy",
                 "Medium",
-                "Hard"
+                "Hard",
+                "Mixed"
         );
 
         quiz_level.setCellFactory(
@@ -87,9 +88,9 @@ public class TakeQuizController implements Initializable {
         });
 
         noOfQue.getItems().addAll(
+                "5",
                 "10",
-                "20",
-                "30"
+                "15"
         );
 
         noOfQue.setCellFactory(
