@@ -5,9 +5,14 @@
  */
 package com.cmu.controllers;
 
+import com.cmu.handlers.StudentHandler;
+import com.cmu.models.Questions;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,17 +32,20 @@ import javafx.util.Callback;
  * @author Urvashi
  */
 public class TakeQuizController implements Initializable {
-    
+
     @FXML
-    ComboBox quiz_level;
+    private ComboBox quiz_level;
     @FXML
-    ComboBox noOfQue;
+    private ComboBox noOfQue;
     @FXML
-    ComboBox quizTimer;
+    private ComboBox quizTimer;
     @FXML
-    ComboBox course;
+    private ComboBox course;
+
     private static Stage stage;
-    
+
+    private StudentHandler studentHandler = new StudentHandler();
+
     public static void setStage(Stage takeQuizStage) {
         TakeQuizController.stage = takeQuizStage;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -53,7 +61,7 @@ public class TakeQuizController implements Initializable {
                 "Medium",
                 "Hard"
         );
-        
+
         quiz_level.setCellFactory(
                 new Callback<ListView<String>, ListCell<String>>() {
             @Override
@@ -62,21 +70,13 @@ public class TakeQuizController implements Initializable {
                     {
                         super.setPrefWidth(100);
                     }
-                    
+
                     @Override
                     public void updateItem(String item,
                             boolean empty) {
                         super.updateItem(item, empty);
                         if (item != null) {
                             setText(item);
-//                                    if (item.contains("High")) {
-//                                        setTextFill();
-//                                    }
-//                                    else if (item.contains("Low")){
-//                                        setTextFill(Color.GREEN);                                    }
-//                                    else {
-//                                        setTextFill(Color.BLACK);
-//                                    }
                         } else {
                             setText(null);
                         }
@@ -85,13 +85,13 @@ public class TakeQuizController implements Initializable {
                 return cell;
             }
         });
-        
+
         noOfQue.getItems().addAll(
                 "10",
                 "20",
                 "30"
         );
-        
+
         noOfQue.setCellFactory(
                 new Callback<ListView<String>, ListCell<String>>() {
             @Override
@@ -100,21 +100,13 @@ public class TakeQuizController implements Initializable {
                     {
                         super.setPrefWidth(100);
                     }
-                    
+
                     @Override
                     public void updateItem(String item,
                             boolean empty) {
                         super.updateItem(item, empty);
                         if (item != null) {
                             setText(item);
-//                                    if (item.contains("High")) {
-//                                        setTextFill();
-//                                    }
-//                                    else if (item.contains("Low")){
-//                                        setTextFill(Color.GREEN);                                    }
-//                                    else {
-//                                        setTextFill(Color.BLACK);
-//                                    }
                         } else {
                             setText(null);
                         }
@@ -123,12 +115,12 @@ public class TakeQuizController implements Initializable {
                 return cell;
             }
         });
-        
+
         quizTimer.getItems().addAll(
                 "On",
                 "Off"
         );
-        
+
         quizTimer.setCellFactory(
                 new Callback<ListView<String>, ListCell<String>>() {
             @Override
@@ -137,21 +129,13 @@ public class TakeQuizController implements Initializable {
                     {
                         super.setPrefWidth(100);
                     }
-                    
+
                     @Override
                     public void updateItem(String item,
                             boolean empty) {
                         super.updateItem(item, empty);
                         if (item != null) {
                             setText(item);
-//                                    if (item.contains("High")) {
-//                                        setTextFill();
-//                                    }
-//                                    else if (item.contains("Low")){
-//                                        setTextFill(Color.GREEN);                                    }
-//                                    else {
-//                                        setTextFill(Color.BLACK);
-//                                    }
                         } else {
                             setText(null);
                         }
@@ -160,12 +144,13 @@ public class TakeQuizController implements Initializable {
                 return cell;
             }
         });
-        
+
         course.getItems().addAll(
                 "Java",
-                "Telecom"
+                "History",
+                "General Knowledge"
         );
-        
+
         course.setCellFactory(
                 new Callback<ListView<String>, ListCell<String>>() {
             @Override
@@ -174,21 +159,13 @@ public class TakeQuizController implements Initializable {
                     {
                         super.setPrefWidth(100);
                     }
-                    
+
                     @Override
                     public void updateItem(String item,
                             boolean empty) {
                         super.updateItem(item, empty);
                         if (item != null) {
                             setText(item);
-//                                    if (item.contains("High")) {
-//                                        setTextFill();
-//                                    }
-//                                    else if (item.contains("Low")){
-//                                        setTextFill(Color.GREEN);                                    }
-//                                    else {
-//                                        setTextFill(Color.BLACK);
-//                                    }
                         } else {
                             setText(null);
                         }
@@ -197,22 +174,64 @@ public class TakeQuizController implements Initializable {
                 return cell;
             }
         });
-        
+
     }
-    
+
     @FXML
-    private void TakeQuizButton() throws IOException {
-        System.out.println("AddInst Button Called");
+    private void TakeQuizButton() throws IOException, Exception {
+        String quiz = getDifficultyLevel(quiz_level.getSelectionModel().getSelectedItem().toString());
+        int no = Integer.parseInt(this.noOfQue.getSelectionModel().getSelectedItem().toString());
+        String quizTime = this.quizTimer.getSelectionModel().getSelectedItem().toString();
+        int course = getCourseId(this.course.getSelectionModel().getSelectedItem().toString());
+
+        List<Questions> questions = studentHandler.getQuestions(quiz, no, course);
+        printQuestions(questions);
+        QuizController.setQuestions(questions);
         QuizInstructionController.setStage(TakeQuizController.stage);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/QuizInstruction.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/quizinstruction.css");
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
-        
+
         TakeQuizController.stage.setTitle("JavaFX and Maven");
         TakeQuizController.stage.setScene(scene);
         TakeQuizController.stage.show();
     }
+
+    private int getCourseId(String name) {
+        int courseID = 0;
+        if (name.equalsIgnoreCase("history")) {
+            courseID = 3;
+        } else if (name.equalsIgnoreCase("General Knowledge")) {
+            System.out.println("In the course comparision");
+            courseID = 2;
+        } else if (name.equalsIgnoreCase("Java")) {
+            System.out.println("In the course comparision");
+            courseID = 1;
+        }
+        return courseID;
+    }
     
+    private String getDifficultyLevel(String name) {
+        String courseID = "";
+        if (name.equalsIgnoreCase("easy")) {
+            courseID = "E";
+        } else if (name.equalsIgnoreCase("medium")) {
+            System.out.println("In the course comparision");
+            courseID = "M";
+        } else if (name.equalsIgnoreCase("Hard")) {
+            System.out.println("In the course comparision");
+            courseID = "H";
+        }
+        return courseID;
+    }
+
+    private void printQuestions(List questions) {
+        for (Object question : questions) {
+            System.out.println(((Questions) question).getQues_type());
+        }
+        System.out.println(questions.size());
+    }
+
 }

@@ -8,17 +8,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.cmu.controllers.QuizController">
-    <stylesheets>
-        <URL value="@/styles/quiz.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../styles/quiz.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cmu.controllers.QuizController">
    <children>
-      <Label layoutX="154.0" layoutY="97.0" prefHeight="79.0" prefWidth="209.0" text="Quiz Page">
+      <TextField fx:id="fib" layoutX="345.0" layoutY="455.0" promptText="Fill In The Blank" />
+      <Button fx:id="submitQuizId" layoutX="258.0" layoutY="496.0" mnemonicParsing="false" onAction="#submitAndViewResults" prefHeight="35.0" prefWidth="170.0" styleClass="buttonLogin" stylesheets="@../styles/quiz.css" text="Submit and View Results" />
+      <Button fx:id="next" layoutX="881.0" layoutY="496.0" mnemonicParsing="false" onAction="#goToNext" prefHeight="35.0" prefWidth="66.0" styleClass="buttonLogin" stylesheets="@../styles/quiz.css" text="Next" />
+      <VBox fx:id="multipleAnswers" layoutX="351.0" layoutY="255.0" prefHeight="200.0" prefWidth="258.0">
+         <children>
+            <CheckBox fx:id="option1" mnemonicParsing="false" text="CheckBox" />
+            <CheckBox fx:id="option2" mnemonicParsing="false" text="CheckBox" />
+            <CheckBox fx:id="option3" mnemonicParsing="false" text="CheckBox" />
+            <CheckBox fx:id="option4" mnemonicParsing="false" text="CheckBox" />
+         </children>
+      </VBox>
+      <VBox fx:id="multipleChoiceAnswers" layoutX="351.0" layoutY="255.0" prefHeight="200.0" prefWidth="258.0">
+         <children>
+            <RadioButton fx:id="option1m" mnemonicParsing="false" text="CheckBox" />
+            <RadioButton fx:id="option2m" mnemonicParsing="false" text="CheckBox" />
+            <RadioButton fx:id="option3m" mnemonicParsing="false" text="CheckBox" />
+            <RadioButton fx:id="option4m" mnemonicParsing="false" text="CheckBox" />
+         </children>
+      </VBox>
+      <VBox fx:id="trueFalse" layoutX="351.0" layoutY="255.0" prefHeight="200.0" prefWidth="258.0">
+         <children>
+            <RadioButton fx:id="true1" mnemonicParsing="false" text="True" />
+            <RadioButton fx:id="false1" mnemonicParsing="false" text="False" />
+            
+         </children>
+      </VBox>
+      <TextArea fx:id="question" layoutX="279.0" layoutY="109.0" prefHeight="95.0" prefWidth="500.0" text="abced" wrapText="true">
          <font>
-            <Font size="24.0" />
+            <Font name="Comic Sans MS" size="13.0" />
          </font>
-      </Label>
-      <Button fx:id="submitQuizId" layoutX="62.0" layoutY="329.0" mnemonicParsing="false" onAction="#submitAndViewResults" text="Submit and View Results" />
-      <Button layoutX="467.0" layoutY="322.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="61.0" text="Next" />
+      </TextArea>
    </children>
+   <styleClass>
+      <String fx:value="mainFxmlClass" />
+      <String fx:value="anchor" />
+   </styleClass>
 </AnchorPane>

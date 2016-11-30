@@ -7,7 +7,6 @@ package com.cmu.dao;
 
 import com.cmu.models.Questions;
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 /**
  *
@@ -15,9 +14,9 @@ import java.util.TreeMap;
  */
 public interface QuizDAO extends AutoCloseable{
     
-    public TreeMap<Integer, Integer[]> noOfCrrctQuesAsPerDiffLvlInstructor(String ins_id) throws Exception;
+    public ArrayList<Double> noOfCrrctQuesAsPerDiffLvlInstructor(String ins_id) throws Exception;
 
-    public ArrayList<Questions> getQuizQuestion(int NoQ, String crs_id, String diff_lvl) throws Exception;
+    public ArrayList<Questions> getQuizQuestion(int NoQ, int crs_id, String diff_lvl) throws Exception;
  
     public int studentQuiz(int stu_id) throws Throwable;
 }

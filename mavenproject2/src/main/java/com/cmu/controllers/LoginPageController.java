@@ -56,7 +56,7 @@ public class LoginPageController implements Initializable {
     private Login_Page_Database_Controller login_Page_Database_Controller;
 
     private MainApp application;
-    
+
     public String userName;
 
     public void setApp(MainApp application) {
@@ -68,12 +68,12 @@ public class LoginPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         login_Page_Database_Controller = new Login_Page_Database_Controller();
         correct.setVisible(false);
         incorrect.setVisible(false);
         errorId.setVisible(false);
-       
+
     }
 
     @FXML
@@ -109,18 +109,10 @@ public class LoginPageController implements Initializable {
                 takeQuizStage.setTitle("Instructor Screen");
                 takeQuizStage.setScene(scene);
                 takeQuizStage.show();
-
-            } else {
-                errorId.setText("Invalid Credentials");
-                errorId.setVisible(true);
-                // 0 is returned if the username is incorrect or the password does not match.
             }
             }
 
-        } else {
-            errorId.setVisible(true);
         }
-
     }
 
     private void showStudentScreen() throws IOException {
