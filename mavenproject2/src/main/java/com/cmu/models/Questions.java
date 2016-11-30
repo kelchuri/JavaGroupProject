@@ -44,6 +44,24 @@ public class Questions {
 
     private String type;
 
+    /**
+     *
+     * this constructor creates an object of questions for MC and MA
+     *
+     * @param questionFormat
+     * @param difficultyLevel
+     * @param quesDesc
+     * @param option1
+     * @param answer1
+     * @param option2
+     * @param answer2
+     * @param option3
+     * @param answer3
+     * @param option4
+     * @param answer4
+     * @param crs_id
+     * @param time
+     */
     public Questions(String questionFormat, String difficultyLevel,
             String quesDesc, String option1, String answer1,
             String option2, String answer2,
@@ -63,6 +81,17 @@ public class Questions {
         this.ques_type = questionFormat;
     }
 
+    /**
+     *
+     * this constructor creates an object of questions for TF and FIB
+     *
+     * @param questionFormat
+     * @param difficultyLevel
+     * @param quesDesc
+     * @param answer
+     * @param crs_id
+     * @param time
+     */
     public Questions(String questionFormat, String difficultyLevel,
             String quesDesc, String answer, int crs_id, Integer time) {
         this.ques_desc = quesDesc;
@@ -74,82 +103,182 @@ public class Questions {
         this.time = time;
     }
 
+    /**
+     * this method gets the answer
+     * 
+     * @return 
+     */
     public String getAnswer() {
         return answer;
     }
 
+    /**
+     * this method sets the answer
+     * 
+     * @param answer
+     */
     public void setAnswer(String answer) {
         this.answer = answer;
     }
 
+    /**
+     * this method gets the option 1
+     * 
+     * @return 
+     */
     public String getOption1() {
         return option1;
     }
 
+    /**
+     * this method sets the option 1
+     * 
+     * @param option1
+     */
     public void setOption1(String option1) {
         this.option1 = option1;
     }
 
+    /**
+     * this method gets the answer 1
+     * 
+     * @return 
+     */
     public String getAnswer1() {
         return answer1;
     }
 
+    /**
+     * this method sets the answer 1
+     * 
+     * @param answer1
+     */
     public void setAnswer1(String answer1) {
         this.answer1 = answer1;
     }
 
+    /**
+     * this method gets the option 2
+     * 
+     * @return 
+     */
     public String getOption2() {
         return option2;
     }
 
+    /**
+     * this method sets the option 2
+     * 
+     * @param option2
+     */
     public void setOption2(String option2) {
         this.option2 = option2;
     }
 
+    /**
+     * this method gets the answer 2
+     * 
+     * @return 
+     */
     public String getAnswer2() {
         return answer2;
     }
 
+    /**
+     * this method sets the answer 2
+     * 
+     * @param answer2
+     */
     public void setAnswer2(String answer2) {
         this.answer2 = answer2;
     }
 
+    /**
+     * this method gets the option 3
+     * 
+     * @return 
+     */
     public String getOption3() {
         return option3;
     }
 
+    /**
+     * this method sets the option 3
+     * 
+     * @param option3
+     */
     public void setOption3(String option3) {
         this.option3 = option3;
     }
 
+    /**
+     * this method gets the answer 3
+     * 
+     * @return 
+     */
     public String getAnswer3() {
         return answer3;
     }
 
+    /**
+     * this method sets the answer 3
+     * 
+     * @param answer3
+     */
     public void setAnswer3(String answer3) {
         this.answer3 = answer3;
     }
 
+    /**
+     * this method gets the option 4
+     * 
+     * @return 
+     */
     public String getOption4() {
         return option4;
     }
 
+    /**
+     * this method sets the option 4
+     * 
+     * @param option4
+     */
     public void setOption4(String option4) {
         this.option4 = option4;
     }
 
+    /**
+     * this method gets the answer 4
+     * 
+     * @return 
+     */
     public String getAnswer4() {
         return answer4;
     }
 
+    /**
+     * this method sets the answer 4
+     * 
+     * @param answer4
+     */
     public void setAnswer4(String answer4) {
         this.answer4 = answer4;
     }
 
+    /**
+     * this method gets the time
+     * 
+     * @return 
+     */
     public int getTime() {
         return time;
     }
 
+    /**
+     * this method sets the time
+     * 
+     * @param time
+     */
     public void setTime(int time) {
         this.time = time;
     }
@@ -217,6 +346,11 @@ public class Questions {
         return crs_id;
     }
 
+    /**
+     * this method sets the course id
+     * 
+     * @param crs_id
+     */
     public void setCrs_id(int crs_id) {
         this.crs_id = crs_id;
     }
