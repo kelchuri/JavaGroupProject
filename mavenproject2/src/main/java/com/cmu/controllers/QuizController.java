@@ -30,6 +30,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -100,7 +101,7 @@ public class QuizController implements Initializable {
     private TextField fib;
 
     @FXML
-    private TextField timer;
+    private Label timer;
 
     @FXML
     private Button next;

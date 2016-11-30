@@ -32,7 +32,7 @@
       <PieChart fx:id="pie3" layoutX="52.0" layoutY="501.0" prefHeight="358.0" prefWidth="365.0" />
       <PieChart fx:id="pie4" layoutX="764.0" layoutY="541.0" prefHeight="352.0" prefWidth="408.0" />
       <Button fx:id="chart3btn" layoutX="159.0" layoutY="423.0" mnemonicParsing="false" onAction="#print1" text="Print PDF" />
-      <Button fx:id="chart3btn" layoutX="884.0" layoutY="436.0" mnemonicParsing="false" onAction="#print2" text="Print PDF" />
+      <Button fx:id="chart2btn" layoutX="884.0" layoutY="436.0" mnemonicParsing="false" onAction="#print2" text="Print PDF" />
       <Button fx:id="pie3btn" layoutX="216.0" layoutY="926.0" mnemonicParsing="false" onAction="#print3" text="Print PDF" />
       <Button fx:id="pie4btn" layoutX="922.0" layoutY="939.0" mnemonicParsing="false" onAction="#print4" text="Print PDF" />
    </children>
