@@ -6,12 +6,13 @@ package com.cmu.controllers;
  * and open the template in the editor.
  */
 import com.cmu.models.Questions;
+import com.cmu.models.Quiz;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,7 +21,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -61,7 +61,7 @@ public class QuizController implements Initializable {
 
     @FXML
     private VBox multipleAnswers;
-    
+
     @FXML
     private RadioButton option1m;
 
@@ -76,7 +76,7 @@ public class QuizController implements Initializable {
 
     @FXML
     private VBox multipleChoiceAnswers;
-    
+
     @FXML
     private RadioButton true1;
 
@@ -85,14 +85,20 @@ public class QuizController implements Initializable {
 
     @FXML
     private VBox trueFalse;
-    
+
     @FXML
     private TextField fib;
-    
+
     @FXML
     private Button next;
-    
-    private static int i=0;
+
+    private static int i = 0;
+
+    static int correct = 0;
+    int incorrect = 0;
+
+    private List<Quiz> quiz = new ArrayList<Quiz>();
+    private Questions currentQuestion;
 
     public static void setStage(Stage takeQuizStage) {
         QuizController.stage = takeQuizStage;
@@ -106,60 +112,216 @@ public class QuizController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
-            displayQuestion(i);
-        
+
+        displayQuestion(i);
+
         // TODO
     }
-    
+
     @FXML
-    public void goToNext(){
-        i = i+1;
-        if(i< QuizController.ques.size()){
-                   displayQuestion(i);
- 
+    public void goToNext() {
+        calculateAnswer();
+        i = i + 1;
+        if (i < QuizController.ques.size()) {
+            displayQuestion(i);
+
         } else {
+            System.out.println(QuizController.ques.size() + " " + correct + " " + incorrect);
             next.setDisable(true);
         }
     }
 
+    public void clearSelectionMA() {
+        option1.setSelected(false);
+        option2.setSelected(false);
+        option3.setSelected(false);
+        option4.setSelected(false);
+    }
+
+    public void clearSelectionMC() {
+        option1m.setSelected(false);
+        option2m.setSelected(false);
+        option3m.setSelected(false);
+        option4m.setSelected(false);
+    }
+
+    @FXML
+    public void selectTrue() {
+        if (true1.isSelected()) {
+            false1.setSelected(false);
+
+        }
+    }
+
+    @FXML
+    public void selectFalse() {
+        if (false1.isSelected()) {
+            true1.setSelected(false);
+
+        }
+    }
+
+    @FXML
+    public void selectOption1(ActionEvent event) {
+        if (option1m.isSelected()) {
+            option2m.setSelected(false);
+            option3m.setSelected(false);
+            option4m.setSelected(false);
+        }
+    }
+
+    @FXML
+    public void selectOption2(ActionEvent event) {
+        if (option2m.isSelected()) {
+            option1m.setSelected(false);
+            option3m.setSelected(false);
+            option4m.setSelected(false);
+        }
+    }
+
+    @FXML
+    public void selectOption3(ActionEvent event) {
+        if (option3m.isSelected()) {
+            option1m.setSelected(false);
+            option2m.setSelected(false);
+            option4m.setSelected(false);
+        }
+    }
+
+    @FXML
+    public void selectOption4(ActionEvent event) {
+        if (option4m.isSelected()) {
+            option1m.setSelected(false);
+            option2m.setSelected(false);
+            option3m.setSelected(false);
+        }
+    }
+
+    public void getSelectedOptions(String iscorrect, List options, String option) {
+        if (iscorrect.equalsIgnoreCase("correct")) {
+            options.add(option);
+        }
+       
+    }
+
+    public void calculateAnswer() {
+        List<String> answers = new ArrayList<String>();
+        if (currentQuestion.getQues_type().equals("MA")) {
+        getSelectedOptions(currentQuestion.getAnswer1(), answers, currentQuestion.getOption1());
+            getSelectedOptions(currentQuestion.getAnswer2(), answers, currentQuestion.getOption2());
+          getSelectedOptions(currentQuestion.getAnswer3(), answers, currentQuestion.getOption3());
+            getSelectedOptions(currentQuestion.getAnswer4(), answers, currentQuestion.getOption4());
+            int count = 0;
+            for (String option : answers) {
+                System.out.println(option);
+                if (option1.getText().equalsIgnoreCase(option) && option1.isSelected()) {
+                    count++;
+                } else if (option2.getText().equalsIgnoreCase(option) && option2.isSelected()) {
+                    count++;
+                } else if (option3.getText().equalsIgnoreCase(option) && option3.isSelected()) {
+                    count++;
+                } else if (option4.getText().equalsIgnoreCase(option) && option4.isSelected()) {
+                    count++;
+                }
+            }
+            System.out.println(count + " " + answers.size());
+            if (count == answers.size()) {
+                correct++;
+                quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), true));
+            } else {
+                incorrect++;
+                quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), false));
+            }
+
+        } else if (currentQuestion.getQues_type().equals("MC")) {
+            if (option1m.isSelected() && currentQuestion.getAnswer1().equalsIgnoreCase("correct")) {
+                correct++;
+                quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), true));
+            } else if (option2m.isSelected() && currentQuestion.getAnswer2().equalsIgnoreCase("correct")) {
+                correct++;
+                quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), true));
+            } else if (option3m.isSelected() && currentQuestion.getAnswer3().equalsIgnoreCase("correct")) {
+                correct++;
+                quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), true));
+            } else if (option4m.isSelected() && currentQuestion.getAnswer4().equalsIgnoreCase("correct")) {
+                correct++;
+                quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), true));
+            } else {
+                incorrect++;
+                quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), false));
+            }
+        } else if (currentQuestion.getQues_type().equals("FIB")) {
+            if (fib.getText().equalsIgnoreCase(currentQuestion.getAnswer())) {
+                correct++;
+                quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), true));
+            } else {
+                incorrect++;
+                quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), false));
+            }
+        } else if (currentQuestion.getQues_type().equals("TF")) {
+            if (true1.isSelected() && currentQuestion.getAnswer().equalsIgnoreCase(true1.getText())) {
+                correct++;
+                quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), true));
+            } else if (false1.isSelected() && currentQuestion.getAnswer().equalsIgnoreCase(false1.getText())) {
+                correct++;
+                quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), true));
+            } else {
+                incorrect++;
+                quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), false));
+            }
+        }
+
+    }
+
     public void displayQuestion(int i) {
-        Questions questionStr = QuizController.ques.get(i);
-        question.setText(questionStr.getQues_desc());
-        System.out.println(questionStr.getQues_desc());
-        if (questionStr.getQues_type().equals("MA")) {
+        currentQuestion = QuizController.ques.get(i);
+        question.setText(currentQuestion.getQues_desc());
+        System.out.println(currentQuestion.getQues_desc());
+
+        boolean isCorrect = false;
+        if (currentQuestion.getQues_type().equals("MA")) {
+            clearSelectionMA();
             System.out.println("In MA");
             multipleAnswers.setVisible(true);
             multipleChoiceAnswers.setVisible(false);
             fib.setVisible(false);
             trueFalse.setVisible(false);
-            
-        } else if (questionStr.getQues_type().equals("MC")) {
+            option1.setText(currentQuestion.getOption1());
+            option2.setText(currentQuestion.getOption2());
+            option3.setText(currentQuestion.getOption3());
+            option4.setText(currentQuestion.getOption4());
+           
+        } else if (currentQuestion.getQues_type().equals("MC")) {
+            clearSelectionMC();
             System.out.println("In MC");
             multipleAnswers.setVisible(false);
             multipleChoiceAnswers.setVisible(true);
             fib.setVisible(false);
             trueFalse.setVisible(false);
-            option1m.setText(questionStr.getOption1());
-            option2m.setText(questionStr.getOption2());
-            option3m.setText(questionStr.getOption3());
-            option4m.setText(questionStr.getOption4());
-            
-        } else if (questionStr.getQues_type().equals("FIB")) {
+            option1m.setText(currentQuestion.getOption1());
+            option2m.setText(currentQuestion.getOption2());
+            option3m.setText(currentQuestion.getOption3());
+            option4m.setText(currentQuestion.getOption4());
+
+        } else if (currentQuestion.getQues_type().equals("FIB")) {
             multipleAnswers.setVisible(false);
             multipleChoiceAnswers.setVisible(false);
             fib.setVisible(true);
             trueFalse.setVisible(false);
-            
+
             System.out.println("In FIB");
-        } else if (questionStr.getQues_type().equals("TF")) {
+        } else if (currentQuestion.getQues_type().equals("TF")) {
             multipleAnswers.setVisible(false);
             multipleChoiceAnswers.setVisible(false);
             fib.setVisible(false);
             trueFalse.setVisible(true);
-            
-            
+        }
+    }
+
+    public void printQuiz(List<Quiz> quiz) {
+        for (Quiz que : quiz) {
+            System.out.println(que.getIsCorrect());
+            System.out.println(que.getQuestionNo());
         }
     }
 

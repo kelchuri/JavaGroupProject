@@ -22,6 +22,12 @@ public class Quiz {
     /**
      * @return the quizID
      */
+    
+    public Quiz(int question_id, String difficulty_level, boolean iscorrect) {
+        setQuestionNo(question_id);
+        setDiffLevel(difficulty_level);
+        setIsCorrect(iscorrect);
+    }
     public Integer getQuizID() {
         return quizID;
     }

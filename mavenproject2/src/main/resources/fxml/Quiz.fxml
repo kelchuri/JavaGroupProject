@@ -10,33 +10,38 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../styles/quiz.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cmu.controllers.QuizController">
    <children>
-      <TextField fx:id="fib" layoutX="345.0" layoutY="455.0" promptText="Fill In The Blank" />
+      
       <Button fx:id="submitQuizId" layoutX="258.0" layoutY="496.0" mnemonicParsing="false" onAction="#submitAndViewResults" prefHeight="35.0" prefWidth="170.0" styleClass="buttonLogin" stylesheets="@../styles/quiz.css" text="Submit and View Results" />
       <Button fx:id="next" layoutX="881.0" layoutY="496.0" mnemonicParsing="false" onAction="#goToNext" prefHeight="35.0" prefWidth="66.0" styleClass="buttonLogin" stylesheets="@../styles/quiz.css" text="Next" />
-      <VBox fx:id="multipleAnswers" layoutX="351.0" layoutY="255.0" prefHeight="200.0" prefWidth="258.0">
+      <VBox fx:id="blank" layoutX="351.0" layoutY="255.0" prefHeight="200.0" prefWidth="258.0" spacing="25.0">
          <children>
-            <CheckBox fx:id="option1" mnemonicParsing="false" text="CheckBox" />
-            <CheckBox fx:id="option2" mnemonicParsing="false" text="CheckBox" />
-            <CheckBox fx:id="option3" mnemonicParsing="false" text="CheckBox" />
-            <CheckBox fx:id="option4" mnemonicParsing="false" text="CheckBox" />
+             <TextField fx:id="fib" layoutX="345.0" layoutY="455.0" prefHeight="34.0" prefWidth="258.0" promptText="Fill In The Blank" />
          </children>
       </VBox>
-      <VBox fx:id="multipleChoiceAnswers" layoutX="351.0" layoutY="255.0" prefHeight="200.0" prefWidth="258.0">
+      <VBox fx:id="multipleAnswers" layoutX="351.0" layoutY="255.0" prefHeight="200.0" prefWidth="258.0" spacing="25.0">
          <children>
-            <RadioButton fx:id="option1m" mnemonicParsing="false" text="CheckBox" />
-            <RadioButton fx:id="option2m" mnemonicParsing="false" text="CheckBox" />
-            <RadioButton fx:id="option3m" mnemonicParsing="false" text="CheckBox" />
-            <RadioButton fx:id="option4m" mnemonicParsing="false" text="CheckBox" />
+            <CheckBox fx:id="option1" mnemonicParsing="false" prefHeight="18.0" prefWidth="256.0" text="CheckBox" wrapText="true" />
+            <CheckBox fx:id="option2" mnemonicParsing="false" prefHeight="18.0" prefWidth="257.0" text="CheckBox" wrapText="true" />
+            <CheckBox fx:id="option3" mnemonicParsing="false" prefHeight="18.0" prefWidth="261.0" text="CheckBox" wrapText="true" />
+            <CheckBox fx:id="option4" mnemonicParsing="false" prefHeight="18.0" prefWidth="257.0" text="CheckBox" wrapText="true" />
          </children>
       </VBox>
-      <VBox fx:id="trueFalse" layoutX="351.0" layoutY="255.0" prefHeight="200.0" prefWidth="258.0">
+      <VBox fx:id="multipleChoiceAnswers" layoutX="351.0" layoutY="255.0" prefHeight="200.0" prefWidth="258.0" spacing="25.0">
          <children>
-            <RadioButton fx:id="true1" mnemonicParsing="false" text="True" />
-            <RadioButton fx:id="false1" mnemonicParsing="false" text="False" />
+            <RadioButton fx:id="option1m" mnemonicParsing="false" onAction="#selectOption1" prefHeight="18.0" prefWidth="261.0" text="CheckBox" wrapText="true" />
+            <RadioButton fx:id="option2m" mnemonicParsing="false" onAction="#selectOption2" prefHeight="18.0" prefWidth="260.0" text="CheckBox" wrapText="true" />
+            <RadioButton fx:id="option3m" mnemonicParsing="false" onAction="#selectOption3" prefHeight="18.0" prefWidth="258.0" text="CheckBox" wrapText="true" />
+            <RadioButton fx:id="option4m" mnemonicParsing="false" onAction="#selectOption4" prefHeight="18.0" prefWidth="259.0" text="CheckBox" wrapText="true" />
+         </children>
+      </VBox>
+      <VBox fx:id="trueFalse" layoutX="351.0" layoutY="255.0" prefHeight="200.0" prefWidth="258.0" spacing="25.0">
+         <children>
+            <RadioButton fx:id="true1" mnemonicParsing="false" onAction="#selectTrue" prefHeight="18.0" prefWidth="257.0" text="True" />
+            <RadioButton fx:id="false1" mnemonicParsing="false" onAction="#selectFalse" prefHeight="18.0" prefWidth="259.0" text="False" />
             
          </children>
       </VBox>
-      <TextArea fx:id="question" layoutX="279.0" layoutY="109.0" prefHeight="95.0" prefWidth="500.0" text="abced" wrapText="true">
+      <TextArea fx:id="question" editable="false" layoutX="279.0" layoutY="109.0" opacity="0.0" prefHeight="95.0" prefWidth="588.0" styleClass="text-areaNew" stylesheets="@../styles/quiz.css" wrapText="true">
          <font>
             <Font name="Comic Sans MS" size="13.0" />
          </font>

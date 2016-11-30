@@ -21,5 +21,9 @@
 }
 
 .buttonLogin:disabled {
-    -fx-background-color: grey;
+    -fx-background-color: grey
+}
+
+.text-areaNew {
+    -fx-text-fill: white;
 }

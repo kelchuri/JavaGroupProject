@@ -18,7 +18,7 @@
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>
-      <TextArea fx:id="csvtext" layoutX="307.0" layoutY="59.0" prefHeight="216.0" prefWidth="242.0" text="Select a course and Upload A CSV File to add more questions to the database. Click on the Import CSV Button and choose the csv file from the desired location. " wrapText="true">
+      <TextArea fx:id="csvtext" editable="false" layoutX="307.0" layoutY="59.0" prefHeight="216.0" prefWidth="242.0" text="Select a course and Upload A CSV File to add more questions to the database. Click on the Import CSV Button and choose the csv file from the desired location. " wrapText="true">
          <font>
             <Font name="Comic Sans MS" size="13.0" />
          </font>

@@ -49,7 +49,7 @@ public class StudentScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardInstructor.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardStudent.fxml"));
         try {
             Pane cmdPane = (Pane) fxmlLoader.load();
 
@@ -92,7 +92,7 @@ public class StudentScreenController implements Initializable {
     private void viewDashboardButtonStudent() throws IOException {
         System.out.println("AddInst Button Called");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardInstructor.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardStudent.fxml"));
         Pane cmdPane = (Pane) fxmlLoader.load();
         try {
 
