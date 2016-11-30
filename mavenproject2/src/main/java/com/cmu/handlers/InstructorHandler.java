@@ -23,24 +23,25 @@ import java.util.ArrayList;
  * @author kavya
  */
 public class InstructorHandler {
+
     private final CourseDAOFactory courseDAOFactory = new CourseDAOFactory();
     private final CourseDAO courseDAO = courseDAOFactory.createCourseDAO();
-    
+
     private final QuizDAOFactory quizDAOFactory = new QuizDAOFactory();
-    private final QuizDAO quizDAO =quizDAOFactory.createQuizDAO();
-    
-    private final StudentQuizDAOFactory studentQuizDAOFactory= new StudentQuizDAOFactory();
+    private final QuizDAO quizDAO = quizDAOFactory.createQuizDAO();
+
+    private final StudentQuizDAOFactory studentQuizDAOFactory = new StudentQuizDAOFactory();
     private final StudentQuizDAO studentQuizDAO = studentQuizDAOFactory.createStudentQuizDAO();
-    
-    public Course getCourse(User user) throws Exception{
+
+    public Course getCourse(User user) throws Exception {
         return courseDAO.getCourse(user);
     }
-    
-    public int getStudentQuizCount(User user) throws Exception, Throwable{
+
+    public int getStudentQuizCount(User user) throws Exception, Throwable {
         return quizDAO.studentQuiz(user.getUserId());
     }
-    
-    public ArrayList<String> getStudentMarksDetail(User user) throws Throwable{
-        return studentQuizDAO.passFailStudent(user.getUserId());
+
+    public Double getStudentMarksDetail(User user) throws Throwable {
+        return studentQuizDAO.overallAvgMarksStudent(user.getUserId());
     }
 }

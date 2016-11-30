@@ -78,52 +78,72 @@ public class DashboardStudentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         chart3.setTitle("Number of Tests Taken");
         StudentQuizDAOFactory sqdaof = new StudentQuizDAOFactory();
         StudentQuizDAO sqdao = sqdaof.createStudentQuizDAO();
         ArrayList<Integer> noOfQuiz = new ArrayList<>();
         ArrayList<Double> avgScore = new ArrayList<>();
         ArrayList<Double> noByDifficultyLevel = new ArrayList<>();
+        ArrayList<Double> passFail = new ArrayList<>();
+
         try {
             noOfQuiz = sqdao.numberOfQuizTakenPerStudent(1);
         } catch (Exception ex) {
             Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        chart3.getData().add(createChart());
+        chart3.getData().add(createChart(noOfQuiz));
 
+        
         chart4.setTitle("Average Scores of Students");
-        chart4.getData().add(createChart());
+        try {
+            avgScore = sqdao.averageScoreOfStudent("1");
+        } catch (Exception ex) {
+            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        chart4.getData().add(createChart(avgScore));
 
+        
         pie3.setTitle("Scores by level of Difficulty");
-        createPieChart1();
+        try {
+            noByDifficultyLevel = sqdao.scoresByLODForStudent("1");
+        } catch (Exception ex) {
+            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        createPieChart1(noByDifficultyLevel);
 
+        
         pie4.setTitle("Number of Tests Passed and Failed");
-        createPieChart2();
+        try {
+            passFail = sqdao.passFailStudent(1);
+        } catch (Throwable ex) {
+            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        createPieChart2(passFail);
         // TODO
     }
 
-    public void createPieChart1() {
+    public void createPieChart1(ArrayList<Double> x) {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
-                        new PieChart.Data("Easy", 60),
-                        new PieChart.Data("Medium", 25),
-                        new PieChart.Data("Hard", 15));
+                        new PieChart.Data("Easy", x.get(0)),
+                        new PieChart.Data("Medium", x.get(2)),
+                        new PieChart.Data("Hard", x.get(1)));
 
         pie3.setData(pieChartData);
 
     }
 
-    public void createPieChart2() {
+    public void createPieChart2(ArrayList<Double> x) {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
-                        new PieChart.Data("Pass", 60),
-                        new PieChart.Data("Fail", 15));
+                        new PieChart.Data("Pass", x.get(0)),
+                        new PieChart.Data("Fail", x.get(1)));
         pie4.setData(pieChartData);
 
     }
 
-    public XYChart.Series<String, Number> createChart() {
+    public XYChart.Series<String, Number> createChart(ArrayList x) {
         final String[] years = {"Last month", "Last quarter", "Last year"};
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -136,9 +156,9 @@ public class DashboardStudentController implements Initializable {
 
         XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 
-        series1.getData().add(new XYChart.Data<String, Number>(years[0], 1000));
-        series1.getData().add(new XYChart.Data<String, Number>(years[1], 2000));
-        series1.getData().add(new XYChart.Data<String, Number>(years[2], 3000));
+        series1.getData().add(new XYChart.Data<String, Number>(years[0], (Number) x.get(0)));
+        series1.getData().add(new XYChart.Data<String, Number>(years[1], (Number) x.get(1)));
+        series1.getData().add(new XYChart.Data<String, Number>(years[2], (Number) x.get(2)));
 
         bc.getData().add(series1);
 
