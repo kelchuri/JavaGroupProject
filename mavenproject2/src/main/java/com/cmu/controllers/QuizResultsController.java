@@ -37,7 +37,7 @@ import javafx.util.Duration;
  *
  * @author kavya
  */
-public class QuizResultsController implements Initializable, EventHandler<MouseEvent> {
+public class QuizResultsController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -96,6 +96,7 @@ public class QuizResultsController implements Initializable, EventHandler<MouseE
         noOfCorrectAnsLabel.setText(Integer.toString(correct));
         noOfQueLabel.setText(Integer.toString(totalQue));
         percentCorrect = ((float) correct / totalQue) * 100;
+        percentCorrect = Double.valueOf(String.format("%.2f", percentCorrect));
         percentCorrectLabel.setText(Double.toString(percentCorrect));
         totalMarksLabel.setText(Integer.toString(correct * 3));
         studentTestResultPie.setTitle("Your Quiz Result");
@@ -127,22 +128,6 @@ public class QuizResultsController implements Initializable, EventHandler<MouseE
         studentTestResultPie.setData(pieChartData);
         interactivePie();
 
-        studentTestResultPie.getData().stream().forEach((data) -> {
-            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
-                this.studentTestResultPie = studentTestResultPie;
-                double angle = calcAngle(data);
-                for (PieChart.Data tmp : studentTestResultPie.getData()) {
-                    if (tmp == data) {
-                        break;
-                    }
-                    start += calcAngle(tmp);
-                }
-
-                cos = Math.cos(Math.toRadians(0 - start - angle / 2));
-                sin = Math.sin(Math.toRadians(0 - start - angle / 2));
-            });
-        });
-
     }
 
     public void interactivePie() {
@@ -153,37 +138,13 @@ public class QuizResultsController implements Initializable, EventHandler<MouseE
         studentTestResultPie.getData().stream().forEach((data) -> {
             data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
                 flag = !flag;
+                double val = ((double) data.getPieValue() / totalQue) * 100;
+                val = Double.valueOf(String.format("%.2f", val));
                 studentTestResultPie.setClockwise(flag);
                 interactivePie.setTranslateX(e.getSceneX());
                 interactivePie.setTranslateY(e.getSceneY());
-                interactivePie.setText(String.valueOf(((float) data.getPieValue() / totalQue) * 100) + "%");
+                interactivePie.setText(val + "%");
             });
         });
-    }
-
-    @Override
-    public void handle(MouseEvent event) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        Node n = (Node) event.getSource();
-
-        double minX = Double.MAX_VALUE;
-        double maxX = Double.MAX_VALUE * -1;
-
-        for (PieChart.Data d : studentTestResultPie.getData()) {
-            minX = Math.min(minX, d.getNode().getBoundsInParent().getMinX());
-            maxX = Math.max(maxX, d.getNode().getBoundsInParent().getMaxX());
-        }
-
-        double radius = maxX - minX;
-        TranslateTransitionBuilder.create().toX((radius * ANIMATION_DISTANCE) * cos).toY((radius * ANIMATION_DISTANCE) * sin).duration(ANIMATION_DURATION).node(n).build().play();
-    }
-
-    private static double calcAngle(PieChart.Data d) {
-        double total = 0;
-        for (PieChart.Data tmp : d.getChart().getData()) {
-            total += tmp.getPieValue();
-        }
-
-        return 360 * (d.getPieValue() / total);
     }
 }

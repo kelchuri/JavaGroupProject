@@ -17,63 +17,63 @@
         <URL value="@/styles/quizresults.css" />
     </stylesheets>
    <children>
-      <Label layoutX="213.0" layoutY="253.0" text="No of Questions:">
+      <Label layoutX="213.0" layoutY="253.0">
            <font>
-            <Font name="Comic Sans MS Bold" size="13.0" />
+            <Font name="Comic Sans MS Bold" size="15.0" />
           </font>
       </Label>
       
-      <Label layoutX="213.0" layoutY="328.0" text="No of Correct Answers:">
+      <Label layoutX="213.0" layoutY="328.0">
            <font>
-            <Font name="Comic Sans MS Bold" size="13.0" />
+            <Font name="Comic Sans MS Bold" size="15.0" />
           </font>
       </Label>
       
      
-      <Label layoutX="212.0" layoutY="405.0" prefHeight="17.0" prefWidth="112.0" text="Percent Correct:">
+      <Label layoutX="212.0" layoutY="405.0" prefHeight="17.0" prefWidth="112.0">
            <font>
-            <Font name="Comic Sans MS Bold" size="13.0" />
+            <Font name="Comic Sans MS Bold" size="15.0" />
           </font>
       </Label>
    
-      <Label layoutX="214.0" layoutY="463.0" text="Marks Obtained:">
+      <Label layoutX="214.0" layoutY="463.0">
            <font>
-            <Font name="Comic Sans MS Bold" size="13.0" />
+            <Font name="Comic Sans MS Bold" size="15.0" />
           </font>
       </Label>
      
-      <Button fx:id="goBack" layoutX="616.0" layoutY="573.0" mnemonicParsing="false" onAction="#backToStudentScreen" styleClass="buttonEffect" stylesheets="@../styles/quizresults.css" text="Return To Dashboard">
+      <Button fx:id="goBack" layoutX="510.0" layoutY="572.0" mnemonicParsing="false" onAction="#backToStudentScreen" styleClass="buttonEffect" stylesheets="@../styles/quizresults.css" text="Return To Dashboard">
          <font>
             <Font name="Comic Sans MS Bold" size="13.0" />
          </font></Button>
          
-      <Label layoutX="168.0" layoutY="185.0" text="Test Result">
+      <Label layoutX="168.0" layoutY="185.0">
            <font>
-            <Font name="Comic Sans MS Bold" size="13.0" />
+            <Font name="Comic Sans MS Bold" size="15.0" />
           </font>
       </Label>
        <PieChart fx:id="studentTestResultPie" layoutX="597.0" layoutY="147.0" />
-      <Label fx:id="noOfQueLabel" layoutX="387.0" layoutY="240.0" text="Label">
+      <Label fx:id="noOfQueLabel" layoutX="387.0" layoutY="240.0">
            <font>
-            <Font name="Comic Sans MS Bold" size="13.0" />
+            <Font name="Comic Sans MS Bold" size="15.0" />
           </font>
       </Label>
-      <Label fx:id="noOfCorrectAnsLabel" layoutX="387.0" layoutY="315.0" text="Label">
+      <Label fx:id="noOfCorrectAnsLabel" layoutX="387.0" layoutY="315.0">
            <font>
-            <Font name="Comic Sans MS Bold" size="13.0" />
+            <Font name="Comic Sans MS Bold" size="15.0" />
           </font>
       </Label>
-      <Label fx:id="percentCorrectLabel" layoutX="387.0" layoutY="392.0" text="Label">
+      <Label fx:id="percentCorrectLabel" layoutX="387.0" layoutY="392.0">
            <font>
-            <Font name="Comic Sans MS Bold" size="13.0" />
+            <Font name="Comic Sans MS Bold" size="15.0" />
           </font>
       </Label>
-      <Label fx:id="totalMarksLabel" layoutX="387.0" layoutY="450.0" text="Label">
+      <Label fx:id="totalMarksLabel" layoutX="387.0" layoutY="450.0">
            <font>
-            <Font name="Comic Sans MS Bold" size="13.0" />
+            <Font name="Comic Sans MS Bold" size="15.0" />
           </font>
       </Label>
-      <Label fx:id="interactivePie" layoutX="366.0" layoutY="72.0" >
+      <Label fx:id="interactivePie" layoutX="495.0" layoutY="61.0" prefHeight="31.0" prefWidth="51.0" text="heyyyyy">
           <font>
             <Font name="Comic Sans MS Bold" size="13.0" />
          </font></Label>

@@ -80,6 +80,9 @@ public class InstructorScreen implements Initializable {
     private boolean first = true;
 
     private String course;
+    
+    @FXML
+    private Label message;
 
     private TextToDatabaseHandler textToDatabaseHandler = new TextToDatabaseHandler();
 
@@ -95,8 +98,9 @@ public class InstructorScreen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loggedInUser.setText(InstructorScreen.user.getFirstName());
         DashboardInstructorController.setUser(InstructorScreen.user);
+//        loggedInUser.setText(InstructorScreen.user.getFirstName());
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardInstructor.fxml"));
         try {
             Pane cmdPane = (Pane) fxmlLoader.load();
@@ -123,9 +127,10 @@ public class InstructorScreen implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/importCSVOnly.fxml"));
         Pane cmdPane = (Pane) fxmlLoader.load();
         try {
-            courseId.getSelectionModel().select("Java");
+            
             rightPane.getChildren().clear();
             rightPane.getChildren().add(cmdPane);
+            courseId.getSelectionModel().select("Java");
 
         } catch (Exception e) {
         }
@@ -191,7 +196,13 @@ public class InstructorScreen implements Initializable {
     private void openFile(File file) throws IOException, Throwable {
         int courseID = getCourseId();
         System.out.println(courseID);
-        textToDatabaseHandler.addData(file.getAbsolutePath(), courseID);
+        message.setVisible(true);
+        if(textToDatabaseHandler.addData(file.getAbsolutePath(), courseID)) {
+            message.setText("File imported Successfully");
+            
+        } else {
+            message.setText("File vould not get imported");
+        }
 
     }
 

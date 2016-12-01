@@ -20,7 +20,7 @@ public class Login_Page_Database_Controller {
 
     private final UserDAOFactory userDAOFactory = new UserDAOFactory();
     private final UserDAO userDAO = userDAOFactory.createUserDAO();
-    
+
     private final CourseDAOFactory courseDAOFactory = new CourseDAOFactory();
     private final CourseDAO courseDAO = courseDAOFactory.createCourseDAO();
 
@@ -28,28 +28,34 @@ public class Login_Page_Database_Controller {
         int check = 0;
         String type = "";
         User userExists = userDAO.checkUserExists(userid, password);
-        try{
-           if (userExists.getUserId()!= 0) {
-            type = userDAO.checkUserType(userid);
+        try {
+            if (userExists.getUserId() != 0) {
+                type = userDAO.checkUserType(userid);
 
-            System.out.println(check);
+                System.out.println(check);
 
-        }  
-        } catch(Exception e) {
+            }
+        } catch (Exception e) {
             return null;
         }
-        
+
         return userExists;
     }
-    
-    public User addANewUser(User user) throws Exception{
+
+    public User addANewUser(User user) throws Exception {
         return userDAO.add(user);
     }
-    
-    public void addNewInstructor(User user, int courseid) throws Exception{
+
+    public boolean addNewInstructor(User user, int courseid) throws Exception {
         User instructor = userDAO.addInstructor(user);
-        Course course = new Course(courseid,"", instructor.getUserId());
-        courseDAO.add(course);
+        if (instructor.getUserId() != 0) {
+            Course course = new Course(courseid, "", instructor.getUserId());
+            courseDAO.add(course);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }

@@ -217,7 +217,8 @@ public class QuizDAOJDBCImpl implements QuizDAO {
     }
 
     @Override
-    public ArrayList<Questions> getQuizQuestion(int NoQ, int crs_id, String diff_lvl) throws Exception {
+    public ArrayList<Questions> getQuizQuestion(int NoQ, int crs_id,
+            String diff_lvl) throws Exception {
         try (Statement stmt = connection.createStatement()) {
             ArrayList<Questions> questionList = new ArrayList<>();
             System.out.println(NoQ + " " + crs_id + " " + diff_lvl);
@@ -225,7 +226,13 @@ public class QuizDAOJDBCImpl implements QuizDAO {
             String sql = null;
             ResultSet rs = null;
             ResultSetMetaData rsmd = null;
-            if (diff_lvl.equalsIgnoreCase("E") || diff_lvl.equalsIgnoreCase("M") || diff_lvl.equalsIgnoreCase("H")) {
+            Integer rndm1 = 0;
+            Integer rndm2 = 0;
+            Integer rndm3 = 0;
+            Integer rndm4 = 0;
+            if (diff_lvl.equalsIgnoreCase("E")
+                    || diff_lvl.equalsIgnoreCase("M")
+                    || diff_lvl.equalsIgnoreCase("H")) {
                 sql = "Select ques_id, ques_type,diff_lvl,ques_desc,\n"
                         + "option1,answer1,option2,answer2,option3,answer3,\n"
                         + "option4,answer4,answer,crs_id,time\n"
@@ -257,26 +264,77 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                 int ques_ID = (rs.getInt(1));
                 String ques_type = rs.getString(2);
                 String rtrn;
-                if (ques_type.equalsIgnoreCase("MC") || ques_type.equalsIgnoreCase("MA")) {
+                if (ques_type.equalsIgnoreCase("MC")
+                        || ques_type.equalsIgnoreCase("MA")) {
                     String difficultyLevel = rs.getString(3);
                     String quesDesc = rs.getString(4);
-                    String option1 = rs.getString(5);
-                    String answer1 = rs.getString(6);
-                    String option2 = rs.getString(7);
-                    String answer2 = rs.getString(8);
-                    String option3 = rs.getString(9);
-                    String answer3 = rs.getString(10);
-                    String option4 = rs.getString(11);
-                    String answer4 = rs.getString(12);
+
+                    String option1 = "";
+                    String answer1 = "";
+                    String option2 = "";
+                    String answer2 = "";
+                    String option3 = "";
+                    String answer3 = "";
+                    String option4 = "";
+                    String answer4 = "";
+
+                    Boolean flag = true;
+                    while (flag) {
+                        rndm1 = (5 + (int) (Math.random() * 8));
+                        if (rndm1 != 6 && rndm1 != 8 && rndm1 != 10
+                                && rndm1 != 12) {
+                            flag = false;
+                        }
+                    }
+
+                    flag = true;
+                    while (flag) {
+                        rndm2 = (5 + (int) (Math.random() * 8));
+                        if (rndm1 != rndm2 && rndm2 != 6 && rndm2 != 8
+                                && rndm2 != 10 && rndm2 != 12) {
+                            flag = false;
+                        }
+                    }
+
+                    flag = true;
+                    while (flag) {
+                        rndm3 = (5 + (int) (Math.random() * 8));
+                        if (rndm1 != rndm3 && rndm2 != rndm3 && rndm3 != 6
+                                && rndm3 != 8 && rndm3 != 10 && rndm3 != 12) {
+                            flag = false;
+                        }
+                    }
+
+                    flag = true;
+                    while (flag) {
+                        rndm4 = (5 + (int) (Math.random() * 8));
+                        if (rndm1 != rndm4 && rndm2 != rndm4 && rndm3
+                                != rndm4 && rndm4 != 6 && rndm4 != 8 && rndm4 != 10
+                                && rndm4 != 12) {
+                            flag = false;
+                        }
+                    }
+
+                    option1 = rs.getString(rndm1);
+                    answer1 = rs.getString(rndm1 + 1);
+                    option2 = rs.getString(rndm2);
+                    answer2 = rs.getString(rndm2 + 1);
+                    option3 = rs.getString(rndm3);
+                    answer3 = rs.getString(rndm3 + 1);
+                    option4 = rs.getString(rndm4);
+                    answer4 = rs.getString(rndm4 + 1);
+
                     int crs_id1 = rs.getInt(14);
                     Integer time = rs.getInt(15);
 
                     Questions ques = new Questions(ques_type,
                             difficultyLevel, quesDesc, option1, answer1,
-                            option2, answer2, option3, answer3, option4, answer4, crs_id1, time);
+                            option2, answer2, option3, answer3, option4,
+                            answer4, crs_id1, time);
                     questionList.add(ques);
 
-                } else if (ques_type.equalsIgnoreCase("TF") || ques_type.equalsIgnoreCase("FIB")) {
+                } else if (ques_type.equalsIgnoreCase("TF")
+                        || ques_type.equalsIgnoreCase("FIB")) {
                     String difficultyLevel = rs.getString(3);
                     String quesDesc = rs.getString(4);
                     String answer = rs.getString(13);
@@ -293,7 +351,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
 
         } catch (SQLException se) {
             //se.printStackTrace();
-            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+            throw new Exception("Error reading the count of number of ten in last year, quarter and year as per instructor ID.", se);
         }
     }
 
@@ -389,8 +447,8 @@ public class QuizDAOJDBCImpl implements QuizDAO {
             }
         }
         addIntoStudentQuiz(quiz_id, student, correct * 3, course_id);
-        dropTblQuizMarks();
-        createQuizMarks();
+        //dropTblQuizMarks();
+        //createQuizMarks();
         insertToQuizMarks();
     }
 

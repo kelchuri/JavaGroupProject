@@ -39,9 +39,9 @@ public class TextToDatabaseHandler {
      * @throws java.io.IOException
      * @throws Exception 
      */
-    public void addData(String path, int courseID) throws IOException, Throwable {
+    public boolean addData(String path, int courseID) throws IOException, Throwable {
         readTextFile(path, courseID);
-        addQuesToDB(questionList);
+        return addQuesToDB(questionList);
     }
     
     /**
@@ -130,7 +130,8 @@ public class TextToDatabaseHandler {
      * @return
      * @throws Exception 
      */
-    private void addQuesToDB(ArrayList questinoList) throws Throwable {
+    private boolean addQuesToDB(ArrayList questinoList) throws Throwable {
+        try {
         PreparedStatement stmt = null;
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
@@ -216,6 +217,12 @@ public class TextToDatabaseHandler {
             stmt.setInt(14, time);
 
             stmt.executeUpdate();
+            return true;
         }
+        }
+        catch(Exception e){
+            return false;
+        }
+        return true;
     }
 }

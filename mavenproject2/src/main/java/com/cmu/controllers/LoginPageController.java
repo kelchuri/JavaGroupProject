@@ -29,7 +29,7 @@ import javafx.stage.Stage;
  * @author kavya
  */
 public class LoginPageController implements Initializable {
-
+    
     @FXML
     TextField userId;
     @FXML
@@ -52,13 +52,13 @@ public class LoginPageController implements Initializable {
     ImageView correct;
     @FXML
     Label errorId;
-
+    
     private Login_Page_Database_Controller login_Page_Database_Controller;
-
+    
     private MainApp application;
-
+    
     public String userName;
-
+    
     public void setApp(MainApp application) {
         this.application = application;
     }
@@ -68,14 +68,14 @@ public class LoginPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         login_Page_Database_Controller = new Login_Page_Database_Controller();
         correct.setVisible(false);
         incorrect.setVisible(false);
         errorId.setVisible(false);
-
+        
     }
-
+    
     @FXML
     public void processLogin(ActionEvent event) throws IOException, Throwable {
         if (validateField()) {
@@ -88,56 +88,56 @@ public class LoginPageController implements Initializable {
                 errorId.setVisible(true);
                 // 0 is returned if the username is incorrect or the password does not match.
             } else {
-            String userType = result.getUserType();
+                String userType = result.getUserType();
 //            userName = result.getFirstName() + " " + result.getLastName();
 
-                
-            if (userType.equals("student")) {
-                     StudentScreenController.setUser(result);
-                     DashboardStudentController.setUser(result);
-
-                showStudentScreen();
-
-            } else if (userType.equals("instructor")) {
-                InstructorScreen.setUser(result);
-                Stage takeQuizStage;
-                takeQuizStage = ((Stage) userId.getScene().getWindow());
-                InstructorScreen.setStage(takeQuizStage);
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/InstructorScreen.fxml"));
-
-                Scene scene = new Scene(root);
-                scene.getStylesheets().add("/styles/instructorcsvupload.css");
-
-                takeQuizStage.setTitle("Instructor Screen");
-                takeQuizStage.setScene(scene);
-                takeQuizStage.show();
+                if (userType.equals("student")) {
+                    StudentScreenController.setUser(result);
+                    DashboardStudentController.setUser(result);
+                    
+                    showStudentScreen();
+                    
+                } else if (userType.equals("instructor")) {
+                    InstructorScreen.setUser(result);
+                    Stage takeQuizStage;
+                    takeQuizStage = ((Stage) userId.getScene().getWindow());
+                    InstructorScreen.setStage(takeQuizStage);
+                    InstructorScreen.setUser(result);
+                    Parent root = FXMLLoader.load(getClass().getResource("/fxml/InstructorScreen.fxml"));
+                    
+                    Scene scene = new Scene(root);
+                    scene.getStylesheets().add("/styles/instructorcsvupload.css");
+                    
+                    takeQuizStage.setTitle("Instructor Screen");
+                    takeQuizStage.setScene(scene);
+                    takeQuizStage.show();
+                }
             }
-            }
-
+            
         }
     }
-
+    
     private void showStudentScreen() throws IOException {
         Stage takeQuizStage;
         takeQuizStage = ((Stage) userId.getScene().getWindow());
         StudentScreenController.setStage(takeQuizStage);
-
+        
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/StudentScreen.fxml"));
-
+        
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/instructorcsvupload.css");
-
+        
         takeQuizStage.setTitle("Student Screen");
         takeQuizStage.setScene(scene);
         takeQuizStage.show();
     }
-
+    
     private boolean validateField() {
         if (userId.getText().equals("")) {
             System.out.println("in");
             userId.setStyle("-fx-border-color:red;");
             return false;
-
+            
         }
         if (password.getText().equals("")) {
             System.out.println("in");
@@ -146,13 +146,13 @@ public class LoginPageController implements Initializable {
         }
         return true;
     }
-
+    
     private boolean validateFieldsSignup() {
         if (fnameId.getText().equals("")) {
-
+            
             fnameId.setStyle("-fx-border-color:red;");
             return false;
-
+            
         }
         if (lnameId.getText().equals("")) {
             lnameId.setStyle("-fx-border-color:red;");
@@ -180,10 +180,10 @@ public class LoginPageController implements Initializable {
         }
         return true;
     }
-
+    
     @FXML
     public void processSignup(ActionEvent event) throws Exception {
-
+        
         errorId.setVisible(false);
         if (validateFieldsSignup() && password1.getText().equals(password2.getText())) {
             incorrect.setVisible(false);
@@ -192,7 +192,8 @@ public class LoginPageController implements Initializable {
             User student = new User(fnameId.getText(), lnameId.getText(), password1.getText(), emailId.getText(), "student");
             try {
                 User user = login_Page_Database_Controller.addANewUser(student);
-                 StudentScreenController.setUser(user);
+                StudentScreenController.setUser(user);
+                DashboardStudentController.setUser(user);
                 showStudentScreen();
             } catch (Exception e) {
                 errorId.setText("There was an error processing your request. please try again later.");
@@ -208,5 +209,5 @@ public class LoginPageController implements Initializable {
         }
         //User student = new User();
     }
-
+    
 }

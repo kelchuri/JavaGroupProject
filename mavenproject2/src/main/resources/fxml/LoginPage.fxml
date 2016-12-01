@@ -18,7 +18,7 @@
    <children>
       <Line endX="100.0" layoutX="877.0" layoutY="274.0" opacity="0.7" rotate="90.0" startX="-100.0" />
       <Line endX="100.0" layoutX="877.0" layoutY="505.0" opacity="0.7" rotate="90.0" startX="-100.0" />
-      <TextField fx:id="userId" focusTraversable="false" layoutX="605.0" layoutY="298.0" prefHeight="42.0" prefWidth="200.0" promptText="Username">
+      <TextField fx:id="userId" focusTraversable="false" layoutX="605.0" layoutY="298.0" prefHeight="42.0" prefWidth="200.0" promptText="Email Id">
          <font>
             <Font name="Comic Sans MS" size="14.0" />
          </font>

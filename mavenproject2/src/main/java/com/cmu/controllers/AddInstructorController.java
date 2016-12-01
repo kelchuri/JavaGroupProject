@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -36,19 +37,31 @@ public class AddInstructorController implements Initializable {
     @FXML
     private PasswordField newuserpassword;
     
+    @FXML
+    private Label message;
+    
+    private boolean flag = false;
+    
     
     private Login_Page_Database_Controller login_Page_Database_Controller = new Login_Page_Database_Controller();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        message.setVisible(true);
+        courseIdIns.getSelectionModel().select("Java");
     }    
     
     @FXML
     private void addInstructor(ActionEvent event) throws Exception{
         int courseid = getCourseId();
         User instructor = new User("", "", newuserpassword.getText(), newuseremail.getText(), "instructor");
-        login_Page_Database_Controller.addNewInstructor(instructor, courseid);
+        if(login_Page_Database_Controller.addNewInstructor(instructor, courseid)) {
+            message.setText("Instructor added successfully");
+        } else {
+            message.setText("Instructor could not be added");
+        }
+        
         
     }
     

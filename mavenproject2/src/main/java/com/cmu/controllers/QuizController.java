@@ -5,6 +5,7 @@ package com.cmu.controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.cmu.handlers.StudentHandler;
 import com.cmu.models.Questions;
 import com.cmu.models.Quiz;
 import com.cmu.models.User;
@@ -113,8 +114,12 @@ public class QuizController implements Initializable {
     static int correct = 0;
 
     static int incorrect = 0;
-    
+
+    private int course_id;
+
     private static User user;
+
+    private StudentHandler studentHandler = new StudentHandler();
 
     public int getIncorrect() {
         return incorrect;
@@ -139,7 +144,7 @@ public class QuizController implements Initializable {
     public static void setTimer(boolean flag) {
         QuizController.timerOn = flag;
     }
-    
+
     public static void setUser(User user) {
         QuizController.user = user;
     }
@@ -155,6 +160,7 @@ public class QuizController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println(ques.size());
         timer.setVisible(false);
         if (QuizController.timerOn) {
             timer.setVisible(true);
@@ -178,15 +184,20 @@ public class QuizController implements Initializable {
     }
 
     @FXML
-    public void goToNext() {
+    public void goToNext() throws Throwable {
         calculateAnswer();
         i = i + 1;
+        fib.clear();
+        submitQuizId.setDisable(true);
         if (i < QuizController.ques.size()) {
             displayQuestion(i);
 
         } else {
+            submitQuizId.setDisable(false);
             System.out.println(QuizController.ques.size() + " " + correct + " " + incorrect);
             next.setDisable(true);
+            printQuiz(quiz);
+            studentHandler.addIntoQuiz(quiz, QuizController.user, course_id);
         }
     }
 
@@ -334,6 +345,7 @@ public class QuizController implements Initializable {
 
     public void displayQuestion(int i) {
         currentQuestion = QuizController.ques.get(i);
+        course_id = currentQuestion.getCrs_id();
         question.setText(currentQuestion.getQues_desc());
         System.out.println(currentQuestion.getQues_desc());
 
