@@ -10,7 +10,12 @@ package com.cmu.dao;
  * @author Ayushjain
  */
 public class QuizDAOFactory {
-
+    
+    /**
+     * this methods returns the object of the QuizDAOJDBCImpl class
+     * 
+     * @return 
+     */
     public QuizDAO createQuizDAO() {
         return new QuizDAOJDBCImpl();
     }

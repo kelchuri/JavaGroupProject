@@ -14,6 +14,7 @@ public class QuestionDAOFactory {
     /**
      * this methods returns the object of the QuestionDAOJDBCImpl class
      * 
+     * @return 
      */
     public QuestionDAO createQuestionDAO() {
         return new QuestionDAOJDBCImpl();

@@ -360,6 +360,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public int studentQuiz(int stu_id) throws Throwable {
         int quizCount = 0;
         try {
