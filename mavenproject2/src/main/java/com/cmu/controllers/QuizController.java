@@ -112,7 +112,7 @@ public class QuizController implements Initializable {
 
     static int correct = 0;
 
-    int incorrect = 0;
+    static int incorrect = 0;
     
     private static User user;
 

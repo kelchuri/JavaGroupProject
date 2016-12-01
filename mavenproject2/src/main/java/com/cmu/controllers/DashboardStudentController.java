@@ -19,13 +19,18 @@ import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -37,6 +42,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -65,9 +71,11 @@ public class DashboardStudentController implements Initializable {
     Button pie3btn;
     @FXML
     Button pie4btn;
+    
+    Random random = new Random();
 
     static Stage stage;
-    
+
     private static User user;
 
     /**
@@ -83,7 +91,7 @@ public class DashboardStudentController implements Initializable {
         ArrayList<Double> avgScore = new ArrayList<>();
         ArrayList<Double> noByDifficultyLevel = new ArrayList<>();
         ArrayList<Double> passFail = new ArrayList<>();
-        
+
         Integer userId = user.getUserId();
 
         try {
@@ -93,7 +101,6 @@ public class DashboardStudentController implements Initializable {
         }
         chart3.getData().add(createChart(noOfQuiz));
 
-        
         chart4.setTitle("Average Scores of Students");
         try {
             avgScore = sqdao.averageScoreOfStudent(userId);
@@ -102,7 +109,6 @@ public class DashboardStudentController implements Initializable {
         }
         chart4.getData().add(createChart(avgScore));
 
-        
         pie3.setTitle("Scores by level of Difficulty");
         try {
             noByDifficultyLevel = sqdao.scoresByLODForStudent(userId);
@@ -111,7 +117,6 @@ public class DashboardStudentController implements Initializable {
         }
         createPieChart1(noByDifficultyLevel);
 
-        
         pie4.setTitle("Number of Tests Passed and Failed");
         try {
             passFail = sqdao.passFailStudent(userId);
@@ -160,6 +165,24 @@ public class DashboardStudentController implements Initializable {
         series1.getData().add(new XYChart.Data<String, Number>(years[2], (Number) x.get(2)));
 
         bc.getData().add(series1);
+//        Timeline tl = new Timeline();
+//        tl.getKeyFrames().add(
+//                new KeyFrame(Duration.millis(2000),
+//                        new EventHandler<ActionEvent>() {
+//                            @Override
+//                            public void handle(ActionEvent actionEvent) {
+//                                for (XYChart.Series<String,Number> series : bc.getData()) {
+//                                    for (XYChart.Data<String,Number> data : series.getData()) {
+//                                        data.setYValue(random.nextInt((int)data.getYValue()));
+//                                    }
+//                                }
+//                            }
+//                        }
+//                ));
+//        tl.setCycleCount(Animation.INDEFINITE);
+//        tl.setAutoReverse(true);
+//        tl.play();
+//        xAxis.setAnimated(true);
 
         return series1;
     }
@@ -185,11 +208,10 @@ public class DashboardStudentController implements Initializable {
 
             com.itextpdf.layout.element.Image pdfImg = new com.itextpdf.layout.element.Image(imgData);
 
-          
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
-           
+
             doc.add(pdfImg);
             doc.close();
         } catch (Exception exc) {
@@ -214,11 +236,10 @@ public class DashboardStudentController implements Initializable {
 
             com.itextpdf.layout.element.Image pdfImg = new com.itextpdf.layout.element.Image(imgData);
 
-       
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
-            
+
             doc.add(pdfImg);
             doc.close();
         } catch (Exception exc) {
@@ -243,11 +264,10 @@ public class DashboardStudentController implements Initializable {
 
             com.itextpdf.layout.element.Image pdfImg = new com.itextpdf.layout.element.Image(imgData);
 
-        
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
-            
+
             doc.add(pdfImg);
             doc.close();
         } catch (Exception exc) {
@@ -272,11 +292,10 @@ public class DashboardStudentController implements Initializable {
 
             com.itextpdf.layout.element.Image pdfImg = new com.itextpdf.layout.element.Image(imgData);
 
-           
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
-           
+
             doc.add(pdfImg);
             doc.close();
         } catch (Exception exc) {
@@ -284,12 +303,9 @@ public class DashboardStudentController implements Initializable {
         }
 
     }
-    
+
     public static void setUser(User user) {
 
         DashboardStudentController.user = user;
-
- 
-
     }
 }
