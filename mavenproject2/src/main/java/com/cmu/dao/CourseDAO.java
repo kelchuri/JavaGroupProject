@@ -14,12 +14,28 @@ import com.cmu.models.User;
  */
 public interface CourseDAO {
 
+    /**
+     * this method adds a course object to the database
+     * 
+     */
     public void add(Course c) throws Exception;
 
+    /**
+     * this method updates a course object to the database
+     * 
+     */
     public void update(Course c) throws Exception;
     
+    /**
+     * this method gets a course object by user id from the database
+     * 
+     */
     public Course getCourse(User user) throws Exception;
     
+    /**
+     * this method gets a course object by course id from the database
+     * 
+     */
     public Course getCourseById(int id) throws Exception;
     
     

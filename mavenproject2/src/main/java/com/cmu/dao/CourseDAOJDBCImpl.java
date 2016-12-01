@@ -22,6 +22,10 @@ public class CourseDAOJDBCImpl implements CourseDAO {
 
     private Connection connection;
 
+    /**
+     * this constructor creates the connection to the database
+     * 
+     */
     CourseDAOJDBCImpl() {
         String url = "jdbc:derby:QCASDB;create=true";
 
@@ -33,6 +37,10 @@ public class CourseDAOJDBCImpl implements CourseDAO {
         }
     }
 
+    /**
+     * this method adds a course object to the database
+     * 
+     */
     @Override
     public void add(Course c) throws Exception {
         String addRowSql = "INSERT INTO APP.COURSE("
@@ -52,11 +60,19 @@ public class CourseDAOJDBCImpl implements CourseDAO {
         }
     }
 
+    /**
+     * this method updates a course object to the database
+     * 
+     */
     @Override
     public void update(Course c) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * this method gets a course object by user id from the database
+     * 
+     */
     @Override
     public Course getCourse(User user) throws Exception {
         try (Statement stmt = connection.createStatement()) {
@@ -73,6 +89,10 @@ public class CourseDAOJDBCImpl implements CourseDAO {
         }
     }
 
+    /**
+     * this method gets a course object by course id from the database
+     * 
+     */
     @Override
     public Course getCourseById(int id) throws Exception {
         try (Statement stmt = connection.createStatement()) {

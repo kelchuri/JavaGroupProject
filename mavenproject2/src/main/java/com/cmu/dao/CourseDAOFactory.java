@@ -10,6 +10,11 @@ package com.cmu.dao;
  * @author Ayushjain
  */
 public class CourseDAOFactory {
+    
+    /**
+     * this methods returns the object of the CourseDAOJDBCImpl class
+     * 
+     */
         public CourseDAO createCourseDAO(){
         return new CourseDAOJDBCImpl();
     } 
