@@ -279,18 +279,19 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
         }
     }
 
-    public void studentCountByCourse(String crs_id) throws Throwable {
+    public int studentCountByCourse(int crs_id) throws Throwable {
+       
         try (Statement stmt = connection.createStatement()) {
-            ArrayList<Integer> list = new ArrayList();
+            int columnValue = 0;
             String sql = null;
 
             PreparedStatement stmt1 = null;
-            sql = "select crs_id, Count(stu_id) AS StudentCount"
+            sql = "select Count(stu_id) AS StudentCount"
                     + " from studentquiz"
                     + " where crs_id=?"
                     + " group by crs_id";
             stmt1 = connection.prepareStatement(sql);
-            stmt1.setString(1, crs_id);
+            stmt1.setInt(1, crs_id);
             ResultSet rs = stmt1.executeQuery();
 
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -300,14 +301,14 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                     if (i > 1) {
                         System.out.print(",  ");
                     }
-                    String columnValue = rs.getString(i);
-                    //    list.add(Integer.valueOf(columnValue));
-                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
-                    //     list.add(Integer.valueOf(rsmd.getColumnName(i)));
+                    columnValue = rs.getInt(i);
+
+                   // System.out.print(columnValue + " " + rsmd.getColumnName(i));
                 }
 
-                System.out.println("");
+                System.out.println("COLU PRINT:" + columnValue);
             }
+            return columnValue;
 
         } catch (SQLException se) {
             //se.printStackTrace();
@@ -316,7 +317,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
     }
 
     @Override
-    public Double overallAvgMarksStudent(int stu_id) throws Exception {
+    public double overallAvgMarksStudent(int stu_id) throws Exception {
 
         try (Statement stmt = connection.createStatement()) {
             Double noOfQuizes = 0.00;
@@ -336,16 +337,21 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             ResultSet rs = stmt1.executeQuery();
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
-
+            System.out.println("cols :" + columnsNumber);
             while (rs.next()) {
                 for (int i = 1; i <= columnsNumber; i++) {
                     marks = (rs.getInt("marks")) + 0.0;
+                    System.out.println("Marks are" + marks);
                     totalMarks = (rs.getInt("total_marks")) + 0.0;
+                    System.out.println("Total marks"+ totalMarks);
                     overallAvgMarks = overallAvgMarks + (marks / totalMarks);
+                    System.out.println("overall marks"+ overallAvgMarks);
                     noOfQuizes = noOfQuizes + 1.0;
+                    System.out.println("Total quiz"+ noOfQuizes);
                 }
             }
             overallAvgMarks = overallAvgMarks / noOfQuizes;
+            System.out.println("Inside query" + overallAvgMarks);
             return overallAvgMarks;
         } catch (SQLException se) {
             //se.printStackTrace();

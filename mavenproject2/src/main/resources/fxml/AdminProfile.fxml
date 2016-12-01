@@ -29,14 +29,26 @@
             <Font name="Comic Sans MS Bold" size="13.0" />
           </font>
       </Label>
-      <Label fx:id="fname" layoutX="611.0" layoutY="237.0" />
-      <Label fx:id="totalStudents" layoutX="611.0" layoutY="282.0" />
-      <Label fx:id="courseName" layoutX="611.0" layoutY="357.0" />
+      <Label fx:id="fname" layoutX="611.0" layoutY="237.0" >
+          <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+         </font></Label>
+      <Label fx:id="totalStudents" layoutX="611.0" layoutY="282.0" >
+          <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+         </font></Label>
+      <Label fx:id="courseName" layoutX="611.0" layoutY="357.0" >
+          <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+         </font></Label>
       <Label layoutX="199.0" layoutY="372.0" text="Course">
           <font>
             <Font name="Comic Sans MS Bold" size="13.0" />
           </font>
       </Label>
-      <Label fx:id="lname" layoutX="611.0" layoutY="181.0" />
+      <Label fx:id="lname" layoutX="611.0" layoutY="181.0" >
+          <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+         </font></Label>
    </children>
 </AnchorPane>

@@ -38,14 +38,24 @@
          </font>
       </Label>
       
-      <Label fx:id="fname" layoutX="611.0" layoutY="237.0" />
-      <Label fx:id="totalStudents" layoutX="611.0" layoutY="282.0" />
-      <Label fx:id="totalQuiz" layoutX="611.0" layoutY="357.0">
+      <Label fx:id="fname" layoutX="611.0" layoutY="237.0">
+           <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+         </font>
+      </Label>
+      
+      <Label fx:id="totalQuiz" layoutX="610.0" layoutY="286.0">
               <font>
             <Font name="Comic Sans MS Bold" size="13.0" />
           </font>
       </Label>
       <Label fx:id="lname" layoutX="611.0" layoutY="181.0">
+              <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+          </font>
+      </Label>
+      
+      <Label fx:id="grade" layoutX="610.0" layoutY="363.0" prefHeight="19.0" prefWidth="96.0" text="No Grade Yet!">
               <font>
             <Font name="Comic Sans MS Bold" size="13.0" />
           </font>

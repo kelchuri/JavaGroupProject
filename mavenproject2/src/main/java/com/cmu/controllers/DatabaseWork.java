@@ -45,11 +45,13 @@ public class DatabaseWork {
             UserCreation(conn, stmt);
             StudentQuizCreation(conn, stmt);
             QuestionCreation(conn, stmt);
+            QuestionCreation(conn, stmt);
+            QuestionCreation(conn, stmt);
             QuizCreation(conn, stmt);
             CourseCreation(conn, stmt);
             QuizMarksCreation(conn, stmt);
             updateTime(conn, stmt);
-            updateCrsId(conn, stmt);
+//            updateCrsId(conn, stmt);
 //-----------------Code to be used for dropping all tables-----------------------            
 //            dropTables(conn, stmt);
 
@@ -171,7 +173,6 @@ public class DatabaseWork {
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
 
-// Java Questions          
             CSVReader csvr = new CSVReader(new InputStreamReader(getClass().getResourceAsStream("/files/Java Questions.csv")), ',', '"', 0);
             String[] nextLine;
             while ((nextLine = csvr.readNext()) != null) {
@@ -251,79 +252,169 @@ public class DatabaseWork {
                 stmt.setInt(14, time);
 
                 stmt.executeUpdate();
-
-                //Pokemon Questions
-                
-                csvr = new CSVReader(new InputStreamReader(getClass().getResourceAsStream("/files/PokemonQuestions.csv")), ',', '"', 0);
-
-                while ((nextLine = csvr.readNext()) != null) {
-
-                    crs_id = 2;
-                    time = 0;
-                    ques_type = nextLine[0];
-                    switch (ques_type) {
-                        case "MC":
-                            diff_lvl = nextLine[1];
-                            ques_desc = nextLine[2];
-                            option1 = nextLine[3];
-                            answer1 = nextLine[4];
-                            option2 = nextLine[5];
-                            answer2 = nextLine[6];
-                            option3 = nextLine[7];
-                            answer3 = nextLine[8];
-                            option4 = nextLine[9];
-                            answer4 = nextLine[10];
-                            break;
-                        case "MA":
-                            diff_lvl = nextLine[1];
-                            ques_desc = nextLine[2];
-                            option1 = nextLine[3];
-                            answer1 = nextLine[4];
-                            option2 = nextLine[5];
-                            answer2 = nextLine[6];
-                            option3 = nextLine[7];
-                            answer3 = nextLine[8];
-                            option4 = nextLine[9];
-                            answer4 = nextLine[10];
-                            break;
-                        case "FIB":
-                            diff_lvl = nextLine[1];
-                            ques_desc = nextLine[2];
-                            answer = nextLine[3];
-                            break;
-                        case "TF":
-                            diff_lvl = nextLine[1];
-                            ques_desc = nextLine[2];
-                            answer = nextLine[3];
-                            break;
-                    }
-
-                    addRowSql = "INSERT INTO APP.QUESTIONS("
-                            + "ques_type, diff_lvl, ques_desc, "
-                            + "option1, answer1, option2, answer2, option3, "
-                            + "answer3, option4, answer4, answer, crs_id, time)"
-                            + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
-                    stmt = conn.prepareStatement(addRowSql);
-
-                    stmt.setString(1, ques_type);
-                    stmt.setString(2, diff_lvl);
-                    stmt.setString(3, ques_desc);
-                    stmt.setString(4, option1);
-                    stmt.setString(5, answer1);
-                    stmt.setString(6, option2);
-                    stmt.setString(7, answer2);
-                    stmt.setString(8, option3);
-                    stmt.setString(9, answer3);
-                    stmt.setString(10, option4);
-                    stmt.setString(11, answer4);
-                    stmt.setString(12, answer);
-                    stmt.setInt(13, crs_id);
-                    stmt.setInt(14, time);
-
-                    stmt.executeUpdate();
-                }
             }
+
+            csvr = new CSVReader(new InputStreamReader(getClass().getResourceAsStream("/files/PokemonQuestions.csv")), ',', '"', 0);
+
+            while ((nextLine = csvr.readNext()) != null) {
+                String ques_type = "";
+                String diff_lvl = "";
+                String ques_desc = "";
+                String option1 = "";
+                String answer1 = "";
+                String option2 = "";
+                String answer2 = "";
+                String option3 = "";
+                String answer3 = "";
+                String option4 = "";
+                String answer4 = "";
+                String answer = "";
+                int crs_id = 2;
+                int time = 0;
+                ques_type = nextLine[0];
+                switch (ques_type) {
+                    case "MC":
+                        diff_lvl = nextLine[1];
+                        ques_desc = nextLine[2];
+                        option1 = nextLine[3];
+                        answer1 = nextLine[4];
+                        option2 = nextLine[5];
+                        answer2 = nextLine[6];
+                        option3 = nextLine[7];
+                        answer3 = nextLine[8];
+                        option4 = nextLine[9];
+                        answer4 = nextLine[10];
+                        break;
+                    case "MA":
+                        diff_lvl = nextLine[1];
+                        ques_desc = nextLine[2];
+                        option1 = nextLine[3];
+                        answer1 = nextLine[4];
+                        option2 = nextLine[5];
+                        answer2 = nextLine[6];
+                        option3 = nextLine[7];
+                        answer3 = nextLine[8];
+                        option4 = nextLine[9];
+                        answer4 = nextLine[10];
+                        break;
+                    case "FIB":
+                        diff_lvl = nextLine[1];
+                        ques_desc = nextLine[2];
+                        answer = nextLine[3];
+                        break;
+                    case "TF":
+                        diff_lvl = nextLine[1];
+                        ques_desc = nextLine[2];
+                        answer = nextLine[3];
+                        break;
+                }
+
+                String addRowSql = "INSERT INTO APP.QUESTIONS("
+                        + "ques_type, diff_lvl, ques_desc, "
+                        + "option1, answer1, option2, answer2, option3, "
+                        + "answer3, option4, answer4, answer, crs_id, time)"
+                        + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+                stmt = conn.prepareStatement(addRowSql);
+
+                stmt.setString(1, ques_type);
+                stmt.setString(2, diff_lvl);
+                stmt.setString(3, ques_desc);
+                stmt.setString(4, option1);
+                stmt.setString(5, answer1);
+                stmt.setString(6, option2);
+                stmt.setString(7, answer2);
+                stmt.setString(8, option3);
+                stmt.setString(9, answer3);
+                stmt.setString(10, option4);
+                stmt.setString(11, answer4);
+                stmt.setString(12, answer);
+                stmt.setInt(13, crs_id);
+                stmt.setInt(14, time);
+                stmt.executeUpdate();
+            }
+
+            csvr = new CSVReader(new InputStreamReader(getClass().getResourceAsStream("/files/History Questions.csv")), ',', '"', 0);
+            while ((nextLine = csvr.readNext()) != null) {
+                String ques_type = "";
+                String diff_lvl = "";
+                String ques_desc = "";
+                String option1 = "";
+                String answer1 = "";
+                String option2 = "";
+                String answer2 = "";
+                String option3 = "";
+                String answer3 = "";
+                String option4 = "";
+                String answer4 = "";
+                String answer = "";
+                int crs_id = 3;
+
+                int time = 0;
+                ques_type = nextLine[0];
+                switch (ques_type) {
+                    case "MC":
+                        diff_lvl = nextLine[1];
+                        ques_desc = nextLine[2];
+                        option1 = nextLine[3];
+                        answer1 = nextLine[4];
+                        option2 = nextLine[5];
+                        answer2 = nextLine[6];
+                        option3 = nextLine[7];
+                        answer3 = nextLine[8];
+                        option4 = nextLine[9];
+                        answer4 = nextLine[10];
+                        break;
+                    case "MA":
+                        diff_lvl = nextLine[1];
+                        ques_desc = nextLine[2];
+                        option1 = nextLine[3];
+                        answer1 = nextLine[4];
+                        option2 = nextLine[5];
+                        answer2 = nextLine[6];
+                        option3 = nextLine[7];
+                        answer3 = nextLine[8];
+                        option4 = nextLine[9];
+                        answer4 = nextLine[10];
+                        break;
+                    case "FIB":
+                        diff_lvl = nextLine[1];
+                        ques_desc = nextLine[2];
+                        answer = nextLine[3];
+                        break;
+                    case "TF":
+                        diff_lvl = nextLine[1];
+                        ques_desc = nextLine[2];
+                        answer = nextLine[3];
+                        break;
+                }
+
+                String addRowSql = "INSERT INTO APP.QUESTIONS("
+                        + "ques_type, diff_lvl, ques_desc, "
+                        + "option1, answer1, option2, answer2, option3, "
+                        + "answer3, option4, answer4, answer, crs_id, time)"
+                        + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+                stmt = conn.prepareStatement(addRowSql);
+
+                stmt.setString(1, ques_type);
+                stmt.setString(2, diff_lvl);
+                stmt.setString(3, ques_desc);
+                stmt.setString(4, option1);
+                stmt.setString(5, answer1);
+                stmt.setString(6, option2);
+                stmt.setString(7, answer2);
+                stmt.setString(8, option3);
+                stmt.setString(9, answer3);
+                stmt.setString(10, option4);
+                stmt.setString(11, answer4);
+                stmt.setString(12, answer);
+                stmt.setInt(13, crs_id);
+                stmt.setInt(14, time);
+
+                stmt.executeUpdate();
+            }
+
         } catch (SQLException | IOException ex) {
         }
     }
@@ -451,14 +542,14 @@ public class DatabaseWork {
     /**
      * This function can be used to update the crs_id in the COURSE table.
      */
-    private static void updateCrsId(Connection conn, PreparedStatement stmt) {
-        try {
-            String sql = "UPDATE QUESTIONS SET crs_id = 1";
-            stmt = conn.prepareStatement(sql);
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-        }
-    }
+//    private static void updateCrsId(Connection conn, PreparedStatement stmt) {
+//        try {
+//            String sql = "UPDATE QUESTIONS SET crs_id = 1";
+//            stmt = conn.prepareStatement(sql);
+//            stmt.executeUpdate();
+//        } catch (SQLException ex) {
+//        }
+//    }
 
     /**
      * This function can be used to drop all the 6 tables created above.

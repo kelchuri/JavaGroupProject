@@ -194,6 +194,7 @@ public class LoginPageController implements Initializable {
                 User user = login_Page_Database_Controller.addANewUser(student);
                 StudentScreenController.setUser(user);
                 DashboardStudentController.setUser(user);
+
                 showStudentScreen();
             } catch (Exception e) {
                 errorId.setText("There was an error processing your request. please try again later.");
