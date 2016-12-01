@@ -25,7 +25,7 @@ public class SQLClass {
     public void returnQuizCount(String ins_id) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
-        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        String dbURL = "jdbc:derby:QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
         String sql = null;
         sql = "SELECT ins_id, Count(quiz_id) AS QuizCount, date FROM Course INNER JOIN StudentQuiz ON Course.crs_id = StudentQuiz.crs_id WHERE ins_id=? GROUP BY ins_id, date";
@@ -51,7 +51,7 @@ public class SQLClass {
     public void returnQuizDetails(String ins_id) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
-        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        String dbURL = "jdbc:derby:QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
 
         String sql = "SELECT Quiz.quiz_id, Course.crs_name, Questions.diff_lvl, Quiz.isCorrect, Count(Quiz.isCorrect) AS CountResult\n"
@@ -78,7 +78,7 @@ public class SQLClass {
     public void returnTestResultEasy(int ins_id) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
-        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        String dbURL = "jdbc:derby:QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
         String sql = "select stu_id, ins_id, ques_id, diff_lvl, isCorrect\n"
                 + "from (studentquiz inner join quiz on studentquiz.quiz_id=quiz.quiz_id)\n"
@@ -106,7 +106,7 @@ public class SQLClass {
     public void returnTestResultMedium(int ins_id) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
-        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        String dbURL = "jdbc:derby:QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
         String sql = "select stu_id, ins_id, ques_id, diff_lvl, isCorrect\n"
                 + "from (studentquiz inner join quiz on studentquiz.quiz_id=quiz.quiz_id)\n"
@@ -133,7 +133,7 @@ public class SQLClass {
     public void returnTestResultHard(int ins_id) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
-        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        String dbURL = "jdbc:derby:QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
         String sql = "select stu_id, ins_id, ques_id, diff_lvl, isCorrect\n"
                 + "from (studentquiz inner join quiz on studentquiz.quiz_id=quiz.quiz_id)\n"
@@ -159,7 +159,7 @@ public class SQLClass {
     public void returnCourseDetails() throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
-        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        String dbURL = "jdbc:derby:QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
         String sql = "select crs_id, crs_name, ins_id from course";
         stmt = conn.prepareStatement(sql);
@@ -178,7 +178,7 @@ public class SQLClass {
     void QuizFunc(int NoQ, String crs_id, String diff_lvl) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
-        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        String dbURL = "jdbc:derby:QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
         String sql = null;
         sql = "Select ques_id, ques_type,diff_lvl,ques_desc,\n"
@@ -210,7 +210,7 @@ public class SQLClass {
     void QuizFuncwithoutDifficulty(int NoQ, String crs_id) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
-        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        String dbURL = "jdbc:derby:QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
         String sql = null;
         sql = "Select ques_id, ques_type,diff_lvl,ques_desc,\n"
@@ -240,7 +240,7 @@ public class SQLClass {
     }     void studentCountByCourse(String crs_id) throws Throwable {
         PreparedStatement stmt = null;
         Connection conn = null;
-        String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+        String dbURL = "jdbc:derby:QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
         String sql = null;
         sql = "select crs_id, Count(stu_id) AS StudentCount from studentquiz where crs_id=? group by crs_id";;

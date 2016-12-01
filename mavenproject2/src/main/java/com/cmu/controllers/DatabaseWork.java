@@ -38,7 +38,7 @@ public class DatabaseWork {
         try {
             PreparedStatement stmt = null;
             Connection conn = null;
-            String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
+            String dbURL = "jdbc:derby:QCASDB;create=true";
             conn = DriverManager.getConnection(dbURL);
 
 // ---------------- Calling table creation functions-----------------------------
