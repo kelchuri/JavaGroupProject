@@ -5,9 +5,9 @@ package com.cmu.controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import static com.cmu.controllers.DashboardInstructorController.stage;
 import com.cmu.dao.StudentQuizDAO;
 import com.cmu.dao.StudentQuizDAOFactory;
+import com.cmu.models.User;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -22,23 +22,18 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -72,6 +67,8 @@ public class DashboardStudentController implements Initializable {
     Button pie4btn;
 
     static Stage stage;
+    
+    private static User user;
 
     /**
      * Initializes the controller class.
@@ -86,9 +83,11 @@ public class DashboardStudentController implements Initializable {
         ArrayList<Double> avgScore = new ArrayList<>();
         ArrayList<Double> noByDifficultyLevel = new ArrayList<>();
         ArrayList<Double> passFail = new ArrayList<>();
+        
+        Integer userId = user.getUserId();
 
         try {
-            noOfQuiz = sqdao.numberOfQuizTakenPerStudent(1);
+            noOfQuiz = sqdao.numberOfQuizTakenPerStudent(userId);
         } catch (Exception ex) {
             Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -97,7 +96,7 @@ public class DashboardStudentController implements Initializable {
         
         chart4.setTitle("Average Scores of Students");
         try {
-            avgScore = sqdao.averageScoreOfStudent("1");
+            avgScore = sqdao.averageScoreOfStudent(userId);
         } catch (Exception ex) {
             Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,7 +105,7 @@ public class DashboardStudentController implements Initializable {
         
         pie3.setTitle("Scores by level of Difficulty");
         try {
-            noByDifficultyLevel = sqdao.scoresByLODForStudent("1");
+            noByDifficultyLevel = sqdao.scoresByLODForStudent(userId);
         } catch (Exception ex) {
             Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -115,7 +114,7 @@ public class DashboardStudentController implements Initializable {
         
         pie4.setTitle("Number of Tests Passed and Failed");
         try {
-            passFail = sqdao.passFailStudent(1);
+            passFail = sqdao.passFailStudent(userId);
         } catch (Throwable ex) {
             Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -283,6 +282,14 @@ public class DashboardStudentController implements Initializable {
         } catch (Exception exc) {
             exc.printStackTrace();
         }
+
+    }
+    
+    public static void setUser(User user) {
+
+        DashboardStudentController.user = user;
+
+ 
 
     }
 }

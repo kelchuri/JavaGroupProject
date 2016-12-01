@@ -29,9 +29,9 @@ public interface StudentQuizDAO extends AutoCloseable {
 
     public Double overallAvgMarksStudent(int stu_id) throws Exception;
 
-    public ArrayList<Double> scoresByLODForStudent(String stu_id) throws Exception;
+    public ArrayList<Double> scoresByLODForStudent(int stu_id) throws Exception;
 
-    public ArrayList<Double> averageScoreOfStudent(String stu_id) throws Exception;
+    public ArrayList<Double> averageScoreOfStudent(int stu_id) throws Exception;
 
     public ArrayList<Double> passFailInstructor(int ins_id) throws Throwable;
 

@@ -52,6 +52,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public ArrayList<Integer> numberOfQuizTakenPerInstructor(int ins_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
             ArrayList<Integer> numberOfTestTaken = new ArrayList<>();
@@ -108,6 +109,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public ArrayList<Double> passFailStudent(int stu_id) throws Throwable {
 
         try (Statement stmt = connection.createStatement()) {
@@ -277,12 +279,11 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
         }
     }
 
-
     public void studentCountByCourse(String crs_id) throws Throwable {
         try (Statement stmt = connection.createStatement()) {
             ArrayList<Integer> list = new ArrayList();
             String sql = null;
-            
+
             PreparedStatement stmt1 = null;
             sql = "select crs_id, Count(stu_id) AS StudentCount"
                     + " from studentquiz"
@@ -299,21 +300,21 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                     if (i > 1) {
                         System.out.print(",  ");
                     }
-                     String columnValue = rs.getString(i);
-                //    list.add(Integer.valueOf(columnValue));
+                    String columnValue = rs.getString(i);
+                    //    list.add(Integer.valueOf(columnValue));
                     System.out.print(columnValue + " " + rsmd.getColumnName(i));
-               //     list.add(Integer.valueOf(rsmd.getColumnName(i)));
+                    //     list.add(Integer.valueOf(rsmd.getColumnName(i)));
                 }
-                
+
                 System.out.println("");
             }
-            
-        }catch (SQLException se) {
+
+        } catch (SQLException se) {
             //se.printStackTrace();
             throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
         }
     }
-    
+
     @Override
     public Double overallAvgMarksStudent(int stu_id) throws Exception {
 
@@ -354,23 +355,28 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
     }
 
     @Override
-    public ArrayList<Double> scoresByLODForStudent(String stu_id) throws Exception {
+    public ArrayList<Double> scoresByLODForStudent(int stu_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
 
             ArrayList<Double> scoresByLODForStudent = new ArrayList<>();
             PreparedStatement stmt1 = null;
             String sql = null;
-
+            Double stu_avg_marks = 0.0;
             sql = "SELECT questions.diff_lvl, Avg(marks) AS AvgMarks\n"
                     + "FROM (Questions INNER JOIN Quiz ON Questions.ques_id = Quiz.ques_id) \n"
                     + "INNER JOIN StudentQuiz ON Quiz.quiz_id = StudentQuiz.quiz_id\n"
                     + " where stu_id=? GROUP BY questions.diff_lvl";
             stmt1 = connection.prepareStatement(sql);
-            stmt1.setString(1, stu_id);
+            stmt1.setInt(1, stu_id);
             ResultSet rs = stmt1.executeQuery();
             while (rs.next()) {
                 String lod = rs.getString("diff_lvl");
-                Double stu_avg_marks = rs.getInt("AvgMarks") + 0.0;
+                stu_avg_marks = rs.getInt("AvgMarks") + 0.0;
+                scoresByLODForStudent.add(stu_avg_marks);
+            }
+            if (scoresByLODForStudent.isEmpty()) {
+                scoresByLODForStudent.add(stu_avg_marks);
+                scoresByLODForStudent.add(stu_avg_marks);
                 scoresByLODForStudent.add(stu_avg_marks);
             }
             return scoresByLODForStudent;
@@ -385,7 +391,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
     }
 
     @Override
-    public ArrayList<Double> averageScoreOfStudent(String stu_id) throws Exception {
+    public ArrayList<Double> averageScoreOfStudent(int stu_id) throws Exception {
 
         try (Statement stmt = connection.createStatement()) {
             ArrayList<Double> avgScoreOfStudent = new ArrayList<>();
@@ -407,11 +413,11 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                     + "group by stu_id, studentquiz.quiz_id, total_marks, date";
 
             stmt1 = connection.prepareStatement(sql);
-            stmt1.setString(1, stu_id);
+            stmt1.setInt(1, stu_id);
             int avgScore = 0;
             ResultSet rs = stmt1.executeQuery();
             while (rs.next()) {
-                stu_id = rs.getString("stu_id");
+                stu_id = rs.getInt("stu_id");
                 avgScore = (rs.getInt("AvgScore"));
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(rs.getDate("date").getTime());
