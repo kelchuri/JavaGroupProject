@@ -44,7 +44,7 @@ public class ProfilePageController implements Initializable{
     
     private MainApp application;
     
-    Double studentDetailList;
+    double studentDetailList;
     
     InstructorHandler instructorHandler = new InstructorHandler();
     
@@ -58,7 +58,24 @@ public class ProfilePageController implements Initializable{
           fname.setText(ProfilePageController.user.getFirstName());
           lname.setText(ProfilePageController.user.getLastName());
          try {
+             
              studentDetailList = instructorHandler.getStudentMarksDetail(ProfilePageController.user);
+            if (!Double.isNaN(studentDetailList)){
+               if(studentDetailList>=80){
+                   grade.setText("A");
+               }
+               else if(studentDetailList < 80 && studentDetailList >= 60){
+                   grade.setText("B");
+               }
+               else if(studentDetailList < 60 && studentDetailList >=40){
+                   grade.setText("C");
+               }
+               else
+                   grade.setText("F");
+            }
+                
+            
+             System.out.println("Stud Grade" + studentDetailList);
           //  studentDetailList.get(2)/studentDetailList(3)
             // grade.setText(Strin);
              totalQuiz.setText(String.valueOf(instructorHandler.getStudentQuizCount(ProfilePageController.user)));

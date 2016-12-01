@@ -32,7 +32,8 @@ public class InstructorHandler {
 
     private final StudentQuizDAOFactory studentQuizDAOFactory = new StudentQuizDAOFactory();
     private final StudentQuizDAO studentQuizDAO = studentQuizDAOFactory.createStudentQuizDAO();
-
+    
+   
     public Course getCourse(User user) throws Exception {
         return courseDAO.getCourse(user);
     }
@@ -44,4 +45,15 @@ public class InstructorHandler {
     public Double getStudentMarksDetail(User user) throws Throwable {
         return studentQuizDAO.overallAvgMarksStudent(user.getUserId());
     }
+    
+    public int getStudentCountByCourse(Course crs) throws Throwable{
+        System.out.println("In student handler" + crs.getCrs_id());
+        return studentQuizDAO.studentCountByCourse(crs.getCrs_id());
+    }
+    
+    
+    
+    
+    
+   
 }
