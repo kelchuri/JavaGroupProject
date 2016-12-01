@@ -280,7 +280,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
     }
 
     public int studentCountByCourse(int crs_id) throws Throwable {
-       
+
         try (Statement stmt = connection.createStatement()) {
             int columnValue = 0;
             String sql = null;
@@ -303,7 +303,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                     }
                     columnValue = rs.getInt(i);
 
-                   // System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                    // System.out.print(columnValue + " " + rsmd.getColumnName(i));
                 }
 
                 System.out.println("COLU PRINT:" + columnValue);
@@ -343,11 +343,11 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                     marks = (rs.getInt("marks")) + 0.0;
                     System.out.println("Marks are" + marks);
                     totalMarks = (rs.getInt("total_marks")) + 0.0;
-                    System.out.println("Total marks"+ totalMarks);
+                    System.out.println("Total marks" + totalMarks);
                     overallAvgMarks = overallAvgMarks + (marks / totalMarks);
-                    System.out.println("overall marks"+ overallAvgMarks);
+                    System.out.println("overall marks" + overallAvgMarks);
                     noOfQuizes = noOfQuizes + 1.0;
-                    System.out.println("Total quiz"+ noOfQuizes);
+                    System.out.println("Total quiz" + noOfQuizes);
                 }
             }
             overallAvgMarks = overallAvgMarks / noOfQuizes;
@@ -441,9 +441,15 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                 if (cal.after(lastMonth1)) {
                     lastMonth = lastMonth + 1.00;
                     totalMarksMonth = totalMarksMonth + avgScore;
+                    lastQuarter = lastQuarter + 1.00;
+                    lastYear = lastYear + 1.00;
+                    totalMarksYear = totalMarksYear + avgScore;
+                    totalMarksQuarter = totalMarksQuarter + avgScore;
                 } else if (cal.after(lastQuarter1)) {
                     lastQuarter = lastQuarter + 1.00;
                     totalMarksQuarter = totalMarksQuarter + avgScore;
+                    lastYear = lastYear + 1.00;
+                    totalMarksYear = totalMarksYear + avgScore;
                 } else if (cal.after(lastYear1)) {
                     lastYear = lastYear + 1.00;
                     totalMarksYear = totalMarksYear + avgScore;
