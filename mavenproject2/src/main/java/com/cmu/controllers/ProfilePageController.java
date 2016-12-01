@@ -30,6 +30,7 @@ public class ProfilePageController implements Initializable{
     /**
      *
      * @param user
+     * This method sets the user in this controller.
      */
     public static void setUser(User user){
         ProfilePageController.user = user;

@@ -164,6 +164,7 @@ public class DashboardStudentController implements Initializable {
      *
      * @param x
      * @return
+     * This method returns the data for creation of a bar chart
      */
     public XYChart.Series<String, Number> createChart(ArrayList x) {
         final String[] years = {"Last month", "Last quarter", "Last year"};
@@ -208,6 +209,7 @@ public class DashboardStudentController implements Initializable {
     /**
      *
      * @param takeQuizStage
+     * This method sets the stage in this controller.
      */
     public static void setStage(Stage takeQuizStage) {
         DashboardInstructorController.stage = takeQuizStage;
@@ -217,6 +219,7 @@ public class DashboardStudentController implements Initializable {
     /**
      *
      * @param event
+     * This method prints the bar chart to PDF for student data.
      */
     @FXML
     public void print1(ActionEvent event) {
@@ -249,6 +252,7 @@ public class DashboardStudentController implements Initializable {
     /**
      *
      * @param event
+     * This method prints the bar chart to PDF for student data.
      */
     @FXML
     public void print2(ActionEvent event) {
@@ -281,6 +285,7 @@ public class DashboardStudentController implements Initializable {
     /**
      *
      * @param event
+     * This method prints the pie chart to PDF for student data.
      */
     @FXML
     public void print3(ActionEvent event) {
@@ -313,6 +318,7 @@ public class DashboardStudentController implements Initializable {
     /**
      *
      * @param event
+     * This method prints the pie chart to PDF for student data.
      */
     @FXML
     public void print4(ActionEvent event) {
@@ -345,6 +351,7 @@ public class DashboardStudentController implements Initializable {
     /**
      *
      * @param user
+     * This method sets the user in this controller.
      */
     public static void setUser(User user) {
 

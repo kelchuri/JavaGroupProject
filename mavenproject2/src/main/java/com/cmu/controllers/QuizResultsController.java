@@ -81,6 +81,7 @@ public class QuizResultsController implements Initializable {
     /**
      *
      * @param takeQuizStage
+     * This method sets the stage in this controller
      */
     public static void setStage(Stage takeQuizStage) {
         QuizResultsController.stage = takeQuizStage;
@@ -112,6 +113,7 @@ public class QuizResultsController implements Initializable {
     /**
      *
      * @throws IOException
+     * This method takes the screen back to student screen
      */
     @FXML
     public void backToStudentScreen() throws IOException {
@@ -132,6 +134,7 @@ public class QuizResultsController implements Initializable {
      *
      * @param correct
      * @param incorrect
+     * This method creates student result pie chart
      */
     public void createStudentResultPieChart(int correct, int incorrect) {
         ObservableList<PieChart.Data> pieChartData
@@ -145,7 +148,7 @@ public class QuizResultsController implements Initializable {
     }
 
     /**
-     *
+     * This method creates an interactive pie
      */
     public void interactivePie() {
 

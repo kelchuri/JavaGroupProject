@@ -90,6 +90,7 @@ public class InstructorScreen implements Initializable {
     /**
      *
      * @param takeQuizStage
+     * This method sets the stage in this controller.
      */
     public static void setStage(Stage takeQuizStage) {
         InstructorScreen.stage = takeQuizStage;
@@ -99,6 +100,7 @@ public class InstructorScreen implements Initializable {
     /**
      *
      * @param user
+     * This method sets the user in this controller.
      */
     public static void setUser(User user) {
         InstructorScreen.user = user;

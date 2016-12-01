@@ -27,12 +27,14 @@ public class QuizInstructionController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * 
      */
     private static Stage stage;
 
     /**
      *
      * @param takeQuizStage
+     * This method sets the stage in this controller
      */
     public static void setStage(Stage takeQuizStage) {
         QuizInstructionController.stage = takeQuizStage;
@@ -47,6 +49,7 @@ public class QuizInstructionController implements Initializable {
     /**
      *
      * @throws IOException
+     * This method starts the quiz
      */
     @FXML
     public void startQuizButtonHandle() throws IOException {

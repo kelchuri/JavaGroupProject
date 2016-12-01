@@ -166,7 +166,7 @@ public class DashboardInstructorController implements Initializable {
      *
      * @param x
      * @return
-     * This method creates a bar chart.
+     * This method returns data for bar chart.
      */
     public XYChart.Series<String, Number> createChart(ArrayList x) {
         final String[] years = {"Last month", "Last quarter", "Last year"};

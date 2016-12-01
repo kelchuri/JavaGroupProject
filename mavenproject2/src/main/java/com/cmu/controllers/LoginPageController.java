@@ -91,6 +91,7 @@ public class LoginPageController implements Initializable {
      * @param event
      * @throws IOException
      * @throws Throwable
+     * This method describes the behavior when login button is clicked in the login screen.
      */
     @FXML
     public void processLogin(ActionEvent event) throws IOException, Throwable {
@@ -201,6 +202,7 @@ public class LoginPageController implements Initializable {
      *
      * @param event
      * @throws Exception
+     * This method processes the sign up in this controller.
      */
     @FXML
     public void processSignup(ActionEvent event) throws Exception {

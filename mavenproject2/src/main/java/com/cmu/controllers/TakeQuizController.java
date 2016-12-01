@@ -53,6 +53,7 @@ public class TakeQuizController implements Initializable {
     /**
      *
      * @param takeQuizStage
+     * This method sets the stage in this controller
      */
     public static void setStage(Stage takeQuizStage) {
         TakeQuizController.stage = takeQuizStage;
@@ -62,6 +63,7 @@ public class TakeQuizController implements Initializable {
     /**
      *
      * @param user
+     * This method sets the user in this controller
      */
     public static void setUser(User user) {
         TakeQuizController.user = user;

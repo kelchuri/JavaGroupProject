@@ -125,6 +125,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @return
+     * This method gets the correct answer.
      */
     public int getIncorrect() {
         return incorrect;
@@ -139,6 +140,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @param takeQuizStage
+     * This method sets the stage in this controller
      */
     public static void setStage(Stage takeQuizStage) {
         QuizController.stage = takeQuizStage;
@@ -148,6 +150,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @param questions
+     * This method sets the questions in this controller.
      */
     public static void setQuestions(List questions) {
         QuizController.ques = questions;
@@ -157,6 +160,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @param flag
+     * This method sets the timer in this controller.
      */
     public static void setTimer(boolean flag) {
         QuizController.timerOn = flag;
@@ -165,6 +169,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @param user
+     * This method sets the user in this controller.
      */
     public static void setUser(User user) {
         QuizController.user = user;
@@ -207,6 +212,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @throws Throwable
+     * This method takes the quiz question to next question
      */
     @FXML
     public void goToNext() throws Throwable {
@@ -227,7 +233,7 @@ public class QuizController implements Initializable {
     }
 
     /**
-     *
+     * This method clears the choices selected in the quiz.
      */
     public void clearSelectionMA() {
         option1.setSelected(false);
@@ -237,7 +243,7 @@ public class QuizController implements Initializable {
     }
 
     /**
-     *
+     *This method clears the choices selected in the quiz.
      */
     public void clearSelectionMC() {
         option1m.setSelected(false);
@@ -247,7 +253,7 @@ public class QuizController implements Initializable {
     }
 
     /**
-     *
+     * This method selects true 
      */
     @FXML
     public void selectTrue() {
@@ -258,7 +264,7 @@ public class QuizController implements Initializable {
     }
 
     /**
-     *
+     *This method selects False
      */
     @FXML
     public void selectFalse() {
@@ -271,6 +277,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @param event
+     * This method selects option1
      */
     @FXML
     public void selectOption1(ActionEvent event) {
@@ -284,6 +291,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @param event
+     * This method selects option2
      */
     @FXML
     public void selectOption2(ActionEvent event) {
@@ -297,6 +305,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @param event
+     * This method selects option3
      */
     @FXML
     public void selectOption3(ActionEvent event) {
@@ -310,6 +319,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @param event
+     * This method selects option4
      */
     @FXML
     public void selectOption4(ActionEvent event) {
@@ -325,6 +335,7 @@ public class QuizController implements Initializable {
      * @param iscorrect
      * @param options
      * @param option
+     * This method gets selected options
      */
     public void getSelectedOptions(String iscorrect, List options, String option) {
         if (iscorrect.equalsIgnoreCase("correct")) {
@@ -334,7 +345,7 @@ public class QuizController implements Initializable {
     }
 
     /**
-     *
+     *This method calculates the answers.
      */
     public void calculateAnswer() {
         List<String> answers = new ArrayList<String>();
@@ -408,6 +419,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @param i
+     * This method displays the questions
      */
     public void displayQuestion(int i) {
         currentQuestion = QuizController.ques.get(i);
@@ -458,6 +470,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @param quiz
+     * This method prints the quiz
      */
     public void printQuiz(List<Quiz> quiz) {
         for (Quiz que : quiz) {
@@ -469,6 +482,7 @@ public class QuizController implements Initializable {
     /**
      *
      * @throws IOException
+     * This method submits and views the results
      */
     @FXML
     public void submitAndViewResults() throws IOException {
@@ -485,7 +499,7 @@ public class QuizController implements Initializable {
     }
 
     /**
-     *
+     * This is the timer class
      */
     public class MyTimer extends TimerTask {
 

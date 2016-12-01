@@ -42,6 +42,7 @@ public class StudentScreenController implements Initializable {
     /**
      * Initializes the controller class.
      * @param user
+     * This method sets the user in this controller
      */
     public static void setUser(User user) {
         StudentScreenController.user = user;
@@ -50,6 +51,7 @@ public class StudentScreenController implements Initializable {
     /**
      *
      * @param takeQuizStage
+     * This method sets the stage in this controller
      */
     public static void setStage(Stage takeQuizStage) {
         StudentScreenController.stage = takeQuizStage;
