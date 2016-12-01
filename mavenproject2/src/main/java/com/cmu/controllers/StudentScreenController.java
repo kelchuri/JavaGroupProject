@@ -82,6 +82,7 @@ public class StudentScreenController implements Initializable {
     private void handleTakeQuizButton() throws IOException {
         System.out.println("AddInst Button Called");
         TakeQuizController.setStage(StudentScreenController.stage);
+        TakeQuizController.setUser(StudentScreenController.user);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/TakeQuiz.fxml"));
         Pane cmdPane = (Pane) fxmlLoader.load();
         try {

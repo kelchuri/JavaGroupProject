@@ -27,18 +27,18 @@ public class DatabaseWork {
         Connection conn = null;
         String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
         conn = DriverManager.getConnection(dbURL);
-//        createUser(conn, stmt);
-//        createStudentQuiz(conn, stmt);
-//        createQuestions(conn, stmt);
-//        createQuiz(conn, stmt);
-//        createCourse(conn, stmt);
-//        insertToUserTbl(conn, stmt);
-//        insertToStudentQuiz(conn, stmt);
-//        insertToQuestions(conn, stmt);
-//        insertToQuiz(conn, stmt);
-//        insertToCourse(conn, stmt);
-//        updateTime(conn, stmt);
-        //updateCrsId(conn, stmt);
+        createUser(conn, stmt);
+        createStudentQuiz(conn, stmt);
+        createQuestions(conn, stmt);
+        createQuiz(conn, stmt);
+        createCourse(conn, stmt);
+        insertToUserTbl(conn, stmt);
+        insertToStudentQuiz(conn, stmt);
+        insertToQuestions(conn, stmt);
+        insertToQuiz(conn, stmt);
+        insertToCourse(conn, stmt);
+        updateTime(conn, stmt);
+        updateCrsId(conn, stmt);
         //dropTables(conn, stmt);
 
     }
@@ -83,8 +83,8 @@ public class DatabaseWork {
 
     private static void createStudentQuiz(Connection conn, PreparedStatement stmt) throws Throwable {
         String sql = "CREATE TABLE STUDENTQUIZ("
-                + "stu_id DECIMAL,"
-                + "quiz_id DECIMAL,"
+                + "stu_id int,"
+                + "quiz_id int,"
                 + "marks VARCHAR(20),"
                 + "date DATE,"
                 + "crs_id int)";

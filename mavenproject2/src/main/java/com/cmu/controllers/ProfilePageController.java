@@ -44,7 +44,7 @@ public class ProfilePageController implements Initializable{
     
     private MainApp application;
     
-    ArrayList<String> studentDetailList = new ArrayList<>();
+    Double studentDetailList;
     
     InstructorHandler instructorHandler = new InstructorHandler();
     

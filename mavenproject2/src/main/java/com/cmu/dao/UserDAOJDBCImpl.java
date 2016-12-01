@@ -58,7 +58,7 @@ public class UserDAOJDBCImpl implements UserDAO{
      * @throws java.lang.Exception
      */ 
     @Override
-    public void add(User user) throws Exception {
+    public User add(User user) throws Exception {
         try (Statement stmt = connection.createStatement()) {
 
             System.out.println(user.getFirstName());
@@ -71,6 +71,7 @@ public class UserDAOJDBCImpl implements UserDAO{
             if (stmt.executeUpdate(query) != 1) {
                 throw new Exception("Error adding User");
             }
+            return checkUserExists(user.getEmailId(), user.getPassword());
         } catch (SQLException se) {
             //se.printStackTrace();
             throw new Exception("Error adding User in DAO", se);

@@ -5,3 +5,12 @@
 .mainFxmlClass {
 
 }
+
+.buttonLogin {
+   
+    
+    
+    -fx-background-color: #03A3D3;
+    -fx-font-weight: bold;
+    -fx-text-fill: white
+}

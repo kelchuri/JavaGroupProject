@@ -42,8 +42,8 @@ public class Login_Page_Database_Controller {
         return userExists;
     }
     
-    public void addANewUser(User user) throws Exception{
-        userDAO.add(user);
+    public User addANewUser(User user) throws Exception{
+        return userDAO.add(user);
     }
     
     public void addNewInstructor(User user, int courseid) throws Exception{

@@ -6,6 +6,8 @@
 package com.cmu.dao;
 
 import com.cmu.models.Questions;
+import com.cmu.models.Quiz;
+import com.cmu.models.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,7 +15,12 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -37,7 +44,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
     }
 
     @Override
-    public ArrayList<Double> noOfCrrctQuesAsPerDiffLvlInstructor(String ins_id) throws Exception {
+    public ArrayList<Double> noOfCrrctQuesAsPerDiffLvlInstructor(int ins_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
             TreeMap<Integer, Integer[]> s = new TreeMap<>();
             ArrayList<Double> a = new ArrayList<>();
@@ -53,7 +60,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                     + "group by stu_id, ques_id, diff_lvl, isCorrect, ins_id\n"
                     + "having(diff_lvl='E' AND ins_id=?)";
             stmt1 = connection.prepareStatement(sql);
-            stmt1.setString(1, ins_id);
+            stmt1.setInt(1, ins_id);
 //            int quizCount = 0;
             ResultSet rs = stmt1.executeQuery();
 
@@ -104,7 +111,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                     + "group by stu_id, ques_id, diff_lvl, isCorrect, ins_id\n"
                     + "having(diff_lvl='M' AND ins_id=?)";
             stmt1 = connection.prepareStatement(sql);
-            stmt1.setString(1, ins_id);
+            stmt1.setInt(1, ins_id);
             rs = stmt1.executeQuery();
 
             while (rs.next()) {
@@ -154,7 +161,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                     + "group by stu_id, ques_id, diff_lvl, isCorrect, ins_id\n"
                     + "having(diff_lvl='H' AND ins_id=?)";
             stmt1 = connection.prepareStatement(sql);
-            stmt1.setString(1, ins_id);
+            stmt1.setInt(1, ins_id);
             rs = stmt1.executeQuery();
 
             while (rs.next()) {
@@ -300,14 +307,10 @@ public class QuizDAOJDBCImpl implements QuizDAO {
         try {
 
             PreparedStatement stmt = null;
-            Connection conn = null;
-            String dbURL = "jdbc:derby://localhost:1527/QCASDB;create=true";
-            conn = DriverManager.getConnection(dbURL);
-
             String sql = "SELECT stu_id, Count(quiz_id) AS QuizCount\n"
                     + "FROM StudentQuiz\n"
                     + "where stu_id=? GROUP BY stu_id";
-            stmt = conn.prepareStatement(sql);
+            stmt = connection.prepareStatement(sql);
             stmt.setInt(1, stu_id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -322,6 +325,116 @@ public class QuizDAOJDBCImpl implements QuizDAO {
             throw new Exception("Total number of quizzes cannot be retrieved", ex);
         }
 
+    }
+
+    private int getQuizId() throws Exception {
+        int quizCount = 0;
+        try (Statement stmt = connection.createStatement()) {
+            String query = "select count(distinct(quiz_id)) as count from quiz";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                quizCount = rs.getInt("Count");
+            }
+            System.out.println(quizCount);
+            return quizCount + 1;
+        } catch (SQLException se) {
+            //se.printStackTrace();
+            throw new Exception("Error finding Count in DAO", se);
+        }
+    }
+
+    public void addIntoStudentQuiz(int quiz_id, User student, int marks, int course_id) throws Exception {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        java.sql.Date date = new java.sql.Date(cal.getTime().getTime());
+        Calendar cal1 = new GregorianCalendar();
+        cal.setTimeInMillis(date.getTime());
+
+        String addRowSql = "INSERT INTO APP.STUDENTQUIZ("
+                + "stu_id,quiz_id,marks, date, crs_id)"
+                + "VALUES(?,?,?,?,?)";
+        try (PreparedStatement stmt = connection.prepareStatement(addRowSql)) {
+            stmt.setInt(1, student.getUserId());
+            stmt.setInt(2, quiz_id);
+            stmt.setInt(3, marks);
+            stmt.setDate(4, date);
+            stmt.setInt(5, course_id);
+            stmt.executeUpdate();
+        } catch (SQLException se) {
+            //se.printStackTrace();
+            throw new Exception("Error finding Count in DAO", se);
+        }
+
+    }
+
+    @Override
+    public void addIntoDB(List<Quiz> quiz, User student, int course_id) throws Throwable {
+        int quiz_id = getQuizId();
+        int correct = 0;
+        String addRowSql = "INSERT INTO APP.QUIZ("
+                + "quiz_id,ques_id,diff_lvl,isCorrect)"
+                + "VALUES(?,?,?,?)";
+        PreparedStatement statement = null;
+        for (Quiz question : quiz) {
+            question.setQuizID(quiz_id);
+
+            statement = connection.prepareStatement(addRowSql);
+            statement.setInt(1, quiz_id);
+            statement.setInt(2, question.getQuestionNo());
+            statement.setString(3, question.getDiffLevel());
+            statement.setBoolean(4, question.getIsCorrect());
+            statement.executeUpdate();
+            if (question.getIsCorrect()) {
+                correct++;
+            }
+        }
+        addIntoStudentQuiz(quiz_id, student, correct * 3, course_id);
+        dropTblQuizMarks();
+        createQuizMarks();
+        insertToQuizMarks();
+    }
+
+    private void createQuizMarks() throws Throwable {
+        try {
+            String sql = "CREATE TABLE quizMarks("
+                    + "quiz_id DECIMAL,"
+                    + "total_marks DECIMAL)";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void insertToQuizMarks() throws Throwable {
+        String sql1 = "SELECT quiz_id, Count(ques_id) AS Ques_Count\n"
+                + "FROM Quiz GROUP BY quiz_id";
+        String sql2 = "INSERT INTO quizMarks(" + "quiz_id," + "total_marks)" + "VALUES(?,?)";
+
+        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        PreparedStatement stmt = connection.prepareStatement(sql2);
+        ResultSet rs = statement.executeQuery(sql1);
+        while (rs.next()) {
+            int quiz_id = rs.getInt("quiz_id");
+            int ques_count = rs.getInt("ques_count");
+            int total_marks = ques_count * 3;
+            stmt.setInt(1, quiz_id);
+            stmt.setInt(2, total_marks);
+            stmt.executeUpdate();
+        }
+
+    }
+
+    private void dropTblQuizMarks() throws Throwable {
+        try {
+            String sql = "drop table quizmarks";
+
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+
+        }
     }
 
 }

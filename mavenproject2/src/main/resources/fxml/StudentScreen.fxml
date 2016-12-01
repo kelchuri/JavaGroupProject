@@ -25,7 +25,7 @@
                            <font>
                               <Font name="Comic Sans MS" size="14.0" />
                            </font></Label>
-                           <Label fx:id="loggedInUser" layoutX="83.0" layoutY="37.0" >
+                           <Label fx:id="loggedInUser" layoutX="89.0" layoutY="50.0" prefHeight="19.0" prefWidth="74.0" textFill="WHITE">
                                     <font>
                                         <Font name="Comic Sans MS Bold" size="13.0" />
                                     </font>

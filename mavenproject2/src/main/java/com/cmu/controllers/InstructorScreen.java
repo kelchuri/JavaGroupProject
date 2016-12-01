@@ -95,15 +95,11 @@ public class InstructorScreen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (first) {
-            //nameId.setText("Welcome, " + InstructorScreen.user.getFirstName());
-            first = false;
-
-        }
+        loggedInUser.setText(InstructorScreen.user.getFirstName());
+        DashboardInstructorController.setUser(InstructorScreen.user);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardInstructor.fxml"));
         try {
             Pane cmdPane = (Pane) fxmlLoader.load();
-            loggedInUser.setText(user.getFirstName());
             rightPane.getChildren().clear();
             rightPane.getChildren().add(cmdPane);
         } catch (Exception e) {
