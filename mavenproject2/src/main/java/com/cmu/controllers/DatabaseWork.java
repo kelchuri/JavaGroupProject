@@ -51,7 +51,7 @@ public class DatabaseWork {
             updateTime(conn, stmt);
             updateCrsId(conn, stmt);
 //-----------------Code to be used for dropping all tables-----------------------            
-            dropTables(conn, stmt);
+//            dropTables(conn, stmt);
 
         } catch (Throwable ex) {
         }
