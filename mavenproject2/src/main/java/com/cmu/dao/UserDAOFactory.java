@@ -10,6 +10,12 @@ package com.cmu.dao;
  * @author kavya
  */
 public class UserDAOFactory {
+    
+    /**
+     * this method returns the object of UserDAOJDBCImpl class
+     * 
+     * @return 
+     */
     public UserDAO createUserDAO(){
         return new UserDAOJDBCImpl();
     } 
