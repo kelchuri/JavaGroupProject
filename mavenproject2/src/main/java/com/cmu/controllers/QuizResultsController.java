@@ -36,6 +36,7 @@ import javafx.util.Duration;
  * FXML Controller class
  *
  * @author kavya
+ * This is the controller for QuizResults FXML file.
  */
 public class QuizResultsController implements Initializable {
 
@@ -77,6 +78,10 @@ public class QuizResultsController implements Initializable {
 
     QuizController quizController = new QuizController();
 
+    /**
+     *
+     * @param takeQuizStage
+     */
     public static void setStage(Stage takeQuizStage) {
         QuizResultsController.stage = takeQuizStage;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -104,6 +109,10 @@ public class QuizResultsController implements Initializable {
 
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @FXML
     public void backToStudentScreen() throws IOException {
         System.out.println("Return Button Called");
@@ -119,6 +128,11 @@ public class QuizResultsController implements Initializable {
         QuizResultsController.stage.show();
     }
 
+    /**
+     *
+     * @param correct
+     * @param incorrect
+     */
     public void createStudentResultPieChart(int correct, int incorrect) {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
@@ -130,6 +144,9 @@ public class QuizResultsController implements Initializable {
 
     }
 
+    /**
+     *
+     */
     public void interactivePie() {
 
         interactivePie.setTextFill(Color.DARKORANGE);

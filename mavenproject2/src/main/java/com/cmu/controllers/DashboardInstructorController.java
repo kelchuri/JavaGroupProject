@@ -44,8 +44,9 @@ import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
- *
- * @author kavya
+ * 
+ * @author Nidhi
+ * This is the controller class for DashboardInstructor FXML file.
  */
 public class DashboardInstructorController implements Initializable {
 
@@ -76,6 +77,8 @@ public class DashboardInstructorController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -128,6 +131,11 @@ public class DashboardInstructorController implements Initializable {
         // TODO
     }
 
+    /**
+     *
+     * @param x
+     * This method creates a pie chart for easy, medium, hard levels of question
+     */
     public void createPieChart1(ArrayList x) {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
@@ -139,6 +147,11 @@ public class DashboardInstructorController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param x
+     * This method creates a pie chart for number of students passed and failed
+     */
     public void createPieChart2(ArrayList x) {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
@@ -149,6 +162,12 @@ public class DashboardInstructorController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param x
+     * @return
+     * This method creates a bar chart.
+     */
     public XYChart.Series<String, Number> createChart(ArrayList x) {
         final String[] years = {"Last month", "Last quarter", "Last year"};
         final CategoryAxis xAxis = new CategoryAxis();
@@ -170,11 +189,21 @@ public class DashboardInstructorController implements Initializable {
         return series1;
     }
 
+    /**
+     *
+     * @param takeQuizStage
+     * This method sets the stage
+     */
     public static void setStage(Stage takeQuizStage) {
         DashboardInstructorController.stage = takeQuizStage;
 
     }
 
+    /**
+     *
+     * @param event
+     * This method prints the Bar chart1 to a PDF.
+     */
     @FXML
     public void print1(ActionEvent event) {
 
@@ -191,11 +220,11 @@ public class DashboardInstructorController implements Initializable {
 
             com.itextpdf.layout.element.Image pdfImg = new com.itextpdf.layout.element.Image(imgData);
 
-            System.out.println("Entered 3 ");
+            
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
-            doc.add(new Paragraph("Hello world, " + "this is a test pdf file."));
+            
             doc.add(pdfImg);
             doc.close();
         } catch (Exception exc) {
@@ -204,6 +233,11 @@ public class DashboardInstructorController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param event
+     * This method prints the Bar chart2 to a PDF.
+     */
     @FXML
     public void print2(ActionEvent event) {
 
@@ -220,11 +254,11 @@ public class DashboardInstructorController implements Initializable {
 
             com.itextpdf.layout.element.Image pdfImg = new com.itextpdf.layout.element.Image(imgData);
 
-            System.out.println("Entered 3 ");
+          
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
-            doc.add(new Paragraph("Hello world, " + "this is a test pdf file."));
+            
             doc.add(pdfImg);
             doc.close();
         } catch (Exception exc) {
@@ -233,6 +267,11 @@ public class DashboardInstructorController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param event
+     * This method prints the Pie chart1 to a PDF.
+     */
     @FXML
     public void print3(ActionEvent event) {
 
@@ -249,11 +288,11 @@ public class DashboardInstructorController implements Initializable {
 
             com.itextpdf.layout.element.Image pdfImg = new com.itextpdf.layout.element.Image(imgData);
 
-            System.out.println("Entered 3 ");
+           
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
-            doc.add(new Paragraph("Hello world, " + "this is a test pdf file."));
+           
             doc.add(pdfImg);
             doc.close();
         } catch (Exception exc) {
@@ -262,6 +301,11 @@ public class DashboardInstructorController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param event
+     * This method prints the pie chart2 to a PDF.
+     */
     @FXML
     public void print4(ActionEvent event) {
 
@@ -278,11 +322,10 @@ public class DashboardInstructorController implements Initializable {
 
             com.itextpdf.layout.element.Image pdfImg = new com.itextpdf.layout.element.Image(imgData);
 
-            System.out.println("Entered 3 ");
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
-            doc.add(new Paragraph("Hello world, " + "this is a test pdf file."));
+            
             doc.add(pdfImg);
             doc.close();
         } catch (Exception exc) {
@@ -291,6 +334,11 @@ public class DashboardInstructorController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param user
+     * This method sets the user for this controller class
+     */
     public static void setUser(User user) {
         DashboardInstructorController.user = user;
 

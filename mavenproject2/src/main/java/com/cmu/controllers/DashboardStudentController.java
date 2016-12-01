@@ -46,8 +46,9 @@ import javafx.util.Duration;
 
 /**
  * FXML Controller class
- *
- * @author kavya
+ * 
+ * @author Nidhi
+ * This is the controller class for DashboardStudent FXML file.
  */
 public class DashboardStudentController implements Initializable {
 
@@ -80,6 +81,8 @@ public class DashboardStudentController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -127,6 +130,11 @@ public class DashboardStudentController implements Initializable {
         // TODO
     }
 
+    /**
+     *
+     * @param x
+     * This method creates a pie chart for easy, medium, hard levels of question
+     */
     public void createPieChart1(ArrayList<Double> x) {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
@@ -138,6 +146,11 @@ public class DashboardStudentController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param x
+     * This method creates a pie chart for number of students passed and failed
+     */
     public void createPieChart2(ArrayList<Double> x) {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
@@ -147,6 +160,11 @@ public class DashboardStudentController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param x
+     * @return
+     */
     public XYChart.Series<String, Number> createChart(ArrayList x) {
         final String[] years = {"Last month", "Last quarter", "Last year"};
         final CategoryAxis xAxis = new CategoryAxis();
@@ -187,11 +205,19 @@ public class DashboardStudentController implements Initializable {
         return series1;
     }
 
+    /**
+     *
+     * @param takeQuizStage
+     */
     public static void setStage(Stage takeQuizStage) {
         DashboardInstructorController.stage = takeQuizStage;
 
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void print1(ActionEvent event) {
 
@@ -220,6 +246,10 @@ public class DashboardStudentController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void print2(ActionEvent event) {
 
@@ -248,6 +278,10 @@ public class DashboardStudentController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void print3(ActionEvent event) {
 
@@ -276,6 +310,10 @@ public class DashboardStudentController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void print4(ActionEvent event) {
 
@@ -304,6 +342,10 @@ public class DashboardStudentController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param user
+     */
     public static void setUser(User user) {
 
         DashboardStudentController.user = user;

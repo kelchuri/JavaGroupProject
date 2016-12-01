@@ -21,6 +21,7 @@ import javafx.stage.Stage;
  * FXML Controller class
  *
  * @author kavya
+ * This is the controller for QuizInstruction FXML file.
  */
 public class QuizInstructionController implements Initializable {
 
@@ -29,6 +30,10 @@ public class QuizInstructionController implements Initializable {
      */
     private static Stage stage;
 
+    /**
+     *
+     * @param takeQuizStage
+     */
     public static void setStage(Stage takeQuizStage) {
         QuizInstructionController.stage = takeQuizStage;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -39,6 +44,10 @@ public class QuizInstructionController implements Initializable {
         // TODO
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @FXML
     public void startQuizButtonHandle() throws IOException {
         System.out.println("AddInst Button Called");

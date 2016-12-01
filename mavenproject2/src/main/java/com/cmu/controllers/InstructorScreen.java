@@ -37,8 +37,9 @@ import javafx.util.Callback;
 
 /**
  * FXML Controller class
- *
+ * 
  * @author kavya
+ * This is the controller class for InstructorScreen FXML file.
  */
 public class InstructorScreen implements Initializable {
 
@@ -86,11 +87,19 @@ public class InstructorScreen implements Initializable {
 
     private TextToDatabaseHandler textToDatabaseHandler = new TextToDatabaseHandler();
 
+    /**
+     *
+     * @param takeQuizStage
+     */
     public static void setStage(Stage takeQuizStage) {
         InstructorScreen.stage = takeQuizStage;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     *
+     * @param user
+     */
     public static void setUser(User user) {
         InstructorScreen.user = user;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

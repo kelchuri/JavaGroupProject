@@ -20,12 +20,17 @@ import javafx.scene.control.TextField;
 
 /**
  *
- * @author User
+ * @author Nidhi
+ * This is the controller class for ProfilePage FXML file.
  */
 public class ProfilePageController implements Initializable{
     
      private static User user;
     
+    /**
+     *
+     * @param user
+     */
     public static void setUser(User user){
         ProfilePageController.user = user;
     }
@@ -48,6 +53,10 @@ public class ProfilePageController implements Initializable{
     
     InstructorHandler instructorHandler = new InstructorHandler();
     
+    /**
+     *
+     * @param application
+     */
     public void setApp(MainApp application){
         this.application = application;
     }
@@ -85,6 +94,10 @@ public class ProfilePageController implements Initializable{
        
     }
     
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void processLogin(ActionEvent event) {
         

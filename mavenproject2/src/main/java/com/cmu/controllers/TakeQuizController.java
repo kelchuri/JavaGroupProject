@@ -31,6 +31,7 @@ import javafx.util.Callback;
  * FXML Controller class
  *
  * @author Urvashi
+ * This is the controller for StudentScreen FXML file.
  */
 public class TakeQuizController implements Initializable {
 
@@ -49,11 +50,19 @@ public class TakeQuizController implements Initializable {
 
     private StudentHandler studentHandler = new StudentHandler();
 
+    /**
+     *
+     * @param takeQuizStage
+     */
     public static void setStage(Stage takeQuizStage) {
         TakeQuizController.stage = takeQuizStage;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /**
+     *
+     * @param user
+     */
     public static void setUser(User user) {
         TakeQuizController.user = user;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -61,6 +70,8 @@ public class TakeQuizController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

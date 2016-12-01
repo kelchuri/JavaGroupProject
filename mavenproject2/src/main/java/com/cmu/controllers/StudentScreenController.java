@@ -25,6 +25,7 @@ import javafx.stage.Stage;
  * FXML Controller class
  *
  * @author kavya
+ * This is the controller for StudentScreen FXML file.
  */
 public class StudentScreenController implements Initializable {
 
@@ -40,11 +41,16 @@ public class StudentScreenController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param user
      */
     public static void setUser(User user) {
         StudentScreenController.user = user;
     }
 
+    /**
+     *
+     * @param takeQuizStage
+     */
     public static void setStage(Stage takeQuizStage) {
         StudentScreenController.stage = takeQuizStage;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

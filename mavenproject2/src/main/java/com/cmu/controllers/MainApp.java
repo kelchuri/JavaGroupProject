@@ -16,6 +16,11 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/**
+ *
+ * @author User
+ * This is the main application
+ */
 public class MainApp extends Application {
 
     @Override

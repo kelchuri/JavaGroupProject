@@ -25,8 +25,9 @@ import javafx.stage.Stage;
 
 /**
  * FXML Controller class
- *
- * @author kavya
+ * 
+ * @author 
+ * This is the controller class for LoginPage FXML file.
  */
 public class LoginPageController implements Initializable {
     
@@ -57,14 +58,23 @@ public class LoginPageController implements Initializable {
     
     private MainApp application;
     
+    /**
+     *
+     */
     public String userName;
     
+    /**
+     *
+     * @param application
+     */
     public void setApp(MainApp application) {
         this.application = application;
     }
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,6 +86,12 @@ public class LoginPageController implements Initializable {
         
     }
     
+    /**
+     *
+     * @param event
+     * @throws IOException
+     * @throws Throwable
+     */
     @FXML
     public void processLogin(ActionEvent event) throws IOException, Throwable {
         if (validateField()) {
@@ -181,6 +197,11 @@ public class LoginPageController implements Initializable {
         return true;
     }
     
+    /**
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     public void processSignup(ActionEvent event) throws Exception {
         

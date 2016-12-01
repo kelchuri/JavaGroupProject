@@ -18,8 +18,9 @@ import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
- *
+ * 
  * @author kavya
+ * This is the controller for AdminProfile FXML file.
  */
 public class AdminProfileController implements Initializable {
 
@@ -30,6 +31,11 @@ public class AdminProfileController implements Initializable {
 
     private Course course;
 
+    /**
+     *
+     * @param user
+     * This method sets the user of this controller.
+     */
     public static void setUser(User user) {
         AdminProfileController.user = user;
     }
