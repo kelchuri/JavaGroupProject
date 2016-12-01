@@ -22,7 +22,7 @@ public interface StudentQuizDAO extends AutoCloseable {
     public ArrayList<Integer> numberOfQuizTakenPerInstructor(int ins_id) throws Exception;
 
     public ArrayList<Double> passFailStudent(int stu_id) throws Throwable;
-    
+
     public ArrayList<Double> avgScoreForInstructor(int ins_id) throws Exception;
 
     public ArrayList<Integer> numberOfQuizTakenPerStudent(int stu_id) throws Exception;
@@ -32,5 +32,7 @@ public interface StudentQuizDAO extends AutoCloseable {
     public ArrayList<Double> scoresByLODForStudent(String stu_id) throws Exception;
 
     public ArrayList<Double> averageScoreOfStudent(String stu_id) throws Exception;
-    
+
+    public ArrayList<Double> passFailInstructor(int ins_id) throws Throwable;
+
 }

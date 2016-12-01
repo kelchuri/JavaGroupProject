@@ -86,6 +86,7 @@ public class DashboardInstructorController implements Initializable {
         ArrayList<Integer> noOfQuiz = new ArrayList<>();
         ArrayList<Double> avgScore = new ArrayList<>();
         ArrayList<Double> noByDifficultyLevel = new ArrayList<>();
+        ArrayList<Double> passFailInstructor = new ArrayList<>();
 
         int userId = user.getUserId();
 
@@ -117,7 +118,12 @@ public class DashboardInstructorController implements Initializable {
         createPieChart1(noByDifficultyLevel);
 
         pie2.setTitle("Students Passed and Failed");
-        createPieChart2();
+        try {
+            passFailInstructor = sqdao.passFailInstructor(userId);
+        } catch (Throwable ex) {
+            Logger.getLogger(DashboardInstructorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        createPieChart2(passFailInstructor);
 
         // TODO
     }
@@ -133,11 +139,11 @@ public class DashboardInstructorController implements Initializable {
 
     }
 
-    public void createPieChart2() {
+    public void createPieChart2(ArrayList x) {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
-                        new PieChart.Data("Pass", 60),
-                        new PieChart.Data("Fail", 15));
+                        new PieChart.Data("Pass", (double) (Number) x.get(0)),
+                        new PieChart.Data("Fail", (double) (Number) x.get(1)));
 
         pie2.setData(pieChartData);
 
