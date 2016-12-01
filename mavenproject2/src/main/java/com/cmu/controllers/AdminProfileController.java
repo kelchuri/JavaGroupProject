@@ -6,6 +6,7 @@ package com.cmu.controllers;
  * and open the template in the editor.
  */
 import com.cmu.handlers.InstructorHandler;
+import com.cmu.models.Course;
 import com.cmu.models.User;
 import java.net.URL;
 import java.util.ResourceBundle;
