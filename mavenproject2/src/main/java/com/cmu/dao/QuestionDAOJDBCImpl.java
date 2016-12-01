@@ -13,17 +13,35 @@ import java.util.ArrayList;
  * @author Ayushjain
  */
 public class QuestionDAOJDBCImpl implements QuestionDAO{
-
+   
+    /**
+     * this method adds a question object to the database
+     * 
+     * @param questions
+     * @return 
+     */
     @Override
     public String addQuestion(ArrayList<Questions> questions) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+       
+    /**
+     * this method updates a question object to the database
+     * 
+     * @param questions
+     * @return 
+     */ 
     @Override
     public String updateQuestion(ArrayList<Questions> questions) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+        
+    /**
+     * this method gets a question object to the database
+     * 
+     * @param quesDesc
+     * @return 
+     */
     @Override
     public Questions getQuestion(String quesDesc) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -10,7 +10,11 @@ package com.cmu.dao;
  * @author Ayushjain
  */
 public class QuestionDAOFactory {
-
+    
+    /**
+     * this methods returns the object of the QuestionDAOJDBCImpl class
+     * 
+     */
     public QuestionDAO createQuestionDAO() {
         return new QuestionDAOJDBCImpl();
     }
