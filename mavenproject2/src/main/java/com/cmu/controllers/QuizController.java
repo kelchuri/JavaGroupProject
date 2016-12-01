@@ -110,7 +110,12 @@ public class QuizController implements Initializable {
     private static boolean timerOn;
 
     static int correct = 0;
+
     int incorrect = 0;
+
+    public int getIncorrect() {
+        return incorrect;
+    }
 
     private List<Quiz> quiz = new ArrayList<Quiz>();
     private Questions currentQuestion;
@@ -381,7 +386,6 @@ public class QuizController implements Initializable {
         scene.getStylesheets().add("/styles/quizresults.css");
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
-
         QuizController.stage.setTitle("JavaFX and Maven");
         QuizController.stage.setScene(scene);
         QuizController.stage.show();

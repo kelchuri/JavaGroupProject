@@ -107,7 +107,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
     public void close() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public ArrayList<String> passFailStudent(int stu_id) throws Throwable {
 
         studentMarksList = new ArrayList<>();
@@ -130,7 +130,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             for (int i = 1; i <= columnsNumber; i++) {
                 if (i > 1) {
                     System.out.print(",  ");
-}
+                }
                 String columnValue = rs.getString(i);
                 studentMarksList.add(rsmd.getColumnName(i));
                 //System.out.print(columnValue + " " + rsmd.getColumnName(i));
@@ -200,7 +200,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             if (lastYear > 0) {
                 avgMarksYear = totalMarksYear / lastYear;
             }
-            
+
             avgScore.add(avgMarksMonth);
             avgScore.add(avgMarksQuarter);
             avgScore.add(avgMarksYear);
@@ -210,7 +210,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
         }
     }
-    
+
     @Override
     public ArrayList<Integer> numberOfQuizTakenPerStudent(String stu_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
@@ -221,21 +221,21 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             PreparedStatement stmt1 = null;
             String sql = null;
             sql = "SELECT stu_id, quiz_id,date\n"
-                + "FROM StudentQuiz\n"
-                + "where stu_id=?";
+                    + "FROM StudentQuiz\n"
+                    + "where stu_id=?";
             stmt1 = connection.prepareStatement(sql);
             stmt1.setString(1, stu_id);
 //            int quizCount = 0;
             ResultSet rs = stmt1.executeQuery();
- 
+
             while (rs.next()) {
                 stu_id = rs.getString("stu_id");
 //                quizCount = (rs.getInt("QuizCount"));
- 
+
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(rs.getDate("date").getTime());
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
- 
+
                 String text = "Instructor: " + stu_id + "| Date: " + sdf.format(cal.getTime());
                 System.out.println(text);
                 Calendar lastMonth1 = Calendar.getInstance();
@@ -244,7 +244,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                 lastQuarter1.add(Calendar.MONTH, -3);
                 Calendar lastYear1 = Calendar.getInstance();
                 lastYear1.add(Calendar.YEAR, -1);
- 
+
                 if (cal.after(lastMonth1)) {
                     lastMonth = lastMonth + 1;
                 } else if (cal.after(lastQuarter1)) {
@@ -253,7 +253,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                     lastYear = lastYear + 1;
                 }
             }
- 
+
             numberOfTestTaken.add(lastMonth);
             numberOfTestTaken.add(lastQuarter);
             numberOfTestTaken.add(lastYear);
@@ -264,4 +264,41 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
         }
     }
 
+    public ArrayList<Integer> studentCountByCourse(String crs_id) throws Throwable {
+        try (Statement stmt = connection.createStatement()) {
+            ArrayList<Integer> list = new ArrayList();
+            String sql = null;
+            
+            PreparedStatement stmt1 = null;
+            sql = "select crs_id, Count(stu_id) AS StudentCount"
+                    + " from studentquiz"
+                    + " where crs_id=?"
+                    + " group by crs_id";
+            stmt1 = connection.prepareStatement(sql);
+            stmt1.setString(1, crs_id);
+            ResultSet rs = stmt1.executeQuery();
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (rs.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) {
+                        System.out.print(",  ");
+                    }
+                     String columnValue = rs.getString(i);
+                //    list.add(Integer.valueOf(columnValue));
+                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
+               //     list.add(Integer.valueOf(rsmd.getColumnName(i)));
+                }
+                
+                System.out.println("");
+            }
+            
+            
+        } catch (SQLException se) {
+            //se.printStackTrace();
+            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+        }
+
+    }
 }

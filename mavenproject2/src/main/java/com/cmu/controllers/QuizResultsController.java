@@ -5,7 +5,6 @@ package com.cmu.controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -23,6 +22,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -39,25 +39,56 @@ public class QuizResultsController implements Initializable {
     @FXML
     PieChart studentTestResultPie;
 
-     private static Stage stage;
- 
- public static void setStage(Stage takeQuizStage) {
+    @FXML
+    Label noOfCorrectAnsLabel;
+
+    @FXML
+    Label noOfQueLabel;
+
+    @FXML
+    Label percentCorrectLabel;
+
+    @FXML
+    Label totalMarksLabel;
+    
+    private static Stage stage;
+    
+    int incorrect; 
+    int correct; 
+    int totalQue;
+    double percentCorrect;
+
+    QuizController quizController;
+
+    public static void setStage(Stage takeQuizStage) {
         QuizResultsController.stage = takeQuizStage;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         
-          
+        incorrect = quizController.getIncorrect();
+        System.out.println("incorrect:"+incorrect);
+        correct = QuizController.correct;
+         System.out.println("correct:"+incorrect);
+        totalQue = correct+incorrect;
+        
+        noOfCorrectAnsLabel.setText(Integer.toString(correct));
+        noOfQueLabel.setText(Integer.toString(totalQue));
+        percentCorrect = (correct/totalQue)*100; 
+        percentCorrectLabel.setText(Double.toString(percentCorrect));
+        totalMarksLabel.setText(Integer.toString(correct*3));
         studentTestResultPie.setTitle("Your Quiz Result");
-        createStudentResultPieChart();
-    }    
-    
-    @FXML
-    public void backToStudentScreen() throws IOException{
-        System.out.println("Return Button Called");
+        createStudentResultPieChart(correct,incorrect);
         
+    }
+
+    @FXML
+    public void backToStudentScreen() throws IOException {
+        System.out.println("Return Button Called");
+
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/StudentScreen.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/studentscreen.css");
@@ -68,14 +99,14 @@ public class QuizResultsController implements Initializable {
         QuizResultsController.stage.setScene(scene);
         QuizResultsController.stage.show();
     }
-    
-    public void createStudentResultPieChart() {
+
+    public void createStudentResultPieChart(int correct, int incorrect) {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
-                        new PieChart.Data("Correct", 60),
-                        new PieChart.Data("Incorrect", 25));
+                        new PieChart.Data("Correct",correct ),
+                        new PieChart.Data("Incorrect", incorrect));
 
         studentTestResultPie.setData(pieChartData);
 
-}
+    }
 }

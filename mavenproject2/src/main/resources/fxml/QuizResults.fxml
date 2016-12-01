@@ -53,9 +53,25 @@
           </font>
       </Label>
        <PieChart fx:id="studentTestResultPie" layoutX="597.0" layoutY="147.0" />
-      <Label layoutX="387.0" layoutY="240.0" text="Label" />
-      <Label layoutX="387.0" layoutY="315.0" text="Label" />
-      <Label layoutX="387.0" layoutY="392.0" text="Label" />
-      <Label layoutX="387.0" layoutY="450.0" text="Label" />
+      <Label fx:id="noOfQueLabel" layoutX="387.0" layoutY="240.0" text="Label">
+           <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+          </font>
+      </Label>
+      <Label fx:id="noOfCorrectAnsLabel" layoutX="387.0" layoutY="315.0" text="Label">
+           <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+          </font>
+      </Label>
+      <Label fx:id="percentCorrectLabel" layoutX="387.0" layoutY="392.0" text="Label">
+           <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+          </font>
+      </Label>
+      <Label fx:id="totalMarksLabel" layoutX="387.0" layoutY="450.0" text="Label">
+           <font>
+            <Font name="Comic Sans MS Bold" size="13.0" />
+          </font>
+      </Label>
    </children>
 </AnchorPane>
