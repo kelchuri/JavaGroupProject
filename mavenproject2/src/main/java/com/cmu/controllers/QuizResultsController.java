@@ -91,13 +91,13 @@ public class QuizResultsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        incorrect = quizController.getIncorrect();
+        incorrect = QuizController.incorrect;
         System.out.println("incorrect:" + incorrect);
 
         correct = QuizController.correct;
         System.out.println("correct:" + correct);
 
-        totalQue = correct + incorrect;
+        totalQue = QuizController.totalQuestions;
 
         noOfCorrectAnsLabel.setText(Integer.toString(correct));
         noOfQueLabel.setText(Integer.toString(totalQue));
@@ -118,7 +118,7 @@ public class QuizResultsController implements Initializable {
     @FXML
     public void backToStudentScreen() throws IOException {
         System.out.println("Return Button Called");
-
+        StudentScreenController.setQuizTaken(true);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/StudentScreen.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/studentscreen.css");
@@ -161,8 +161,8 @@ public class QuizResultsController implements Initializable {
                 double val = ((double) data.getPieValue() / totalQue) * 100;
                 val = Double.valueOf(String.format("%.2f", val));
                 studentTestResultPie.setClockwise(flag);
-                interactivePie.setTranslateX(e.getSceneX());
-                interactivePie.setTranslateY(e.getSceneY());
+//                interactivePie.setTranslateX(e.getSceneX());
+//                interactivePie.setTranslateY(e.getSceneY());
                 interactivePie.setText(val + "%");
             });
         });

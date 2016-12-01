@@ -80,6 +80,7 @@
          </font>
       </TextArea>
       <Label fx:id="timer" layoutX="914.0" layoutY="96.0" prefHeight="27.0" prefWidth="102.0" />
+      <Label fx:id="questionNo" layoutX="214.0" layoutY="148.0" prefHeight="27.0" prefWidth="32.0" />
    </children>
    <styleClass>
       <String fx:value="mainFxmlClass" />

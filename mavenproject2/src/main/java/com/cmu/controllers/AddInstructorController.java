@@ -56,12 +56,17 @@ public class AddInstructorController implements Initializable {
     @FXML
     private void addInstructor(ActionEvent event) throws Exception{
         int courseid = getCourseId();
-        User instructor = new User("", "", newuserpassword.getText(), newuseremail.getText(), "instructor");
+        if(newuserpassword.getText().equalsIgnoreCase("") ||  newuseremail.getText().equalsIgnoreCase("")){
+            message.setText("Instructor could not be added");
+        } else {
+           User instructor = new User("", "", newuserpassword.getText(), newuseremail.getText(), "instructor");
         if(login_Page_Database_Controller.addNewInstructor(instructor, courseid)) {
             message.setText("Instructor added successfully");
         } else {
             message.setText("Instructor could not be added");
+        } 
         }
+        
         
         
     }

@@ -24,8 +24,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author kavya
- * This is the controller for StudentScreen FXML file.
+ * @author kavya This is the controller for StudentScreen FXML file.
  */
 public class StudentScreenController implements Initializable {
 
@@ -39,19 +38,29 @@ public class StudentScreenController implements Initializable {
 
     private static User user;
 
+    static boolean quizTaken;
+
     /**
      * Initializes the controller class.
-     * @param user
-     * This method sets the user in this controller
+     *
+     * @param user This method sets the user in this controller
      */
     public static void setUser(User user) {
         StudentScreenController.user = user;
     }
 
     /**
+     * Initializes the controller class.
      *
-     * @param takeQuizStage
-     * This method sets the stage in this controller
+     * @param quizTaken This method sets the user in this controller
+     */
+    public static void setQuizTaken(boolean quizTaken) {
+        StudentScreenController.quizTaken = quizTaken;
+    }
+
+    /**
+     *
+     * @param takeQuizStage This method sets the stage in this controller
      */
     public static void setStage(Stage takeQuizStage) {
         StudentScreenController.stage = takeQuizStage;
@@ -89,16 +98,30 @@ public class StudentScreenController implements Initializable {
     @FXML
     private void handleTakeQuizButton() throws IOException {
         System.out.println("AddInst Button Called");
-        TakeQuizController.setStage(StudentScreenController.stage);
-        TakeQuizController.setUser(StudentScreenController.user);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/TakeQuiz.fxml"));
-        Pane cmdPane = (Pane) fxmlLoader.load();
-        try {
+        if (StudentScreenController.quizTaken) {
+            TakeQuizController.setStage(StudentScreenController.stage);
+            TakeQuizController.setUser(StudentScreenController.user);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/QuizAlreadyTaken.fxml"));
+            Pane cmdPane = (Pane) fxmlLoader.load();
+            try {
 
-            rightPaneStudent.getChildren().clear();
-            rightPaneStudent.getChildren().add(cmdPane);
-        } catch (Exception e) {
+                rightPaneStudent.getChildren().clear();
+                rightPaneStudent.getChildren().add(cmdPane);
+            } catch (Exception e) {
+            }
+        } else {
+            TakeQuizController.setStage(StudentScreenController.stage);
+            TakeQuizController.setUser(StudentScreenController.user);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/TakeQuiz.fxml"));
+            Pane cmdPane = (Pane) fxmlLoader.load();
+            try {
+
+                rightPaneStudent.getChildren().clear();
+                rightPaneStudent.getChildren().add(cmdPane);
+            } catch (Exception e) {
+            }
         }
+
     }
 
     @FXML

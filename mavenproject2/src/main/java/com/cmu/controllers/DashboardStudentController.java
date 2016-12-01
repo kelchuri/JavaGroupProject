@@ -115,6 +115,10 @@ public class DashboardStudentController implements Initializable {
         pie3.setTitle("Scores by level of Difficulty");
         try {
             noByDifficultyLevel = sqdao.scoresByLODForStudent(userId);
+            for(double val : noByDifficultyLevel){
+                System.out.println("SLOD: " + val);
+            }
+            
         } catch (Exception ex) {
             Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }

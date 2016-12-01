@@ -17,28 +17,28 @@
         <URL value="@/styles/quizresults.css" />
     </stylesheets>
    <children>
-      <Label layoutX="213.0" layoutY="253.0">
+      <Label layoutX="213.0" layoutY="253.0" text="Total Questions" textFill="WHITE">
            <font>
-            <Font name="Comic Sans MS Bold" size="15.0" />
+            <Font name="Comic Sans MS Bold" size="18.0" />
           </font>
       </Label>
       
-      <Label layoutX="213.0" layoutY="328.0">
+      <Label layoutX="213.0" layoutY="328.0" text="Correct Answers" textFill="WHITE">
            <font>
-            <Font name="Comic Sans MS Bold" size="15.0" />
+            <Font name="Comic Sans MS Bold" size="18.0" />
           </font>
       </Label>
       
      
-      <Label layoutX="212.0" layoutY="405.0" prefHeight="17.0" prefWidth="112.0">
+      <Label layoutX="212.0" layoutY="405.0" prefHeight="17.0" prefWidth="112.0" text="Your percent" textFill="WHITE">
            <font>
-            <Font name="Comic Sans MS Bold" size="15.0" />
+            <Font name="Comic Sans MS Bold" size="18.0" />
           </font>
       </Label>
    
-      <Label layoutX="214.0" layoutY="463.0">
+      <Label layoutX="214.0" layoutY="463.0" text="No of marks" textFill="WHITE">
            <font>
-            <Font name="Comic Sans MS Bold" size="15.0" />
+            <Font name="Comic Sans MS Bold" size="18.0" />
           </font>
       </Label>
      
@@ -53,27 +53,27 @@
           </font>
       </Label>
        <PieChart fx:id="studentTestResultPie" layoutX="597.0" layoutY="147.0" />
-      <Label fx:id="noOfQueLabel" layoutX="387.0" layoutY="240.0">
+      <Label fx:id="noOfQueLabel" layoutX="387.0" layoutY="240.0" textFill="WHITE">
            <font>
-            <Font name="Comic Sans MS Bold" size="15.0" />
+            <Font name="Comic Sans MS Bold" size="18.0" />
           </font>
       </Label>
-      <Label fx:id="noOfCorrectAnsLabel" layoutX="387.0" layoutY="315.0">
+      <Label fx:id="noOfCorrectAnsLabel" layoutX="387.0" layoutY="315.0" textFill="WHITE">
            <font>
-            <Font name="Comic Sans MS Bold" size="15.0" />
+            <Font name="Comic Sans MS Bold" size="18.0" />
           </font>
       </Label>
-      <Label fx:id="percentCorrectLabel" layoutX="387.0" layoutY="392.0">
+      <Label fx:id="percentCorrectLabel" layoutX="387.0" layoutY="392.0" textFill="WHITE">
            <font>
-            <Font name="Comic Sans MS Bold" size="15.0" />
+            <Font name="Comic Sans MS Bold" size="18.0" />
           </font>
       </Label>
-      <Label fx:id="totalMarksLabel" layoutX="387.0" layoutY="450.0">
+      <Label fx:id="totalMarksLabel" layoutX="387.0" layoutY="450.0" textFill="WHITE">
            <font>
-            <Font name="Comic Sans MS Bold" size="15.0" />
+            <Font name="Comic Sans MS Bold" size="18.0" />
           </font>
       </Label>
-      <Label fx:id="interactivePie" layoutX="495.0" layoutY="61.0" prefHeight="31.0" prefWidth="51.0" text="heyyyyy">
+      <Label fx:id="interactivePie" layoutX="546.0" layoutY="147.0" prefHeight="31.0" prefWidth="51.0">
           <font>
             <Font name="Comic Sans MS Bold" size="13.0" />
          </font></Label>

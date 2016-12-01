@@ -39,9 +39,8 @@ import javafx.util.Duration;
 
 /**
  * FXML Controller class
- * 
- * @author kavya
- * This is the controller for Quiz FXML file.
+ *
+ * @author kavya This is the controller for Quiz FXML file.
  */
 public class QuizController implements Initializable {
 
@@ -97,6 +96,9 @@ public class QuizController implements Initializable {
     private VBox trueFalse;
 
     @FXML
+    private Label questionNo;
+
+    @FXML
     private TextField fib;
 
     @FXML
@@ -108,28 +110,21 @@ public class QuizController implements Initializable {
     @FXML
     private Button submitQuizId;
 
-    private static int i = 0;
+    private int i = 0;
 
     private static boolean timerOn;
 
     static int correct = 0;
 
     static int incorrect = 0;
+    
+    static int totalQuestions = 0;
 
     private int course_id;
 
     private static User user;
 
     private StudentHandler studentHandler = new StudentHandler();
-
-    /**
-     *
-     * @return
-     * This method gets the correct answer.
-     */
-    public int getIncorrect() {
-        return incorrect;
-    }
 
     private List<Quiz> quiz = new ArrayList<Quiz>();
     private Questions currentQuestion;
@@ -139,8 +134,7 @@ public class QuizController implements Initializable {
 
     /**
      *
-     * @param takeQuizStage
-     * This method sets the stage in this controller
+     * @param takeQuizStage This method sets the stage in this controller
      */
     public static void setStage(Stage takeQuizStage) {
         QuizController.stage = takeQuizStage;
@@ -149,8 +143,7 @@ public class QuizController implements Initializable {
 
     /**
      *
-     * @param questions
-     * This method sets the questions in this controller.
+     * @param questions This method sets the questions in this controller.
      */
     public static void setQuestions(List questions) {
         QuizController.ques = questions;
@@ -159,8 +152,7 @@ public class QuizController implements Initializable {
 
     /**
      *
-     * @param flag
-     * This method sets the timer in this controller.
+     * @param flag This method sets the timer in this controller.
      */
     public static void setTimer(boolean flag) {
         QuizController.timerOn = flag;
@@ -168,8 +160,7 @@ public class QuizController implements Initializable {
 
     /**
      *
-     * @param user
-     * This method sets the user in this controller.
+     * @param user This method sets the user in this controller.
      */
     public static void setUser(User user) {
         QuizController.user = user;
@@ -186,9 +177,10 @@ public class QuizController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        totalQuestions = ques.size();
         System.out.println(ques.size());
         timer.setVisible(false);
-        if (QuizController.timerOn) {
+        if (timerOn) {
             timer.setVisible(true);
             int time = getTime();
             System.out.println("Time is" + time);
@@ -203,7 +195,7 @@ public class QuizController implements Initializable {
             Timer timer = new Timer(true); //set it as a deamon
             timer.schedule(new MyTimer(), 0, 1000);
         }
-
+        submitQuizId.setDisable(true);
         displayQuestion(i);
 
         // TODO
@@ -211,24 +203,23 @@ public class QuizController implements Initializable {
 
     /**
      *
-     * @throws Throwable
-     * This method takes the quiz question to next question
+     * @throws Throwable This method takes the quiz question to next question
      */
     @FXML
     public void goToNext() throws Throwable {
         calculateAnswer();
         i = i + 1;
         fib.clear();
-        submitQuizId.setDisable(true);
-        if (i < QuizController.ques.size()) {
+        if (i < QuizController.ques.size()-1) {
             displayQuestion(i);
 
-        } else {
+        } else if(i == QuizController.ques.size()-1){
+            displayQuestion(i);
+            i = QuizController.ques.size()-1;
             submitQuizId.setDisable(false);
-            System.out.println(QuizController.ques.size() + " " + correct + " " + incorrect);
+            //System.out.println(QuizController.ques.size() + " " + correct + " " + incorrect);
             next.setDisable(true);
-            printQuiz(quiz);
-            studentHandler.addIntoQuiz(quiz, QuizController.user, course_id);
+            //printQuiz(quiz);
         }
     }
 
@@ -243,7 +234,7 @@ public class QuizController implements Initializable {
     }
 
     /**
-     *This method clears the choices selected in the quiz.
+     * This method clears the choices selected in the quiz.
      */
     public void clearSelectionMC() {
         option1m.setSelected(false);
@@ -253,7 +244,15 @@ public class QuizController implements Initializable {
     }
 
     /**
-     * This method selects true 
+     * This method clears the choices selected in the quiz.
+     */
+    public void clearSelectionTF() {
+        true1.setSelected(false);
+        false1.setSelected(false);
+    }
+
+    /**
+     * This method selects true
      */
     @FXML
     public void selectTrue() {
@@ -264,7 +263,7 @@ public class QuizController implements Initializable {
     }
 
     /**
-     *This method selects False
+     * This method selects False
      */
     @FXML
     public void selectFalse() {
@@ -276,8 +275,7 @@ public class QuizController implements Initializable {
 
     /**
      *
-     * @param event
-     * This method selects option1
+     * @param event This method selects option1
      */
     @FXML
     public void selectOption1(ActionEvent event) {
@@ -290,8 +288,7 @@ public class QuizController implements Initializable {
 
     /**
      *
-     * @param event
-     * This method selects option2
+     * @param event This method selects option2
      */
     @FXML
     public void selectOption2(ActionEvent event) {
@@ -304,8 +301,7 @@ public class QuizController implements Initializable {
 
     /**
      *
-     * @param event
-     * This method selects option3
+     * @param event This method selects option3
      */
     @FXML
     public void selectOption3(ActionEvent event) {
@@ -318,8 +314,7 @@ public class QuizController implements Initializable {
 
     /**
      *
-     * @param event
-     * This method selects option4
+     * @param event This method selects option4
      */
     @FXML
     public void selectOption4(ActionEvent event) {
@@ -334,8 +329,7 @@ public class QuizController implements Initializable {
      *
      * @param iscorrect
      * @param options
-     * @param option
-     * This method gets selected options
+     * @param option This method gets selected options
      */
     public void getSelectedOptions(String iscorrect, List options, String option) {
         if (iscorrect.equalsIgnoreCase("correct")) {
@@ -345,7 +339,7 @@ public class QuizController implements Initializable {
     }
 
     /**
-     *This method calculates the answers.
+     * This method calculates the answers.
      */
     public void calculateAnswer() {
         List<String> answers = new ArrayList<String>();
@@ -369,7 +363,7 @@ public class QuizController implements Initializable {
             }
             System.out.println(count + " " + answers.size());
             if (count == answers.size()) {
-                correct++;
+                QuizController.correct++;
                 quiz.add(new Quiz(currentQuestion.getQues_id(), currentQuestion.getDiff_lvl(), true));
             } else {
                 incorrect++;
@@ -418,10 +412,10 @@ public class QuizController implements Initializable {
 
     /**
      *
-     * @param i
-     * This method displays the questions
+     * @param i This method displays the questions
      */
     public void displayQuestion(int i) {
+        questionNo.setText(String.valueOf(i + 1));
         currentQuestion = QuizController.ques.get(i);
         course_id = currentQuestion.getCrs_id();
         question.setText(currentQuestion.getQues_desc());
@@ -469,8 +463,7 @@ public class QuizController implements Initializable {
 
     /**
      *
-     * @param quiz
-     * This method prints the quiz
+     * @param quiz This method prints the quiz
      */
     public void printQuiz(List<Quiz> quiz) {
         for (Quiz que : quiz) {
@@ -481,11 +474,11 @@ public class QuizController implements Initializable {
 
     /**
      *
-     * @throws IOException
-     * This method submits and views the results
+     * @throws IOException This method submits and views the results
      */
     @FXML
-    public void submitAndViewResults() throws IOException {
+    public void submitAndViewResults() throws IOException, Throwable {
+        studentHandler.addIntoQuiz(quiz, QuizController.user, course_id);
         System.out.println("Submit Result Called");
         QuizResultsController.setStage(QuizController.stage);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/QuizResults.fxml"));
@@ -529,6 +522,9 @@ public class QuizController implements Initializable {
             } else {
                 iSeconds--;
 
+            }
+            if(iSeconds < 5 && iMinutes==0) {
+                submitQuizId.setDisable(false);
             }
         }
     }
