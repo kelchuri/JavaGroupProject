@@ -20,8 +20,9 @@ import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
- *
+ * 
  * @author kavya
+ * This is the controller for AddInstructor FXML file.
  */
 public class AddInstructorController implements Initializable {
 
