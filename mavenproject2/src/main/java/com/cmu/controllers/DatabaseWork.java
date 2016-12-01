@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -32,6 +34,8 @@ public class DatabaseWork {
         createQuestions(conn, stmt);
         createQuiz(conn, stmt);
         createCourse(conn, stmt);
+        createQuizMarks(conn, stmt);
+        insertToQuizMarks(conn, stmt);
         insertToUserTbl(conn, stmt);
         insertToStudentQuiz(conn, stmt);
         insertToQuestions(conn, stmt);
@@ -40,6 +44,7 @@ public class DatabaseWork {
         updateTime(conn, stmt);
         updateCrsId(conn, stmt);
         //dropTables(conn, stmt);
+//        dropQuizMarks(conn, stmt);
 
     }
 
@@ -328,5 +333,39 @@ public class DatabaseWork {
         stmt = conn.prepareStatement(sql);
         stmt.executeUpdate();
     }
+    
+    private static void createQuizMarks(Connection conn, PreparedStatement stmt) throws Throwable {
+        String sql = "CREATE TABLE quizMarks("
+                + "quiz_id DECIMAL,"
+                + "total_marks DECIMAL)";
+        stmt = conn.prepareStatement(sql);
+        stmt.executeUpdate();
+    }
+
+    private static void insertToQuizMarks(Connection conn, PreparedStatement stmt) throws Throwable {
+        String sql1 = "SELECT quiz_id, Count(ques_id) AS Ques_Count\n"
+                + "FROM Quiz GROUP BY quiz_id";
+        String sql2 = "INSERT INTO quizMarks(" + "quiz_id," + "total_marks)" + "VALUES(?,?)";
+
+        Statement statement = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        stmt = conn.prepareStatement(sql2);
+        ResultSet rs = statement.executeQuery(sql1);
+        while (rs.next()) {
+            int quiz_id = rs.getInt("quiz_id");
+            int ques_count = rs.getInt("ques_count");
+            int total_marks=ques_count*3;
+            stmt.setInt(1, quiz_id);
+            stmt.setInt(2, total_marks);
+            stmt.executeUpdate();
+        }
+
+    }
+        private static void dropQuizMarks(Connection conn, PreparedStatement stmt) throws Throwable {
+        String sql = "drop table QuizMarks";
+        stmt = conn.prepareStatement(sql);
+       stmt.executeUpdate();
+
+        }
 
 }
