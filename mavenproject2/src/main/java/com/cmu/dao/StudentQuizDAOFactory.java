@@ -11,6 +11,11 @@ package com.cmu.dao;
  */
 public class StudentQuizDAOFactory {
 
+    /**
+     * this method creates and returns StudentQuizDAOJDBCImpl object
+     * 
+     * @return 
+     */
     public StudentQuizDAO createStudentQuizDAO() {
         return new StudentQuizDAOJDBCImpl();
     }

@@ -198,9 +198,15 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                 if (cal.after(lastMonth1)) {
                     lastMonth = lastMonth + 1.00;
                     totalMarksMonth = totalMarksMonth + quizMarks;
+                    lastQuarter = lastQuarter + 1.00;
+                    totalMarksQuarter = totalMarksQuarter + quizMarks;
+                    lastYear = lastYear + 1.00;
+                    totalMarksYear = totalMarksYear + quizMarks;
                 } else if (cal.after(lastQuarter1)) {
                     lastQuarter = lastQuarter + 1.00;
                     totalMarksQuarter = totalMarksQuarter + quizMarks;
+                    lastYear = lastYear + 1.00;
+                    totalMarksYear = totalMarksYear + quizMarks;
                 } else if (cal.after(lastYear1)) {
                     lastYear = lastYear + 1.00;
                     totalMarksYear = totalMarksYear + quizMarks;
