@@ -90,7 +90,7 @@ public class DatabaseWork {
         String sql = "CREATE TABLE STUDENTQUIZ("
                 + "stu_id int,"
                 + "quiz_id int,"
-                + "marks VARCHAR(20),"
+                + "marks DECIMAL,"
                 + "date DATE,"
                 + "crs_id int)";
         stmt = conn.prepareStatement(sql);
