@@ -110,14 +110,14 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                 lastYear1.add(Calendar.YEAR, -1);
 
                 if (cal.after(lastMonth1)) {
-                    lastMonth = lastMonth + 1;
-                    lastQuarter = lastQuarter + 1;
-                    lastYear = lastYear + 1;
+                    lastMonth = lastMonth + quizCount;
+                    lastQuarter = lastQuarter + quizCount;
+                    lastYear = lastYear + quizCount;
                 } else if (cal.after(lastQuarter1)) {
-                    lastQuarter = lastQuarter + 1;
-                    lastYear = lastYear + 1;
+                    lastQuarter = lastQuarter + quizCount;
+                    lastYear = lastYear + quizCount;
                 } else if (cal.after(lastYear1)) {
-                    lastYear = lastYear + 1;
+                    lastYear = lastYear + quizCount;
                 }
             }
 
