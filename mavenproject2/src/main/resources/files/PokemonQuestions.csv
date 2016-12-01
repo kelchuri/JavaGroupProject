@@ -1,0 +1,45 @@
+MA,E,Which pokemon move type is super effective against dragon type pokemon?,Fairy,Correct,Dragon,Correct,Ice,Correct,Poison,Incorrect
+MA,M,Which pokemon move type is super effective against fairy type pokemon?,Poison,Correct,Steel,Correct,Grass,Incorrect,Bug,Incorrect
+MA,H,"Out of the given options, which pokemon can mega evolve?",Beedrill,Correct,Pinsir,Correct,Scolipede,Incorrect,Charmander,Incorrect
+MA,E,Which of these pokemons is in the Smogon Uber List,Kangaskhan,Correct,Arceus,Correct,Aegislash,Correct,Mega-Blaziken,Correct
+MA,M,Which of the following are pokemon games?,Gold and Silver,Correct,Orange and purple,Incorrect,Black and white,Correct,Sun and moon,Correct
+MA,H,Which of the following are generation 1 pokemons?,Weepinbell,Correct,Nincada,Incorrect,Ninetales,Correct,Magmortar,Incorrect
+MA,E,What are the types of Gyarados?,Flying,Correct,Dragon,Incorrect,Water,Correct,Ice,Incorrect
+MA,M,Which of the following are Team Rocket pokemons?,Ekans,Correct,Seviper,Correct,Weezing,Correct,Gloom,Incorrect
+MA,H,Who among the following are Misty's sisters?,Violet,Correct,Lily,Correct,Jasmine,Incorrect,Rose,Incorrect
+MA,E,Which of the following are Eevee evolutions?,Espeon,Correct,Rockeon,Incorrect,Sylveon,Correct,Umbreon,Incorrect
+MC,M,Which Pok�mon can use its black ink to draw pictures or issue warnings?,Horsea,Correct,Starmie,Incorrect,Croagunk,Incorrect,Psyduck,Incorrect
+MC,H,Which pokemon seems to always have headache?,Slowpoke,Incorrect,Psyduck,Correct,Golduck,Incorrect,Dewgong,Incorrect
+MC,E,What is Professor Oak's Japanese name?,Oak,Incorrect,Okida,Incorrect,Okido,Correct,Hanoba,Incorrect
+MC,M,What color are Raichu's cheeks?,Red,Incorrect,Yellow,Correct,Blue,Incorrect,Orange,Incorrect
+MC,H,What pokemon does Pupitar evolve to?,Larvitar,Incorrect,Zapatar,Incorrect,Tyranitar,Correct,Magmortar,Incorrect
+MC,E,What region do Ash and his friends travel in the series Pokemon Battle Dimension?,Sinnoh,Correct,Jhoto,Incorrect,Kanto,Incorrect,Alola,Incorrect
+MC,M,Which of these pokemon can control time?,Dialga,Correct,Palkia,Incorrect,Arceus,Incorrect,Giratina,Incorrect
+MC,H,What is Lucario's signature move?,Aura Sphere,Correct,Kinesis,Incorrect,Bone Rush,Incorrect,Triple Kick,Incorrect
+MC,E,Which of these is not Tropius' ability?,Chlorophyll,Incorrect,Solar Power,Incorrect,Harvest,Incorrect,Overgrow,Correct
+MC,M,Which pokemon is involved in the theory why Cubone wears a skull?,Kangaskhan,Correct,Marowak,Incorrect,Bonedome,Incorrect,Tirtouga,Incorrect
+MC,H,Which of these is not a pokemon berry?,Aspear Berry,Incorrect,Qaichu Berry,Correct,Pomeg Berry,Incorrect,Sitrus Berry,Incorrect
+MC,E,Which of these abilities does not increase attack?,Sheer Power,Correct,Pure Power,Incorrect,Huge Power,Incorrect,Aerilate,Incorrect
+MC,M,Which is the tallest pokemon in the game?,Mega Rayquazza,Incorrect,Wailord,Correct,Primal Groundon,Incorrect,Mega Steelix,Incorrect
+MC,H,Which is the heaviest pokemon in the game?,Primal Groundon,Correct,Wailord,Incorrect,Mega Aggron,Incorrect,Snorlax,Incorrect
+MC,E,Which psychic pokemon has the highest defence stat.,Mega Slowbro,Correct,Slowking,Incorrect,Lugia,Incorrect,Deoxys Defense Form,Incorrect
+TF,M,Togepi appears in the first series of pokemon.,TRUE
+TF,H,"Pikachu, Jigglypuff and Clefairy are all evolved pokemon.",TRUE
+TF,E,Scyther evolves when traded while holding a Metal Coat.,FALSE
+TF,M,Misty is an Ice Type trainer.,FALSE
+TF,H,Ash won his very first gym badge.,FALSE
+TF,E,Squirtle is the very first pokedex entry.,FALSE
+TF,M,There are 18 elemental types of Pokemon.,TRUE
+TF,H,Generation 2 introduced two fossil pokemon.,FALSE
+TF,E,Focus Sash increases the attack and defense of a pokemon,FALSE
+TF,M,Rhydon was the first pokemon ever created.,TRUE
+FIB,H,_____________ is the symbol pokemon.,Unown
+FIB,E,_____________ is the aurora pokemon.,Dewgong
+FIB,M,_____________ is the first pokemon that Ash catches.,Caterpie
+FIB,H,There are ____________ legendary pokemon in Unova.,7
+FIB,E,There are ____________ pokemon in Unova.,156
+FIB,M,Charmaleon evolves into Charizard at level __________.,34
+FIB,H,____________ is the only legendary pokemon that can be either male of female.,Heatran
+FIB,E,____________ is the fastest steel type pokemon.,Mega Lucario
+FIB,M,The ability that raises a pokemon's attack stat if they manage to KO another pokemon is ______________.,Moxie
+FIB,H,____________ type pokemon are not immune to any pokemon move.,Water
