@@ -185,11 +185,11 @@ public class DashboardStudentController implements Initializable {
 
             com.itextpdf.layout.element.Image pdfImg = new com.itextpdf.layout.element.Image(imgData);
 
-            System.out.println("Entered 3 ");
+          
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
-            doc.add(new Paragraph("Hello world, " + "this is a test pdf file."));
+           
             doc.add(pdfImg);
             doc.close();
         } catch (Exception exc) {
@@ -214,11 +214,11 @@ public class DashboardStudentController implements Initializable {
 
             com.itextpdf.layout.element.Image pdfImg = new com.itextpdf.layout.element.Image(imgData);
 
-            System.out.println("Entered 3 ");
+       
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
-            doc.add(new Paragraph("Hello world, " + "this is a test pdf file."));
+            
             doc.add(pdfImg);
             doc.close();
         } catch (Exception exc) {
@@ -243,11 +243,11 @@ public class DashboardStudentController implements Initializable {
 
             com.itextpdf.layout.element.Image pdfImg = new com.itextpdf.layout.element.Image(imgData);
 
-            System.out.println("Entered 3 ");
+        
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
-            doc.add(new Paragraph("Hello world, " + "this is a test pdf file."));
+            
             doc.add(pdfImg);
             doc.close();
         } catch (Exception exc) {
@@ -272,11 +272,11 @@ public class DashboardStudentController implements Initializable {
 
             com.itextpdf.layout.element.Image pdfImg = new com.itextpdf.layout.element.Image(imgData);
 
-            System.out.println("Entered 3 ");
+           
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document doc = new Document(pdfDoc);
-            doc.add(new Paragraph("Hello world, " + "this is a test pdf file."));
+           
             doc.add(pdfImg);
             doc.close();
         } catch (Exception exc) {
