@@ -27,7 +27,7 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
     private ArrayList<Double> studentMarksList;
 
     StudentQuizDAOJDBCImpl() {
-        String url = "jdbc:derby://localhost:1527/QCASDB";
+        String url = "jdbc:derby:QCASDB;create=true";
 
         try {
             connection = DriverManager.getConnection(url);

@@ -26,7 +26,7 @@ public class UserDAOJDBCImpl implements UserDAO{
      * 
      */
     UserDAOJDBCImpl(){
-        String url = "jdbc:derby://localhost:1527/QCASDB";
+        String url = "jdbc:derby:QCASDB;create=true";
 
         try {
            connection = DriverManager.getConnection(url);

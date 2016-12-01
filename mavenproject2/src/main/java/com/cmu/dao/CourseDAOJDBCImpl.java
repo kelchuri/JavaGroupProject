@@ -23,7 +23,7 @@ public class CourseDAOJDBCImpl implements CourseDAO {
     private Connection connection;
 
     CourseDAOJDBCImpl() {
-        String url = "jdbc:derby://localhost:1527/QCASDB";
+        String url = "jdbc:derby:QCASDB;create=true";
 
         try {
             connection = DriverManager.getConnection(url);

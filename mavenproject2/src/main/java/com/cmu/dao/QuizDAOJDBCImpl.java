@@ -33,7 +33,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
     private Connection connection;
 
     QuizDAOJDBCImpl() {
-        String url = "jdbc:derby://localhost:1527/QCASDB";
+        String url = "jdbc:derby:QCASDB;create=true";
 
         try {
             connection = DriverManager.getConnection(url);
