@@ -32,6 +32,10 @@ public class QuizDAOJDBCImpl implements QuizDAO {
 
     private Connection connection;
 
+    /**
+     * this constructor creates the connection to the database
+     * 
+     */
     QuizDAOJDBCImpl() {
         String url = "jdbc:derby:QCASDB;create=true";
 

@@ -26,6 +26,10 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
     private Connection connection;
     private ArrayList<Double> studentMarksList;
 
+    /**
+     * this constructor creates the connection to the database
+     *
+     */
     StudentQuizDAOJDBCImpl() {
         String url = "jdbc:derby:QCASDB;create=true";
 
@@ -37,21 +41,44 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
         }
     }
 
+    /**
+     * this method adds the student quiz to the database
+     *
+     * @return
+     */
     @Override
     public String addStudentQuiz() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * this method updates the student quiz record in the database
+     *
+     * @return
+     */
     @Override
     public String updateStudentQuiz() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * this method deletes the student quiz records
+     *
+     * @return
+     */
     @Override
     public String deleteStudentQuiz() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * this method gets the number of quiz taken by the students in a particular
+     * instructor in last month, quarter and year
+     *
+     * @param ins_id
+     * @return
+     * @throws java.lang.Exception
+     */
     @Override
     public ArrayList<Integer> numberOfQuizTakenPerInstructor(int ins_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
@@ -100,15 +127,28 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             return numberOfTestTaken;
         } catch (SQLException se) {
             //se.printStackTrace();
-            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+            throw new Exception("Error reading the number of quiz taken by the "
+                    + "students in a particular instructor in last month, quarter"
+                    + " and year.", se);
         }
     }
 
+    /**
+     * this method close all the active connections to the database
+     *
+     */
     @Override
     public void close() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * this method gets the number of passed and failed test by the student
+     *
+     * @param stu_id
+     * @return
+     * @throws java.lang.Throwable
+     */
     @Override
     public ArrayList<Double> passFailStudent(int stu_id) throws Throwable {
 
@@ -150,11 +190,20 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             return studentMarksList;
         } catch (SQLException se) {
             //se.printStackTrace();
-            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+            throw new Exception("Error reading the the number of passed and "
+                    + "failed test by the student.", se);
         }
 
     }
 
+    /**
+     * this method gets the list of average scores of students under the
+     * instructor for last month, quarter and year
+     *
+     * @param ins_id
+     * @return
+     * @throws java.lang.Exception
+     */
     @Override
     public ArrayList<Double> avgScoreForInstructor(int ins_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
@@ -228,10 +277,20 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             return avgScore;
         } catch (SQLException se) {
             //se.printStackTrace();
-            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+            throw new Exception("Error reading the list of average scores of "
+                    + "students under the instructor for last month, quarter and "
+                    + "year.", se);
         }
     }
 
+    /**
+     * this method gets number of quiz taken by the student in last month, 
+     * quarter and year
+     *
+     * @param stu_id
+     * @return
+     * @throws java.lang.Exception
+     */
     @Override
     public ArrayList<Integer> numberOfQuizTakenPerStudent(int stu_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
@@ -246,12 +305,10 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                     + "where stu_id=?";
             stmt1 = connection.prepareStatement(sql);
             stmt1.setInt(1, stu_id);
-//            int quizCount = 0;
             ResultSet rs = stmt1.executeQuery();
 
             while (rs.next()) {
                 stu_id = rs.getInt("stu_id");
-//                quizCount = (rs.getInt("QuizCount"));
 
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(rs.getDate("date").getTime());
@@ -280,11 +337,19 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             numberOfTestTaken.add(lastYear);
             return numberOfTestTaken;
         } catch (SQLException se) {
-            //se.printStackTrace();
-            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+            throw new Exception("Error reading the number of quiz taken by the"
+                    + " student in last month, quarter and year.", se);
         }
     }
 
+    /**
+     * this method returns the number of student in a particular course
+     *
+     * @param crs_id
+     * @return
+     * @throws java.lang.Throwable
+     */
+    @Override
     public int studentCountByCourse(int crs_id) throws Throwable {
 
         try (Statement stmt = connection.createStatement()) {
@@ -318,10 +383,17 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
 
         } catch (SQLException se) {
             //se.printStackTrace();
-            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+            throw new Exception("Error reading the number of student in a particular course.", se);
         }
     }
 
+    /**
+     * this method gets the overall average score of a student in all the quiz taken
+     *
+     * @param stu_id
+     * @return
+     * @throws java.lang.Exception
+     */
     @Override
     public double overallAvgMarksStudent(int stu_id) throws Exception {
 
@@ -361,11 +433,19 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
             return overallAvgMarks;
         } catch (SQLException se) {
             //se.printStackTrace();
-            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+            throw new Exception("Error reading the overall average score of a"
+                    + " student in all the quiz taken.", se);
         }
 
     }
 
+    /**
+     * this method return the list of scores by the level of difficulty for the student
+     *
+     * @param stu_id
+     * @return
+     * @throws java.lang.Exception
+     */
     @Override
     public ArrayList<Double> scoresByLODForStudent(int stu_id) throws Exception {
         try (Statement stmt = connection.createStatement()) {
@@ -396,12 +476,21 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
         } catch (SQLException se) {
 
             //se.printStackTrace();
-            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+            throw new Exception("Error reading the list of scores by the level "
+                    + "of difficulty for the student.", se);
 
         }
 
     }
 
+    /**
+     * this method gets the list of average score of student in last month, 
+     * quarter and year
+     *
+     * @param stu_id
+     * @return
+     * @throws java.lang.Exception
+     */
     @Override
     public ArrayList<Double> averageScoreOfStudent(int stu_id) throws Exception {
 
@@ -480,12 +569,20 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
         } catch (SQLException se) {
 
             //se.printStackTrace();
-            throw new Exception("Error reading the count of number of testtaken in last year, quarter and year as per instructor ID.", se);
+            throw new Exception("Error reading the list of average score of "
+                    + "student in last month, quarter and year.", se);
 
         }
 
     }
 
+    /**
+     * this method return the list of pass and fail student in a particular course under an instructor
+     *
+     * @param ins_id
+     * @return
+     * @throws java.lang.Throwable
+     */
     @Override
     public ArrayList<Double> passFailInstructor(int ins_id) throws Throwable {
 
@@ -533,7 +630,8 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
 
         } catch (SQLException se) {
             //se.printStackTrace();
-            throw new Exception("Error reading the count of number of test taken in last year, quarter and year as per instructor ID.", se);
+            throw new Exception("Error reading the list of pass and fail student"
+                    + " in a particular course under an instructor.", se);
         }
 
     }
