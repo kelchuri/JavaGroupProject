@@ -123,7 +123,7 @@ public class InstructorScreen implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/importCSVOnly.fxml"));
         Pane cmdPane = (Pane) fxmlLoader.load();
         try {
-
+            courseId.getSelectionModel().select("Java");
             rightPane.getChildren().clear();
             rightPane.getChildren().add(cmdPane);
 

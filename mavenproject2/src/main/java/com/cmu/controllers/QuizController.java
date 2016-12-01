@@ -7,6 +7,7 @@ package com.cmu.controllers;
  */
 import com.cmu.models.Questions;
 import com.cmu.models.Quiz;
+import com.cmu.models.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -112,6 +113,8 @@ public class QuizController implements Initializable {
     static int correct = 0;
 
     int incorrect = 0;
+    
+    private static User user;
 
     public int getIncorrect() {
         return incorrect;
@@ -135,6 +138,10 @@ public class QuizController implements Initializable {
 
     public static void setTimer(boolean flag) {
         QuizController.timerOn = flag;
+    }
+    
+    public static void setUser(User user) {
+        QuizController.user = user;
     }
 
     private int getTime() {

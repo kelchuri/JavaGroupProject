@@ -58,7 +58,7 @@ public class QuizResultsController implements Initializable {
     int totalQue;
     double percentCorrect;
 
-    QuizController quizController;
+    QuizController quizController = new QuizController();
 
     public static void setStage(Stage takeQuizStage) {
         QuizResultsController.stage = takeQuizStage;
