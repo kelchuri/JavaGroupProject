@@ -454,6 +454,7 @@ public class QuizController implements Initializable {
 
             System.out.println("In FIB");
         } else if (currentQuestion.getQues_type().equals("TF")) {
+            clearSelectionTF();
             multipleAnswers.setVisible(false);
             multipleChoiceAnswers.setVisible(false);
             fib.setVisible(false);
