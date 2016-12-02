@@ -51,9 +51,9 @@ public class DatabaseWork {
             CourseCreation(conn, stmt);
             QuizMarksCreation(conn, stmt);
             updateTime(conn, stmt);
-//            updateCrsId(conn, stmt);
+            //updateCrsId(conn, stmt);
 //-----------------Code to be used for dropping all tables-----------------------            
-//            dropTables(conn, stmt);
+            //dropTables(conn, stmt);
 
         } catch (Throwable ex) {
         }
@@ -566,6 +566,9 @@ public class DatabaseWork {
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
             sql = "DROP TABLE QUIZ";
+            stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate();
+            sql = "DROP TABLE usertbl";
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
             sql = "drop table QuizMarks";
