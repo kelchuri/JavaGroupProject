@@ -335,6 +335,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
                             difficultyLevel, quesDesc, option1, answer1,
                             option2, answer2, option3, answer3, option4,
                             answer4, crs_id1, time);
+                    ques.setQues_id(ques_ID);
                     questionList.add(ques);
 
                 } else if (ques_type.equalsIgnoreCase("TF")
@@ -347,6 +348,7 @@ public class QuizDAOJDBCImpl implements QuizDAO {
 
                     Questions ques = new Questions(ques_type,
                             difficultyLevel, quesDesc, answer, crs_id1, time);
+                    ques.setQues_id(ques_ID);
                     questionList.add(ques);
 
                 }

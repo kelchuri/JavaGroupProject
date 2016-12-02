@@ -68,6 +68,7 @@ public class Questions {
             String option3, String answer3,
             String option4, String answer4, int crs_id, Integer time) {
         this.ques_desc = quesDesc;
+        this.diff_lvl = difficultyLevel;
         this.option1 = option1;
         this.answer1 = answer1;
         this.option2 = option2;

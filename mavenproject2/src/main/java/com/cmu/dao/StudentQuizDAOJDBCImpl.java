@@ -470,6 +470,12 @@ public class StudentQuizDAOJDBCImpl implements StudentQuizDAO {
                 scoresByLODForStudent.add(stu_avg_marks);
                 scoresByLODForStudent.add(stu_avg_marks);
                 scoresByLODForStudent.add(stu_avg_marks);
+            }else if(scoresByLODForStudent.size()==1){
+                scoresByLODForStudent.add(0.0);
+                scoresByLODForStudent.add(0.0);
+            }else if(scoresByLODForStudent.size() == 2){
+                scoresByLODForStudent.add(0.0);
+                
             }
             return scoresByLODForStudent;
 

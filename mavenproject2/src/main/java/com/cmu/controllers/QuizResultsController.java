@@ -35,8 +35,7 @@ import javafx.util.Duration;
 /**
  * FXML Controller class
  *
- * @author kavya
- * This is the controller for QuizResults FXML file.
+ * @author kavya This is the controller for QuizResults FXML file.
  */
 public class QuizResultsController implements Initializable {
 
@@ -45,60 +44,59 @@ public class QuizResultsController implements Initializable {
      */
     @FXML
     PieChart studentTestResultPie;
-
+    
     @FXML
     Label noOfCorrectAnsLabel;
-
+    
     @FXML
     Label noOfQueLabel;
-
+    
     @FXML
     Label percentCorrectLabel;
-
+    
     @FXML
     Label totalMarksLabel;
-
+    
     @FXML
     Label interactivePie;
-
+    
     boolean flag;
     double start;
-
+    
     static final Duration ANIMATION_DURATION = new Duration(500);
     static final double ANIMATION_DISTANCE = 0.15;
     private double cos;
     private double sin;
-
+    
     private static Stage stage;
-
+    
     int incorrect;
     int correct;
     int totalQue;
     double percentCorrect;
-
+    
     QuizController quizController = new QuizController();
 
     /**
      *
-     * @param takeQuizStage
-     * This method sets the stage in this controller
+     * @param takeQuizStage This method sets the stage in this controller
      */
     public static void setStage(Stage takeQuizStage) {
         QuizResultsController.stage = takeQuizStage;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        interactivePie.setVisible(false);
         incorrect = QuizController.incorrect;
         System.out.println("incorrect:" + incorrect);
-
+        
         correct = QuizController.correct;
         System.out.println("correct:" + correct);
-
+        
         totalQue = QuizController.totalQuestions;
-
+        
         noOfCorrectAnsLabel.setText(Integer.toString(correct));
         noOfQueLabel.setText(Integer.toString(totalQue));
         percentCorrect = ((float) correct / totalQue) * 100;
@@ -107,13 +105,12 @@ public class QuizResultsController implements Initializable {
         totalMarksLabel.setText(Integer.toString(correct * 3));
         studentTestResultPie.setTitle("Your Quiz Result");
         createStudentResultPieChart(correct, incorrect);
-
+        
     }
 
     /**
      *
-     * @throws IOException
-     * This method takes the screen back to student screen
+     * @throws IOException This method takes the screen back to student screen
      */
     @FXML
     public void backToStudentScreen() throws IOException {
@@ -124,7 +121,7 @@ public class QuizResultsController implements Initializable {
         scene.getStylesheets().add("/styles/studentscreen.css");
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
-
+        
         QuizResultsController.stage.setTitle("JavaFX and Maven");
         QuizResultsController.stage.setScene(scene);
         QuizResultsController.stage.show();
@@ -133,28 +130,27 @@ public class QuizResultsController implements Initializable {
     /**
      *
      * @param correct
-     * @param incorrect
-     * This method creates student result pie chart
+     * @param incorrect This method creates student result pie chart
      */
     public void createStudentResultPieChart(int correct, int incorrect) {
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
                         new PieChart.Data("Correct", correct),
                         new PieChart.Data("Incorrect", incorrect));
-
+        
         studentTestResultPie.setData(pieChartData);
         interactivePie();
-
+        
     }
 
     /**
      * This method creates an interactive pie
      */
     public void interactivePie() {
-
+        
         interactivePie.setTextFill(Color.DARKORANGE);
         interactivePie.setStyle("-fx-font: 24 arial;");
-
+        
         studentTestResultPie.getData().stream().forEach((data) -> {
             data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
                 flag = !flag;
